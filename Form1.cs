@@ -19,32 +19,26 @@ namespace GoraniBrowser
             wbMain.ScriptErrorsSuppressed = true;
         }
 
-        private void btnBefore_Click(object sender, EventArgs e)
+        private void picBack_Click(object sender, EventArgs e)
         {
             // 페이지 뒤로가기
             wbMain.GoBack();
         }
 
-        private void btnForward_Click(object sender, EventArgs e)
+        private void picForward_Click(object sender, EventArgs e)
         {
             // 페이지 앞으로가기
             wbMain.GoForward();
-        }
-
-        private void btnGo_Click(object sender, EventArgs e)
-        {
-            // txtUrl의 텍스트 문자열 url에 저장
-            String url = txtUrl.Text;
-            // url 주소로 페이지 이동
-            wbMain.Navigate(url);
         }
 
         private void txtUrl_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                // Go 버튼 클릭 함수 불러서 페이지 이동
-                btnGo_Click(sender, e);
+                // txtUrl의 텍스트 문자열 url에 저장
+                String url = txtUrl.Text;
+                // url 주소로 페이지 이동
+                wbMain.Navigate(url);
             }
         }
 
@@ -52,6 +46,29 @@ namespace GoraniBrowser
         {
             // form 상단 Text 변경
             this.Text = wbMain.DocumentTitle;
+            // 주소창 Text 변경
+            txtUrl.Text = wbMain.Url.ToString();
+        }
+
+        private void picRefresh_Click(object sender, EventArgs e)
+        {
+            // 새로고침
+            wbMain.Refresh();
+        }
+
+        private void picBookmark_Click(object sender, EventArgs e)
+        {
+            // 북마크 패널 보이기 / 숨기기
+            if (pnlBookmark.Visible == false)
+                pnlBookmark.Visible = true;
+            else
+                pnlBookmark.Visible = false;
+        }
+
+        private void picHome_Click(object sender, EventArgs e)
+        {
+            // 홈페이지로 이동
+            wbMain.GoHome();
         }
     }
 }
