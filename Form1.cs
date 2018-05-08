@@ -12,63 +12,140 @@ namespace GoraniBrowser
 {
     public partial class frmGoraniBrowser : Form
     {
+        string homepage = "https://www.google.com/";
+        WebBrowser wbNewTab = null;   // 새 탭의 웹브라우저
+
         public frmGoraniBrowser()
         {
             InitializeComponent();
-            // 자바 스크립트 오류 창 안뜨게하기
-            wbMain.ScriptErrorsSuppressed = true;
+            wbBrowser.ScriptErrorsSuppressed = true;    // 자바 스크립트 오류 창 안뜨게하기
+            wbBrowser.Navigate(homepage);
         }
 
-        private void picBack_Click(object sender, EventArgs e)
+        private void wbBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) // 웹페이지 로딩이 완료될 때
         {
-            // 페이지 뒤로가기
-            wbMain.GoBack();
-        }
-
-        private void picForward_Click(object sender, EventArgs e)
-        {
-            // 페이지 앞으로가기
-            wbMain.GoForward();
+            txtUrl.Text = ((WebBrowser)sender).Url.ToString(); // 주소창 Text 변경
+            tabBrowser.SelectedTab.Text = ((WebBrowser)sender).DocumentTitle; // 탭 제목 Text 변경
         }
 
         private void txtUrl_KeyDown(object sender, KeyEventArgs e)
         {
+            /* 주소창에서 Enter 키 누르면 페이지 이동 */
             if (e.KeyCode == Keys.Enter)
             {
-                // txtUrl의 텍스트 문자열 url에 저장
-                String url = txtUrl.Text;
-                // url 주소로 페이지 이동
-                wbMain.Navigate(url);
+                WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;  // 현재 선택된 탭의 웹브라우저 컨트롤 가져오기
+                if (wb != null)
+                    wb.Navigate(txtUrl.Text);
+                e.SuppressKeyPress = true;  // 시스템 경고음 제거
             }
         }
 
-        private void wbMain_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        private void picNewTab_Click(object sender, EventArgs e)
         {
-            // form 상단 Text 변경
-            this.Text = wbMain.DocumentTitle;
-            // 주소창 Text 변경
-            txtUrl.Text = wbMain.Url.ToString();
+            TabPage tp = new TabPage("");    // 탭 컨트롤에 추가할 탭 페이지 생성
+            tabBrowser.TabPages.Add(tp);   // 탭 컨트롤에 탭 페이지 추가
+            tabBrowser.SelectTab(tabBrowser.TabCount - 1);  // 추가한 탭 페이지 선택
+            wbNewTab = new WebBrowser() { ScriptErrorsSuppressed = true };  // 새 탭에 들어갈 웹브라우저 생성
+            wbNewTab.Parent = tp;  // 해당 웹브라우저의 부모 컨테이너는 새로 추가한 탭 페이지
+            wbNewTab.Dock = DockStyle.Fill; // 부모 컨테이너에 도킹
+            wbNewTab.Navigate(homepage);   // 새 탭을 홈페이지로 이동
+            wbNewTab.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
+            tp.Enter += tpTabPage_Enter;    // 탭 전환하면 주소창과 탭 제목 Text 변경
+        }
+
+        private void tpTabPage_Enter(object sender, EventArgs e)    // 탭 전환할 때
+        {
+            WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;  // 현재 선택된 탭의 웹브라우저 컨트롤 가져오기
+            if (wb != null)
+                txtUrl.Text = wb.Url.ToString();    // 주소창의 Text 변경
+        }
+
+        private void tabBrowser_DoubleClick(object sender, EventArgs e)
+        {
+            /* 탭 더블클릭하면 현재 탭 삭제 */
+            TabPage tp = tabBrowser.SelectedTab;    // 선택된 탭 컨트롤 가져오기
+            if (tp != null)
+                tabBrowser.TabPages.Remove(tp);
+            /* 탭 모두 삭제되면 폼 종료 */
+            if (tabBrowser.TabCount == 0)
+                this.Close();
+        }
+
+        private void picBack_Click(object sender, EventArgs e)
+        {
+            /* 현재 탭 웹페이지 뒤로 가기 */
+            WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;
+            if (wb != null)
+            {
+                if(wb.CanGoBack)
+                    wbBrowser.GoBack();
+            }
+        }
+
+        private void picForward_Click(object sender, EventArgs e)
+        {
+            /* 현재 탭 웹페이지 앞으로 가기 */
+            WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;
+            if (wb != null)
+            {
+                if (wb.CanGoForward)
+                    wbBrowser.GoForward();
+            }
         }
 
         private void picRefresh_Click(object sender, EventArgs e)
         {
-            // 새로고침
-            wbMain.Refresh();
-        }
-
-        private void picBookmark_Click(object sender, EventArgs e)
-        {
-            // 북마크 패널 보이기 / 숨기기
-            if (pnlBookmark.Visible == false)
-                pnlBookmark.Visible = true;
-            else
-                pnlBookmark.Visible = false;
+            /* 현재 탭 웹페이지 새로고침 */
+            WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;
+            if (wb != null)
+                wb.Refresh();
         }
 
         private void picHome_Click(object sender, EventArgs e)
         {
-            // 홈페이지로 이동
-            wbMain.GoHome();
+            /* 현재 탭 웹페이지 홈으로 이동 */
+            WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;
+            if (wb != null)
+                wb.Navigate(homepage);
+        }
+
+        private void picBookmark_Click(object sender, EventArgs e)
+        {
+            /* 북마크 패널 보이기 / 숨기기 */
+            if (pnlBookmark.Visible == false)
+            {
+                pnlBookmark.Enabled = true;
+                pnlBookmark.Visible = true;
+            }
+            else
+            {
+                pnlBookmark.Enabled = false;
+                pnlBookmark.Visible = false;
+            }
+        }
+
+        /* 아이콘 마우스 오버 */
+        private void picButton_MouseHover(object sender, EventArgs e)
+        {
+            ((PictureBox)sender).BackColor = Color.Gainsboro;
+        }
+
+        private void picButton_MouseLeave(object sender, EventArgs e)
+        {
+            if (((PictureBox)sender).Name != "picNewTab")
+                ((PictureBox)sender).BackColor = Color.WhiteSmoke;
+            else
+                ((PictureBox)sender).BackColor = Color.LightGray;
+        }
+
+        /* 아이콘 마우스 클릭 */
+        private void picButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            ((PictureBox)sender).BackColor = Color.White;
+        }
+        private void picButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            ((PictureBox)sender).BackColor = Color.Gainsboro;
         }
     }
 }
