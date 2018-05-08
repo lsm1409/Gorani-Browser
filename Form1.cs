@@ -63,12 +63,17 @@ namespace GoraniBrowser
         private void tabBrowser_DoubleClick(object sender, EventArgs e)
         {
             /* 탭 더블클릭하면 현재 탭 삭제 */
-            TabPage tp = tabBrowser.SelectedTab;    // 선택된 탭 컨트롤 가져오기
-            if (tp != null)
-                tabBrowser.TabPages.Remove(tp);
-            /* 탭 모두 삭제되면 폼 종료 */
-            if (tabBrowser.TabCount == 0)
-                this.Close();
+            if (tabBrowser.TabCount == 1)
+                this.Close();   // 남은 탭이 하나라면 폼 종료
+            else
+            {
+                TabPage tp = tabBrowser.SelectedTab;    // 선택된 탭 컨트롤 가져오기
+                if (tp != null)
+                {
+                    tabBrowser.TabPages.Remove(tp);
+                    tabBrowser.SelectTab(tabBrowser.TabCount - 1);  // 마지막 탭 페이지 선택
+                }
+            }
         }
 
         private void picBack_Click(object sender, EventArgs e)
