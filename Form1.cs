@@ -152,5 +152,14 @@ namespace GoraniBrowser
         {
             ((PictureBox)sender).BackColor = Color.Gainsboro;
         }
+
+        //picMenu클릭시 메뉴
+        private void picMenu_Click(object sender, EventArgs e)
+        {
+            PictureBox btnSender = (PictureBox)sender;
+            Point ptLowerLeft = new Point(0, btnSender.Height);
+            ptLowerLeft = btnSender.PointToScreen(ptLowerLeft);
+            contextMenuStrip1.Show(ptLowerLeft);
+        }
     }
 }

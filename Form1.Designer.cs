@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGoraniBrowser));
             this.tabBrowser = new System.Windows.Forms.TabControl();
             this.tpTabPage = new System.Windows.Forms.TabPage();
@@ -42,6 +43,11 @@
             this.picHome = new System.Windows.Forms.PictureBox();
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.picNewTab = new System.Windows.Forms.PictureBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.새탭TToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.새창NToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.인쇄PToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabBrowser.SuspendLayout();
             this.tpTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBack)).BeginInit();
@@ -52,6 +58,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picRefresh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picHome)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picNewTab)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabBrowser
@@ -60,19 +67,21 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabBrowser.Controls.Add(this.tpTabPage);
-            this.tabBrowser.Location = new System.Drawing.Point(1, 48);
+            this.tabBrowser.Location = new System.Drawing.Point(1, 38);
+            this.tabBrowser.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabBrowser.Name = "tabBrowser";
             this.tabBrowser.SelectedIndex = 0;
-            this.tabBrowser.Size = new System.Drawing.Size(985, 630);
+            this.tabBrowser.Size = new System.Drawing.Size(862, 504);
             this.tabBrowser.TabIndex = 14;
             this.tabBrowser.DoubleClick += new System.EventHandler(this.tabBrowser_DoubleClick);
             // 
             // tpTabPage
             // 
             this.tpTabPage.Controls.Add(this.wbBrowser);
-            this.tpTabPage.Location = new System.Drawing.Point(4, 25);
+            this.tpTabPage.Location = new System.Drawing.Point(4, 22);
+            this.tpTabPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tpTabPage.Name = "tpTabPage";
-            this.tpTabPage.Size = new System.Drawing.Size(977, 601);
+            this.tpTabPage.Size = new System.Drawing.Size(854, 478);
             this.tpTabPage.TabIndex = 0;
             this.tpTabPage.UseVisualStyleBackColor = true;
             this.tpTabPage.Enter += new System.EventHandler(this.tpTabPage_Enter);
@@ -81,9 +90,10 @@
             // 
             this.wbBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.wbBrowser.Location = new System.Drawing.Point(0, 0);
-            this.wbBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.wbBrowser.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.wbBrowser.MinimumSize = new System.Drawing.Size(18, 16);
             this.wbBrowser.Name = "wbBrowser";
-            this.wbBrowser.Size = new System.Drawing.Size(977, 601);
+            this.wbBrowser.Size = new System.Drawing.Size(854, 478);
             this.wbBrowser.TabIndex = 0;
             this.wbBrowser.Url = new System.Uri("", System.UriKind.Relative);
             this.wbBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.wbBrowser_DocumentCompleted);
@@ -94,18 +104,20 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlBookmark.Enabled = false;
-            this.pnlBookmark.Location = new System.Drawing.Point(1, 73);
+            this.pnlBookmark.Location = new System.Drawing.Point(1, 58);
+            this.pnlBookmark.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlBookmark.Name = "pnlBookmark";
-            this.pnlBookmark.Size = new System.Drawing.Size(985, 605);
+            this.pnlBookmark.Size = new System.Drawing.Size(862, 484);
             this.pnlBookmark.TabIndex = 1;
             this.pnlBookmark.Visible = false;
             // 
             // picBack
             // 
             this.picBack.Image = ((System.Drawing.Image)(resources.GetObject("picBack.Image")));
-            this.picBack.Location = new System.Drawing.Point(1, 9);
+            this.picBack.Location = new System.Drawing.Point(1, 7);
+            this.picBack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.picBack.Name = "picBack";
-            this.picBack.Size = new System.Drawing.Size(30, 30);
+            this.picBack.Size = new System.Drawing.Size(26, 24);
             this.picBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picBack.TabIndex = 5;
             this.picBack.TabStop = false;
@@ -118,9 +130,10 @@
             // picForward
             // 
             this.picForward.Image = global::GoraniBrowser.Properties.Resources.Forword;
-            this.picForward.Location = new System.Drawing.Point(37, 9);
+            this.picForward.Location = new System.Drawing.Point(32, 7);
+            this.picForward.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.picForward.Name = "picForward";
-            this.picForward.Size = new System.Drawing.Size(30, 30);
+            this.picForward.Size = new System.Drawing.Size(26, 24);
             this.picForward.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picForward.TabIndex = 6;
             this.picForward.TabStop = false;
@@ -134,9 +147,10 @@
             // 
             this.picMemo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picMemo.Image = global::GoraniBrowser.Properties.Resources.Memo;
-            this.picMemo.Location = new System.Drawing.Point(916, 9);
+            this.picMemo.Location = new System.Drawing.Point(802, 7);
+            this.picMemo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.picMemo.Name = "picMemo";
-            this.picMemo.Size = new System.Drawing.Size(30, 30);
+            this.picMemo.Size = new System.Drawing.Size(26, 24);
             this.picMemo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picMemo.TabIndex = 9;
             this.picMemo.TabStop = false;
@@ -149,12 +163,14 @@
             // 
             this.picMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picMenu.Image = global::GoraniBrowser.Properties.Resources.Menu;
-            this.picMenu.Location = new System.Drawing.Point(952, 9);
+            this.picMenu.Location = new System.Drawing.Point(833, 7);
+            this.picMenu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.picMenu.Name = "picMenu";
-            this.picMenu.Size = new System.Drawing.Size(30, 30);
+            this.picMenu.Size = new System.Drawing.Size(26, 24);
             this.picMenu.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picMenu.TabIndex = 10;
             this.picMenu.TabStop = false;
+            this.picMenu.Click += new System.EventHandler(this.picMenu_Click);
             this.picMenu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picButton_MouseDown);
             this.picMenu.MouseLeave += new System.EventHandler(this.picButton_MouseLeave);
             this.picMenu.MouseHover += new System.EventHandler(this.picButton_MouseHover);
@@ -164,9 +180,10 @@
             // 
             this.picBookmark.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picBookmark.Image = global::GoraniBrowser.Properties.Resources.Bookmark;
-            this.picBookmark.Location = new System.Drawing.Point(880, 9);
+            this.picBookmark.Location = new System.Drawing.Point(770, 7);
+            this.picBookmark.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.picBookmark.Name = "picBookmark";
-            this.picBookmark.Size = new System.Drawing.Size(30, 30);
+            this.picBookmark.Size = new System.Drawing.Size(26, 24);
             this.picBookmark.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picBookmark.TabIndex = 11;
             this.picBookmark.TabStop = false;
@@ -179,9 +196,10 @@
             // picRefresh
             // 
             this.picRefresh.Image = global::GoraniBrowser.Properties.Resources.Refresh;
-            this.picRefresh.Location = new System.Drawing.Point(73, 9);
+            this.picRefresh.Location = new System.Drawing.Point(64, 7);
+            this.picRefresh.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.picRefresh.Name = "picRefresh";
-            this.picRefresh.Size = new System.Drawing.Size(30, 30);
+            this.picRefresh.Size = new System.Drawing.Size(26, 24);
             this.picRefresh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picRefresh.TabIndex = 7;
             this.picRefresh.TabStop = false;
@@ -194,9 +212,10 @@
             // picHome
             // 
             this.picHome.Image = global::GoraniBrowser.Properties.Resources.Home;
-            this.picHome.Location = new System.Drawing.Point(109, 9);
+            this.picHome.Location = new System.Drawing.Point(95, 7);
+            this.picHome.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.picHome.Name = "picHome";
-            this.picHome.Size = new System.Drawing.Size(30, 30);
+            this.picHome.Size = new System.Drawing.Size(26, 24);
             this.picHome.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picHome.TabIndex = 8;
             this.picHome.TabStop = false;
@@ -210,10 +229,9 @@
             // 
             this.txtUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUrl.Location = new System.Drawing.Point(145, 12);
-            this.txtUrl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtUrl.Location = new System.Drawing.Point(127, 10);
             this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(729, 25);
+            this.txtUrl.Size = new System.Drawing.Size(638, 21);
             this.txtUrl.TabIndex = 0;
             this.txtUrl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUrl_KeyDown);
             // 
@@ -222,9 +240,10 @@
             this.picNewTab.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picNewTab.BackColor = System.Drawing.Color.LightGray;
             this.picNewTab.Image = global::GoraniBrowser.Properties.Resources.NewTab;
-            this.picNewTab.Location = new System.Drawing.Point(958, 50);
+            this.picNewTab.Location = new System.Drawing.Point(838, 40);
+            this.picNewTab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.picNewTab.Name = "picNewTab";
-            this.picNewTab.Size = new System.Drawing.Size(18, 20);
+            this.picNewTab.Size = new System.Drawing.Size(16, 16);
             this.picNewTab.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picNewTab.TabIndex = 15;
             this.picNewTab.TabStop = false;
@@ -234,12 +253,45 @@
             this.picNewTab.MouseHover += new System.EventHandler(this.picButton_MouseHover);
             this.picNewTab.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picButton_MouseUp);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.새탭TToolStripMenuItem,
+            this.새창NToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.인쇄PToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(120, 76);
+            // 
+            // 새탭TToolStripMenuItem
+            // 
+            this.새탭TToolStripMenuItem.Name = "새탭TToolStripMenuItem";
+            this.새탭TToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.새탭TToolStripMenuItem.Text = "새 탭(T)";
+            // 
+            // 새창NToolStripMenuItem
+            // 
+            this.새창NToolStripMenuItem.Name = "새창NToolStripMenuItem";
+            this.새창NToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.새창NToolStripMenuItem.Text = "새 창(N)";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(116, 6);
+            // 
+            // 인쇄PToolStripMenuItem
+            // 
+            this.인쇄PToolStripMenuItem.Name = "인쇄PToolStripMenuItem";
+            this.인쇄PToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.인쇄PToolStripMenuItem.Text = "인쇄(P)";
+            // 
             // frmGoraniBrowser
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(984, 679);
+            this.ClientSize = new System.Drawing.Size(861, 543);
             this.Controls.Add(this.pnlBookmark);
             this.Controls.Add(this.picNewTab);
             this.Controls.Add(this.picForward);
@@ -253,6 +305,7 @@
             this.Controls.Add(this.picRefresh);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmGoraniBrowser";
             this.Text = "Gorani Browser";
             this.tabBrowser.ResumeLayout(false);
@@ -265,6 +318,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picRefresh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picHome)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picNewTab)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -284,6 +338,11 @@
         private System.Windows.Forms.PictureBox picNewTab;
         private System.Windows.Forms.WebBrowser wbBrowser;
         private System.Windows.Forms.Panel pnlBookmark;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 새탭TToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 새창NToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem 인쇄PToolStripMenuItem;
     }
 }
 
