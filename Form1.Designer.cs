@@ -289,6 +289,7 @@
             this.새창NToolStripMenuItem.Name = "새창NToolStripMenuItem";
             this.새창NToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.새창NToolStripMenuItem.Text = "새 창(N)";
+            this.새창NToolStripMenuItem.Click += new System.EventHandler(this.새창NToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 

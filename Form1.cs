@@ -191,5 +191,11 @@ namespace GoraniBrowser
             wbNewTab.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
             tp.Enter += tpTabPage_Enter;    // 탭 전환하면 주소창과 탭 제목 Text 변경
         }
+
+        private void 새창NToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmGoraniBrowser newForm = new frmGoraniBrowser();
+            newForm.Show();
+        }
     }
 }
