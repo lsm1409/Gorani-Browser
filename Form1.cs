@@ -159,7 +159,7 @@ namespace GoraniBrowser
             PictureBox btnSender = (PictureBox)sender;
             Point ptLowerLeft = new Point(0, btnSender.Height);
             ptLowerLeft = btnSender.PointToScreen(ptLowerLeft);
-            picMenuctxtMenuStrip.Show(ptLowerLeft);
+            picMenuctxtMenuStrip.Show(ptLowerLeft);            
         }
 
         //picMenu 윈도우창 닫기
@@ -197,6 +197,24 @@ namespace GoraniBrowser
         {
             frmGoraniBrowser newForm = new frmGoraniBrowser();
             newForm.Show();
+        }   
+
+        private void 추가ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmPicMenuBM frm = new frmPicMenuBM();
+
+            if (txtUrl.Text != "")
+            {
+                //Url에 내용이 있으면 frmPicMenuBM의 텍스트박스에 입력
+                frm.txtUrlText = txtUrl.Text;
+            }
+
+            if (frm.ShowDialog() == DialogResult.OK) //frmPicMenuBM에서 확인버튼을 누르면
+            {
+                ToolStripMenuItem menu = new ToolStripMenuItem(frm.txtUrlText);
+                menu.Click += new EventHandler(picMenu_Click); // click 이벤트 등록
+                즐겨찾기추가ToolStripMenuItem.DropDownItems.Add(menu); // 즐겨찾기 추가
+            }
         }
     }
 }
