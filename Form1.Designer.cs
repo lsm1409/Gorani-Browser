@@ -43,11 +43,18 @@
             this.picHome = new System.Windows.Forms.PictureBox();
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.picNewTab = new System.Windows.Forms.PictureBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.picMenuctxtMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.새탭TToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.새창NToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.인쇄PToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.즐겨찾기추가ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.탭저장ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.오프라인으로저장ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.인쇄PToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.종료ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabBrowser.SuspendLayout();
             this.tpTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBack)).BeginInit();
@@ -58,7 +65,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picRefresh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picHome)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picNewTab)).BeginInit();
-            this.contextMenuStrip1.SuspendLayout();
+            this.picMenuctxtMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabBrowser
@@ -253,38 +260,88 @@
             this.picNewTab.MouseHover += new System.EventHandler(this.picButton_MouseHover);
             this.picNewTab.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picButton_MouseUp);
             // 
-            // contextMenuStrip1
+            // picMenuctxtMenuStrip
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.picMenuctxtMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.새탭TToolStripMenuItem,
             this.새창NToolStripMenuItem,
             this.toolStripSeparator1,
-            this.인쇄PToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(120, 76);
+            this.인쇄PToolStripMenuItem,
+            this.즐겨찾기추가ToolStripMenuItem,
+            this.탭저장ToolStripMenuItem,
+            this.오프라인으로저장ToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.인쇄PToolStripMenuItem1,
+            this.toolStripSeparator3,
+            this.종료ToolStripMenuItem});
+            this.picMenuctxtMenuStrip.Name = "picMenuctxtMenuStrip";
+            this.picMenuctxtMenuStrip.Size = new System.Drawing.Size(175, 220);
             // 
             // 새탭TToolStripMenuItem
             // 
             this.새탭TToolStripMenuItem.Name = "새탭TToolStripMenuItem";
-            this.새탭TToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.새탭TToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.새탭TToolStripMenuItem.Text = "새 탭(T)";
+            this.새탭TToolStripMenuItem.Click += new System.EventHandler(this.새탭TToolStripMenuItem_Click);
             // 
             // 새창NToolStripMenuItem
             // 
             this.새창NToolStripMenuItem.Name = "새창NToolStripMenuItem";
-            this.새창NToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.새창NToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.새창NToolStripMenuItem.Text = "새 창(N)";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(116, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(171, 6);
             // 
             // 인쇄PToolStripMenuItem
             // 
             this.인쇄PToolStripMenuItem.Name = "인쇄PToolStripMenuItem";
-            this.인쇄PToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
-            this.인쇄PToolStripMenuItem.Text = "인쇄(P)";
+            this.인쇄PToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.인쇄PToolStripMenuItem.Text = "홈페이지 변경";
+            // 
+            // 즐겨찾기추가ToolStripMenuItem
+            // 
+            this.즐겨찾기추가ToolStripMenuItem.Name = "즐겨찾기추가ToolStripMenuItem";
+            this.즐겨찾기추가ToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.즐겨찾기추가ToolStripMenuItem.Text = "즐겨찾기 추가";
+            // 
+            // 탭저장ToolStripMenuItem
+            // 
+            this.탭저장ToolStripMenuItem.Name = "탭저장ToolStripMenuItem";
+            this.탭저장ToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.탭저장ToolStripMenuItem.Text = "탭 저장";
+            // 
+            // 오프라인으로저장ToolStripMenuItem
+            // 
+            this.오프라인으로저장ToolStripMenuItem.Name = "오프라인으로저장ToolStripMenuItem";
+            this.오프라인으로저장ToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.오프라인으로저장ToolStripMenuItem.Text = "오프라인으로 저장";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(171, 6);
+            // 
+            // 인쇄PToolStripMenuItem1
+            // 
+            this.인쇄PToolStripMenuItem1.Name = "인쇄PToolStripMenuItem1";
+            this.인쇄PToolStripMenuItem1.Size = new System.Drawing.Size(174, 22);
+            this.인쇄PToolStripMenuItem1.Text = "인쇄(P)";
+            this.인쇄PToolStripMenuItem1.Click += new System.EventHandler(this.인쇄PToolStripMenuItem1_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(171, 6);
+            // 
+            // 종료ToolStripMenuItem
+            // 
+            this.종료ToolStripMenuItem.Name = "종료ToolStripMenuItem";
+            this.종료ToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.종료ToolStripMenuItem.Text = "종료(X)";
+            this.종료ToolStripMenuItem.Click += new System.EventHandler(this.종ToolStripMenuItem_Click);
             // 
             // frmGoraniBrowser
             // 
@@ -318,7 +375,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picRefresh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picHome)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picNewTab)).EndInit();
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.picMenuctxtMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -338,11 +395,18 @@
         private System.Windows.Forms.PictureBox picNewTab;
         private System.Windows.Forms.WebBrowser wbBrowser;
         private System.Windows.Forms.Panel pnlBookmark;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip picMenuctxtMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem 새탭TToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 새창NToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem 인쇄PToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 즐겨찾기추가ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 탭저장ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 오프라인으로저장ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem 인쇄PToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem 종료ToolStripMenuItem;
     }
 }
 

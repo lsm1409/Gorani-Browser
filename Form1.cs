@@ -159,7 +159,37 @@ namespace GoraniBrowser
             PictureBox btnSender = (PictureBox)sender;
             Point ptLowerLeft = new Point(0, btnSender.Height);
             ptLowerLeft = btnSender.PointToScreen(ptLowerLeft);
-            contextMenuStrip1.Show(ptLowerLeft);
+            picMenuctxtMenuStrip.Show(ptLowerLeft);
+        }
+
+        //picMenu 윈도우창 닫기
+        private void 종ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        //picMenu 인쇄기능
+        private void 인쇄PToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;
+            if (wb != null)
+            {
+                wbBrowser.Print();
+            }
+        }
+
+        //picMenu 새 탭
+        private void 새탭TToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TabPage tp = new TabPage("");    // 탭 컨트롤에 추가할 탭 페이지 생성
+            tabBrowser.TabPages.Add(tp);   // 탭 컨트롤에 탭 페이지 추가
+            tabBrowser.SelectTab(tabBrowser.TabCount - 1);  // 추가한 탭 페이지 선택
+            wbNewTab = new WebBrowser() { ScriptErrorsSuppressed = true };  // 새 탭에 들어갈 웹브라우저 생성
+            wbNewTab.Parent = tp;  // 해당 웹브라우저의 부모 컨테이너는 새로 추가한 탭 페이지
+            wbNewTab.Dock = DockStyle.Fill; // 부모 컨테이너에 도킹
+            wbNewTab.Navigate(homepage);   // 새 탭을 홈페이지로 이동
+            wbNewTab.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
+            tp.Enter += tpTabPage_Enter;    // 탭 전환하면 주소창과 탭 제목 Text 변경
         }
     }
 }
