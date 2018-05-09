@@ -199,6 +199,7 @@ namespace GoraniBrowser
             newForm.Show();
         }   
 
+        //picMenu 즐겨찾기 추가
         private void 추가ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmPicMenuBM frm = new frmPicMenuBM();
