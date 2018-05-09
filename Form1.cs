@@ -213,9 +213,23 @@ namespace GoraniBrowser
             if (frm.ShowDialog() == DialogResult.OK) //frmPicMenuBM에서 확인버튼을 누르면
             {
                 ToolStripMenuItem menu = new ToolStripMenuItem(frm.txtUrlText);
-                menu.Click += new EventHandler(picMenu_Click); // click 이벤트 등록
+                menu.Click += new EventHandler(menu_Click); // click 이벤트 등록
                 즐겨찾기추가ToolStripMenuItem.DropDownItems.Add(menu); // 즐겨찾기 추가
             }
+        }
+
+        //picMenu 즐겨찾기 클릭 이벤트
+        private void menu_Click(object sender, EventArgs e)
+        {
+            TabPage tp = new TabPage("");    // 탭 컨트롤에 추가할 탭 페이지 생성
+            tabBrowser.TabPages.Add(tp);   // 탭 컨트롤에 탭 페이지 추가
+            tabBrowser.SelectTab(tabBrowser.TabCount - 1);  // 추가한 탭 페이지 선택
+            wbNewTab = new WebBrowser() { ScriptErrorsSuppressed = true };  // 새 탭에 들어갈 웹브라우저 생성
+            wbNewTab.Parent = tp;  // 해당 웹브라우저의 부모 컨테이너는 새로 추가한 탭 페이지
+            wbNewTab.Dock = DockStyle.Fill; // 부모 컨테이너에 도킹
+            wbNewTab.Navigate(((ToolStripMenuItem)sender).Text); // 새 탭을 즐겨찾기url주소로 이동
+            wbNewTab.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
+            tp.Enter += tpTabPage_Enter;    // 탭 전환하면 주소창과 탭 제목 Text 변경
         }
     }
 }
