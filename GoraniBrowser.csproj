@@ -61,6 +61,12 @@
     <Compile Include="AddBookmark.Designer.cs">
       <DependentUpon>AddBookmark.cs</DependentUpon>
     </Compile>
+    <Compile Include="Homepage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Homepage.Designer.cs">
+      <DependentUpon>Homepage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Browser.resx">
@@ -68,6 +74,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddBookmark.resx">
       <DependentUpon>AddBookmark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Homepage.resx">
+      <DependentUpon>Homepage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -118,6 +127,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <None Include="icon\TabBundle_clicked.png" />
+    <None Include="icon\OfflinePage_clicked.png" />
+    <None Include="icon\History_clicked.png" />
+    <None Include="icon\Favorite_clicked.png" />
+    <None Include="icon\History.png" />
+    <None Include="icon\OfflinePage.png" />
+    <None Include="icon\TabBundle.png" />
+    <None Include="icon\Favorite.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

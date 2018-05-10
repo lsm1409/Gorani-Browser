@@ -14,7 +14,6 @@ namespace GoraniBrowser
     {
         string homepage = "https://www.google.com/";
         WebBrowser wbNewTab = null;   // 새 탭의 웹브라우저
-        int numBookmark = 1;        // 북마크 개수
 
         public frmGoraniBrowser()
         {
@@ -51,7 +50,7 @@ namespace GoraniBrowser
             wbNewTab.Dock = DockStyle.Fill; // 부모 컨테이너에 도킹
             wbNewTab.Navigate(homepage);   // 새 탭을 홈페이지로 이동
             wbNewTab.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
-            tp.Enter += tpTabPage_Enter;    // 탭 전환하면 주소창과 탭 제목 Text 변경
+            tp.Enter += tpTabPage_Enter;    // 탭 전환하면 주소창 Text 변경
         }
 
         private void tpTabPage_Enter(object sender, EventArgs e)    // 탭 전환할 때
@@ -154,7 +153,7 @@ namespace GoraniBrowser
             ((PictureBox)sender).BackColor = Color.Gainsboro;
         }
 
-        //picMenu클릭시 메뉴
+        // picMenu 클릭 시 ContextMenuStrip
         private void picMenu_Click(object sender, EventArgs e)
         {
             PictureBox btnSender = (PictureBox)sender;
@@ -163,13 +162,13 @@ namespace GoraniBrowser
             cmsMenu.Show(ptLowerLeft);            
         }
 
-        //picMenu 윈도우창 닫기
+        // picMenu ContextMenuStrip의 종료
         private void tsmiClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        //picMenu 인쇄기능
+        // picMenu ContextMenuStrip의 인쇄
         private void tsmiPrint_Click(object sender, EventArgs e)
         {
             WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;
@@ -179,31 +178,41 @@ namespace GoraniBrowser
             }
         }
 
-        //picMenu 새 탭
+        // picMenu ContextMenuStrip의 새 탭
         private void tsmiNewTab_Click(object sender, EventArgs e)
         {
-            TabPage tp = new TabPage("");    // 탭 컨트롤에 추가할 탭 페이지 생성
-            tabBrowser.TabPages.Add(tp);   // 탭 컨트롤에 탭 페이지 추가
-            tabBrowser.SelectTab(tabBrowser.TabCount - 1);  // 추가한 탭 페이지 선택
-            wbNewTab = new WebBrowser() { ScriptErrorsSuppressed = true };  // 새 탭에 들어갈 웹브라우저 생성
-            wbNewTab.Parent = tp;  // 해당 웹브라우저의 부모 컨테이너는 새로 추가한 탭 페이지
-            wbNewTab.Dock = DockStyle.Fill; // 부모 컨테이너에 도킹
-            wbNewTab.Navigate(homepage);   // 새 탭을 홈페이지로 이동
-            wbNewTab.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
-            tp.Enter += tpTabPage_Enter;    // 탭 전환하면 주소창과 탭 제목 Text 변경
+            picNewTab_Click(sender, e);
         }
 
-        //picMenu 새 창
+        // picMenu ContextMenuStrip의 새 창
         private void tsmiNewWindow_Click(object sender, EventArgs e)
         {
             frmGoraniBrowser newForm = new frmGoraniBrowser();
             newForm.Show();
-        }   
+        }
 
-        //picMenu 즐겨찾기 추가
+        // picMenu ContextMenuStrip의 홈페이지 변경
+        private void tsmiHomepage_Click(object sender, EventArgs e)
+        {
+            frmHomepage frm = new frmHomepage();
+
+            if (txtUrl.Text != "")
+            {
+                // 텍스트 상자에 현재 URL 입력
+                frm.txtUrlText = txtUrl.Text;
+            }
+
+            if (frm.ShowDialog() == DialogResult.OK) // 확인버튼을 누르면
+            {
+                if (frm.txtUrlText != "")
+                    homepage = frm.txtUrlText;
+            }
+        }
+
+        // picMenu ContextMenuStrip의 즐겨찾기 추가
         private void tsmiAddBookmark_Click(object sender, EventArgs e)
         {
-            frmPicMenuBM frm = new frmPicMenuBM();
+            frmAddBookmark frm = new frmAddBookmark();
             WebBrowser wb = (WebBrowser)tabBrowser.SelectedTab.Controls[0];
 
             if (wb.DocumentTitle != "")
@@ -218,10 +227,9 @@ namespace GoraniBrowser
                 frm.txtUrlText = txtUrl.Text;
             }
 
-            if (frm.ShowDialog() == DialogResult.OK) //frmPicMenuBM에서 확인버튼을 누르면
+            if (frm.ShowDialog() == DialogResult.OK) // 확인버튼을 누르면
             {
-                ListViewItem lvwitem = new ListViewItem((numBookmark++).ToString());
-                lvwitem.SubItems.Add(frm.txtNameText);
+                ListViewItem lvwitem = new ListViewItem(frm.txtNameText);
                 lvwitem.SubItems.Add(frm.txtUrlText);
                 lvwBookmark.Items.Add(lvwitem);
             }
@@ -238,10 +246,51 @@ namespace GoraniBrowser
                 ListView.SelectedListViewItemCollection items = lvwBookmark.SelectedItems;
                 ListViewItem listViewItem = items[0];
 
-                wb.Navigate(listViewItem.SubItems[2].Text); // 새 탭을 즐겨찾기url주소로 이동
+                wb.Navigate(listViewItem.SubItems[1].Text); // 새 탭을 즐겨찾기url주소로 이동
                 wb.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
                 pnlBookmark.Visible = false;
             }
+        }
+
+        /* 북마크 내 툴바 메뉴 전환 */
+        private void picFavorite_Click(object sender, EventArgs e)
+        {
+            picFavorite.Image = Properties.Resources.Favorite_clicked;
+            picTabBundle.Image = Properties.Resources.TabBundle;
+            picOfflinePage.Image = Properties.Resources.OfflinePage;
+            picHistory.Image = Properties.Resources.History;
+
+            pnlFavorite.Visible = true;
+        }
+
+        private void picTabBundle_Click(object sender, EventArgs e)
+        {
+            picFavorite.Image = Properties.Resources.Favorite;
+            picTabBundle.Image = Properties.Resources.TabBundle_clicked;
+            picOfflinePage.Image = Properties.Resources.OfflinePage;
+            picHistory.Image = Properties.Resources.History;
+
+            pnlFavorite.Visible = false;
+        }
+
+        private void picOfflinePage_Click(object sender, EventArgs e)
+        {
+            picFavorite.Image = Properties.Resources.Favorite;
+            picTabBundle.Image = Properties.Resources.TabBundle;
+            picOfflinePage.Image = Properties.Resources.OfflinePage_clicked;
+            picHistory.Image = Properties.Resources.History;
+
+            pnlFavorite.Visible = false;
+        }
+
+        private void picHistory_Click(object sender, EventArgs e)
+        {
+            picFavorite.Image = Properties.Resources.Favorite;
+            picTabBundle.Image = Properties.Resources.TabBundle;
+            picOfflinePage.Image = Properties.Resources.OfflinePage;
+            picHistory.Image = Properties.Resources.History_clicked;
+
+            pnlFavorite.Visible = false;
         }
     }
 }

@@ -10,24 +10,11 @@ using System.Windows.Forms;
 
 namespace GoraniBrowser
 {
-    public partial class frmAddBookmark : Form
+    public partial class frmHomepage : Form
     {
-        public frmAddBookmark()
+        public frmHomepage()
         {
             InitializeComponent();
-        }
-
-        // txtName의 Text 속성 읽고 쓰는 프로퍼티
-        public string txtNameText
-        {
-            get
-            {
-                return txtName.Text;
-            }
-            set
-            {
-                txtName.Text = value;
-            }
         }
 
         // txtUrl의 Text 속성 읽고 쓰는 프로퍼티
