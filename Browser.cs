@@ -14,6 +14,7 @@ namespace GoraniBrowser
     {
         string homepage = "https://www.google.com/";
         WebBrowser wbNewTab = null;   // 새 탭의 웹브라우저
+        int numBookmark = 1;        // 북마크 개수
 
         public frmGoraniBrowser()
         {
@@ -203,31 +204,44 @@ namespace GoraniBrowser
         private void tsmiAddBookmark_Click(object sender, EventArgs e)
         {
             frmPicMenuBM frm = new frmPicMenuBM();
+            WebBrowser wb = (WebBrowser)tabBrowser.SelectedTab.Controls[0];
 
+            if (wb.DocumentTitle != "")
+            {
+                // 즐겨찾기 등록 창 텍스트 상자에 제목 입력
+                frm.txtNameText = wb.DocumentTitle;
+            }
+            
             if (txtUrl.Text != "")
             {
-                //Url에 내용이 있으면 frmPicMenuBM의 텍스트박스에 입력
+                // 즐겨찾기 등록 창 텍스트 상자에 URL 입력
                 frm.txtUrlText = txtUrl.Text;
             }
 
             if (frm.ShowDialog() == DialogResult.OK) //frmPicMenuBM에서 확인버튼을 누르면
             {
-
+                ListViewItem lvwitem = new ListViewItem((numBookmark++).ToString());
+                lvwitem.SubItems.Add(frm.txtNameText);
+                lvwitem.SubItems.Add(frm.txtUrlText);
+                lvwBookmark.Items.Add(lvwitem);
             }
         }
 
-        //picMenu 즐겨찾기 클릭 이벤트
-        private void menu_Click(object sender, EventArgs e)
+        // 즐겨찾기 구성 요소 더블 클릭
+        private void lvwBookmark_DoubleClick(object sender, EventArgs e)
         {
-            TabPage tp = new TabPage("");    // 탭 컨트롤에 추가할 탭 페이지 생성
-            tabBrowser.TabPages.Add(tp);   // 탭 컨트롤에 탭 페이지 추가
-            tabBrowser.SelectTab(tabBrowser.TabCount - 1);  // 추가한 탭 페이지 선택
-            wbNewTab = new WebBrowser() { ScriptErrorsSuppressed = true };  // 새 탭에 들어갈 웹브라우저 생성
-            wbNewTab.Parent = tp;  // 해당 웹브라우저의 부모 컨테이너는 새로 추가한 탭 페이지
-            wbNewTab.Dock = DockStyle.Fill; // 부모 컨테이너에 도킹
-            wbNewTab.Navigate(((ToolStripMenuItem)sender).Text); // 새 탭을 즐겨찾기url주소로 이동
-            wbNewTab.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
-            tp.Enter += tpTabPage_Enter;    // 탭 전환하면 주소창과 탭 제목 Text 변경
+            WebBrowser wb = (WebBrowser)tabBrowser.SelectedTab.Controls[0];
+
+            // 구성 요소를 선택했을 때
+            if (lvwBookmark.SelectedItems.Count == 1)
+            {
+                ListView.SelectedListViewItemCollection items = lvwBookmark.SelectedItems;
+                ListViewItem listViewItem = items[0];
+
+                wb.Navigate(listViewItem.SubItems[2].Text); // 새 탭을 즐겨찾기url주소로 이동
+                wb.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
+                pnlBookmark.Visible = false;
+            }
         }
     }
 }

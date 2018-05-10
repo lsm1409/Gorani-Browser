@@ -29,22 +29,24 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPicMenuBM));
-            this.txtUrlName = new System.Windows.Forms.TextBox();
+            this.txtUrl = new System.Windows.Forms.TextBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtName = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // txtUrlName
+            // txtUrl
             // 
-            this.txtUrlName.Location = new System.Drawing.Point(137, 70);
-            this.txtUrlName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtUrlName.Name = "txtUrlName";
-            this.txtUrlName.Size = new System.Drawing.Size(295, 25);
-            this.txtUrlName.TabIndex = 0;
+            this.txtUrl.Location = new System.Drawing.Point(138, 90);
+            this.txtUrl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtUrl.Name = "txtUrl";
+            this.txtUrl.Size = new System.Drawing.Size(295, 25);
+            this.txtUrl.TabIndex = 0;
             // 
             // btnOK
             // 
@@ -71,7 +73,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(88, 74);
+            this.label1.Location = new System.Drawing.Point(88, 56);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 15);
             this.label1.TabIndex = 3;
@@ -97,17 +99,36 @@
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(88, 93);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(45, 15);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "URL: ";
+            // 
+            // txtName
+            // 
+            this.txtName.Location = new System.Drawing.Point(138, 53);
+            this.txtName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(295, 25);
+            this.txtName.TabIndex = 7;
+            // 
             // frmPicMenuBM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(558, 131);
+            this.Controls.Add(this.txtName);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnOK);
-            this.Controls.Add(this.txtUrlName);
+            this.Controls.Add(this.txtUrl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frmPicMenuBM";
@@ -120,11 +141,13 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtUrlName;
+        private System.Windows.Forms.TextBox txtUrl;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtName;
     }
 }
