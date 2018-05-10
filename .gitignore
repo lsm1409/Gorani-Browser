@@ -1,3 +1,5 @@
 bin/Debug
 obj/Debug
 .vs/GoraniBrowser/v15/.suo
+.vs/GoraniBrowser/v15/Server/sqlite3/storage.ide-shm
+.vs/GoraniBrowser/v15/Server/sqlite3/storage.ide-wal

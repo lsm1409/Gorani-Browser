@@ -12,21 +12,21 @@ namespace GoraniBrowser
 {
     public partial class frmPicMenuBM : Form
     {
-        public frmPicMenuBM()
+        public frmPicMenuBM() => InitializeComponent();
+
+        public string txtNameText
         {
-            InitializeComponent();
+            get => txtName.Text;
+            set => txtName.Text = value;
         }
 
         //txtUrlName.Text 값 읽고 쓰는 속성
         public string txtUrlText
         {
-            get { return txtUrlName.Text; }
-            set { txtUrlName.Text = value; }
+            get => txtUrl.Text;
+            set => txtUrl.Text = value;
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        private void btnClose_Click(object sender, EventArgs e) => this.Close();
     }
 }

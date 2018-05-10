@@ -34,6 +34,10 @@
             this.tpTabPage = new System.Windows.Forms.TabPage();
             this.wbBrowser = new System.Windows.Forms.WebBrowser();
             this.pnlBookmark = new System.Windows.Forms.Panel();
+            this.lvwBookmark = new System.Windows.Forms.ListView();
+            this.chNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chURL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.cmsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiNewTab = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,6 +61,7 @@
             this.picRefresh = new System.Windows.Forms.PictureBox();
             this.tabBrowser.SuspendLayout();
             this.tpTabPage.SuspendLayout();
+            this.pnlBookmark.SuspendLayout();
             this.cmsMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picNewTab)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picForward)).BeginInit();
@@ -110,6 +115,7 @@
             this.pnlBookmark.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlBookmark.Controls.Add(this.lvwBookmark);
             this.pnlBookmark.Enabled = false;
             this.pnlBookmark.Location = new System.Drawing.Point(1, 72);
             this.pnlBookmark.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -117,6 +123,36 @@
             this.pnlBookmark.Size = new System.Drawing.Size(985, 605);
             this.pnlBookmark.TabIndex = 1;
             this.pnlBookmark.Visible = false;
+            // 
+            // lvwBookmark
+            // 
+            this.lvwBookmark.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chNumber,
+            this.chName,
+            this.chURL});
+            this.lvwBookmark.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwBookmark.FullRowSelect = true;
+            this.lvwBookmark.Location = new System.Drawing.Point(0, 0);
+            this.lvwBookmark.Name = "lvwBookmark";
+            this.lvwBookmark.Size = new System.Drawing.Size(985, 605);
+            this.lvwBookmark.TabIndex = 0;
+            this.lvwBookmark.UseCompatibleStateImageBehavior = false;
+            this.lvwBookmark.View = System.Windows.Forms.View.Details;
+            this.lvwBookmark.DoubleClick += new System.EventHandler(this.lvwBookmark_DoubleClick);
+            // 
+            // chNumber
+            // 
+            this.chNumber.Text = "#";
+            // 
+            // chName
+            // 
+            this.chName.Text = "이름";
+            this.chName.Width = 200;
+            // 
+            // chURL
+            // 
+            this.chURL.Text = "URL";
+            this.chURL.Width = 500;
             // 
             // txtUrl
             // 
@@ -145,7 +181,7 @@
             this.toolStripSeparator3,
             this.tsmiClose});
             this.cmsMenu.Name = "picMenuctxtMenuStrip";
-            this.cmsMenu.Size = new System.Drawing.Size(204, 242);
+            this.cmsMenu.Size = new System.Drawing.Size(204, 214);
             // 
             // tsmiNewTab
             // 
@@ -371,6 +407,7 @@
             this.Text = "Gorani Browser";
             this.tabBrowser.ResumeLayout(false);
             this.tpTabPage.ResumeLayout(false);
+            this.pnlBookmark.ResumeLayout(false);
             this.cmsMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picNewTab)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picForward)).EndInit();
@@ -411,7 +448,10 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiPrint;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem tsmiClose;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ListView lvwBookmark;
+        private System.Windows.Forms.ColumnHeader chNumber;
+        private System.Windows.Forms.ColumnHeader chName;
+        private System.Windows.Forms.ColumnHeader chURL;
     }
 }
 
