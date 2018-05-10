@@ -159,27 +159,27 @@ namespace GoraniBrowser
             PictureBox btnSender = (PictureBox)sender;
             Point ptLowerLeft = new Point(0, btnSender.Height);
             ptLowerLeft = btnSender.PointToScreen(ptLowerLeft);
-            picMenuctxtMenuStrip.Show(ptLowerLeft);            
+            cmsMenu.Show(ptLowerLeft);            
         }
 
         //picMenu 윈도우창 닫기
-        private void 종ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void tsmiClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
         //picMenu 인쇄기능
-        private void 인쇄PToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void tsmiPrint_Click(object sender, EventArgs e)
         {
             WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;
             if (wb != null)
             {
-                wbBrowser.Print();
+                wb.Print();
             }
         }
 
         //picMenu 새 탭
-        private void 새탭TToolStripMenuItem_Click(object sender, EventArgs e)
+        private void tsmiNewTab_Click(object sender, EventArgs e)
         {
             TabPage tp = new TabPage("");    // 탭 컨트롤에 추가할 탭 페이지 생성
             tabBrowser.TabPages.Add(tp);   // 탭 컨트롤에 탭 페이지 추가
@@ -193,14 +193,14 @@ namespace GoraniBrowser
         }
 
         //picMenu 새 창
-        private void 새창NToolStripMenuItem_Click(object sender, EventArgs e)
+        private void tsmiNewWindow_Click(object sender, EventArgs e)
         {
             frmGoraniBrowser newForm = new frmGoraniBrowser();
             newForm.Show();
         }   
 
         //picMenu 즐겨찾기 추가
-        private void 추가ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void tsmiAddBookmark_Click(object sender, EventArgs e)
         {
             frmPicMenuBM frm = new frmPicMenuBM();
 
@@ -212,9 +212,7 @@ namespace GoraniBrowser
 
             if (frm.ShowDialog() == DialogResult.OK) //frmPicMenuBM에서 확인버튼을 누르면
             {
-                ToolStripMenuItem menu = new ToolStripMenuItem(frm.txtUrlText);
-                menu.Click += new EventHandler(menu_Click); // click 이벤트 등록
-                즐겨찾기추가ToolStripMenuItem.DropDownItems.Add(menu); // 즐겨찾기 추가
+
             }
         }
 

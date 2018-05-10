@@ -40,26 +40,29 @@
             // 
             // txtUrlName
             // 
-            this.txtUrlName.Location = new System.Drawing.Point(120, 56);
+            this.txtUrlName.Location = new System.Drawing.Point(137, 70);
+            this.txtUrlName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtUrlName.Name = "txtUrlName";
-            this.txtUrlName.Size = new System.Drawing.Size(259, 21);
+            this.txtUrlName.Size = new System.Drawing.Size(295, 25);
             this.txtUrlName.TabIndex = 0;
             // 
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(398, 21);
+            this.btnOK.Location = new System.Drawing.Point(455, 26);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.Size = new System.Drawing.Size(86, 29);
             this.btnOK.TabIndex = 1;
             this.btnOK.Text = "확인";
             this.btnOK.UseVisualStyleBackColor = true;
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(398, 54);
+            this.btnClose.Location = new System.Drawing.Point(455, 68);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.Size = new System.Drawing.Size(86, 29);
             this.btnClose.TabIndex = 2;
             this.btnClose.Text = "취소";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -68,36 +71,37 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(77, 59);
+            this.label1.Location = new System.Drawing.Point(88, 74);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 12);
+            this.label1.Size = new System.Drawing.Size(47, 15);
             this.label1.TabIndex = 3;
             this.label1.Text = "이름: ";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(118, 21);
+            this.label2.Location = new System.Drawing.Point(135, 26);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(229, 12);
+            this.label2.Size = new System.Drawing.Size(287, 15);
             this.label2.TabIndex = 4;
             this.label2.Text = "즐겨찾기 목록에 이 페이지를 추가합니다.";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::GoraniBrowser.Properties.Resources.Bookmark;
-            this.pictureBox1.Location = new System.Drawing.Point(11, 18);
+            this.pictureBox1.Location = new System.Drawing.Point(13, 22);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(60, 59);
+            this.pictureBox1.Size = new System.Drawing.Size(69, 74);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
             // frmPicMenuBM
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(488, 105);
+            this.ClientSize = new System.Drawing.Size(558, 131);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -105,8 +109,9 @@
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.txtUrlName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frmPicMenuBM";
-            this.Text = "Form2";
+            this.Text = "Add Bookmark";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
