@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -291,6 +292,12 @@ namespace GoraniBrowser
             picHistory.Image = Properties.Resources.History_clicked;
 
             pnlFavorite.Visible = false;
+        }
+
+        private void tsmiSaveOffline_Click(object sender, EventArgs e)
+        {
+            WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;
+            File.WriteAllText("C:\\Temp\\hello.html", wb.Document.Body.Parent.OuterHtml, Encoding.GetEncoding(wb.Document.Encoding));
         }
     }
 }
