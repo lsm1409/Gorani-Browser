@@ -52,6 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddOffline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddOffline.Designer.cs">
+      <DependentUpon>AddOffline.cs</DependentUpon>
+    </Compile>
     <Compile Include="Browser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddOffline.resx">
+      <DependentUpon>AddOffline.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Browser.resx">
       <DependentUpon>Browser.cs</DependentUpon>
     </EmbeddedResource>

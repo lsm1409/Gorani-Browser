@@ -296,8 +296,18 @@ namespace GoraniBrowser
 
         private void tsmiSaveOffline_Click(object sender, EventArgs e)
         {
+            // 웹 브라우저 객체 생성
             WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;
-            File.WriteAllText("C:\\Temp\\hello.html", wb.Document.Body.Parent.OuterHtml, Encoding.GetEncoding(wb.Document.Encoding));
+            frmAddOffline frm = new frmAddOffline();
+
+            // 오프라인 등록 창 텍스트 상자에 제목 입력
+            if (wb.DocumentTitle != "")
+                frm.txtNameText = wb.DocumentTitle;
+
+
+            if (frm.ShowDialog() == DialogResult.OK) // 확인버튼을 누르면 오프라인으로 저장
+                File.WriteAllText("C:\\Temp\\hello.html", wb.Document.Body.Parent.OuterHtml, Encoding.GetEncoding(wb.Document.Encoding));
+
         }
     }
 }
