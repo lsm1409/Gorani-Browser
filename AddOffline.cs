@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace GoraniBrowser
 {
-    public partial class frmAddOffline : Form
+    public partial class frmSaveOffline : Form
     {
-        public frmAddOffline()
+        public frmSaveOffline()
         {
             InitializeComponent();
         }
@@ -23,6 +23,8 @@ namespace GoraniBrowser
             set { txtName.Text = value; }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e) => Close();
+        private void btnCancel_Click(object sender, EventArgs e) => this.Close();
+
+        private void btnOK_Click(object sender, EventArgs e) => DialogResult = DialogResult.OK;
     }
 }

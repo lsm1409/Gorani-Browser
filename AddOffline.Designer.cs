@@ -1,6 +1,6 @@
 ﻿namespace GoraniBrowser
 {
-    partial class frmAddOffline
+    partial class frmSaveOffline
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSaveOffline));
             this.lblText = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
@@ -68,6 +69,7 @@
             this.btnOK.TabIndex = 4;
             this.btnOK.Text = "확인";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnCancel
             // 
@@ -79,7 +81,7 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // frmAddOffline
+            // frmSaveOffline
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -89,7 +91,8 @@
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.lblText);
-            this.Name = "frmAddOffline";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "frmSaveOffline";
             this.Text = "오프라인으로 저장";
             this.ResumeLayout(false);
             this.PerformLayout();

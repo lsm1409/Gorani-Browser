@@ -236,6 +236,20 @@ namespace GoraniBrowser
             }
         }
 
+        // picMenu ContextMenuStrip의 오프라인으로 저장
+        private void tsmiSaveOffline_Click(object sender, EventArgs e)
+        {
+            frmSaveOffline frm = new frmSaveOffline();
+            WebBrowser wb = (WebBrowser)tabBrowser.SelectedTab.Controls[0];
+
+            // 오프라인 등록 창 텍스트 상자에 제목 입력
+            if (wb.DocumentTitle != "")
+                frm.txtNameText = wb.DocumentTitle;
+
+            if (frm.ShowDialog() == DialogResult.OK) // 확인버튼을 누르면 오프라인으로 저장
+                File.WriteAllText("C:\\Temp\\" + frm.txtNameText + ".html", wb.Document.Body.Parent.OuterHtml, Encoding.GetEncoding(wb.Document.Encoding));
+        }
+
         // 즐겨찾기 구성 요소 더블 클릭
         private void lvwBookmark_DoubleClick(object sender, EventArgs e)
         {
@@ -292,22 +306,6 @@ namespace GoraniBrowser
             picHistory.Image = Properties.Resources.History_clicked;
 
             pnlFavorite.Visible = false;
-        }
-
-        private void tsmiSaveOffline_Click(object sender, EventArgs e)
-        {
-            // 웹 브라우저 객체 생성
-            WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;
-            frmAddOffline frm = new frmAddOffline();
-
-            // 오프라인 등록 창 텍스트 상자에 제목 입력
-            if (wb.DocumentTitle != "")
-                frm.txtNameText = wb.DocumentTitle;
-
-
-            if (frm.ShowDialog() == DialogResult.OK) // 확인버튼을 누르면 오프라인으로 저장
-                File.WriteAllText("C:\\Temp\\hello.html", wb.Document.Body.Parent.OuterHtml, Encoding.GetEncoding(wb.Document.Encoding));
-
         }
     }
 }
