@@ -38,6 +38,12 @@
             this.lvwBookmark = new System.Windows.Forms.ListView();
             this.chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chURL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.pnlOffline = new System.Windows.Forms.Panel();
+            this.lvwOffline = new System.Windows.Forms.ListView();
+            this.picHistory = new System.Windows.Forms.PictureBox();
+            this.picOfflinePage = new System.Windows.Forms.PictureBox();
+            this.picTabBundle = new System.Windows.Forms.PictureBox();
+            this.picFavorite = new System.Windows.Forms.PictureBox();
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.cmsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiNewTab = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,10 +57,6 @@
             this.tsmiPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiClose = new System.Windows.Forms.ToolStripMenuItem();
-            this.picHistory = new System.Windows.Forms.PictureBox();
-            this.picOfflinePage = new System.Windows.Forms.PictureBox();
-            this.picTabBundle = new System.Windows.Forms.PictureBox();
-            this.picFavorite = new System.Windows.Forms.PictureBox();
             this.picNewTab = new System.Windows.Forms.PictureBox();
             this.picForward = new System.Windows.Forms.PictureBox();
             this.picMenu = new System.Windows.Forms.PictureBox();
@@ -63,15 +65,17 @@
             this.picBookmark = new System.Windows.Forms.PictureBox();
             this.picHome = new System.Windows.Forms.PictureBox();
             this.picRefresh = new System.Windows.Forms.PictureBox();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabBrowser.SuspendLayout();
             this.tpTabPage.SuspendLayout();
             this.pnlBookmark.SuspendLayout();
             this.pnlFavorite.SuspendLayout();
-            this.cmsMenu.SuspendLayout();
+            this.pnlOffline.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picOfflinePage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTabBundle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFavorite)).BeginInit();
+            this.cmsMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picNewTab)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picForward)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMenu)).BeginInit();
@@ -126,6 +130,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlBookmark.Controls.Add(this.pnlFavorite);
+            this.pnlBookmark.Controls.Add(this.pnlOffline);
             this.pnlBookmark.Controls.Add(this.picHistory);
             this.pnlBookmark.Controls.Add(this.picOfflinePage);
             this.pnlBookmark.Controls.Add(this.picTabBundle);
@@ -177,6 +182,75 @@
             this.chURL.Text = "URL";
             this.chURL.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.chURL.Width = 597;
+            // 
+            // pnlOffline
+            // 
+            this.pnlOffline.Controls.Add(this.lvwOffline);
+            this.pnlOffline.Location = new System.Drawing.Point(0, 104);
+            this.pnlOffline.Name = "pnlOffline";
+            this.pnlOffline.Size = new System.Drawing.Size(985, 501);
+            this.pnlOffline.TabIndex = 2;
+            // 
+            // lvwOffline
+            // 
+            this.lvwOffline.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.lvwOffline.FullRowSelect = true;
+            this.lvwOffline.Location = new System.Drawing.Point(60, 26);
+            this.lvwOffline.Name = "lvwOffline";
+            this.lvwOffline.Size = new System.Drawing.Size(873, 444);
+            this.lvwOffline.TabIndex = 1;
+            this.lvwOffline.UseCompatibleStateImageBehavior = false;
+            this.lvwOffline.View = System.Windows.Forms.View.Details;
+            this.lvwOffline.DoubleClick += new System.EventHandler(this.lvwOffline_DoubleClick);
+            // 
+            // picHistory
+            // 
+            this.picHistory.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.picHistory.Image = ((System.Drawing.Image)(resources.GetObject("picHistory.Image")));
+            this.picHistory.Location = new System.Drawing.Point(748, 33);
+            this.picHistory.Name = "picHistory";
+            this.picHistory.Size = new System.Drawing.Size(228, 50);
+            this.picHistory.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picHistory.TabIndex = 2;
+            this.picHistory.TabStop = false;
+            this.picHistory.Click += new System.EventHandler(this.picHistory_Click);
+            // 
+            // picOfflinePage
+            // 
+            this.picOfflinePage.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.picOfflinePage.Image = ((System.Drawing.Image)(resources.GetObject("picOfflinePage.Image")));
+            this.picOfflinePage.Location = new System.Drawing.Point(501, 33);
+            this.picOfflinePage.Name = "picOfflinePage";
+            this.picOfflinePage.Size = new System.Drawing.Size(228, 50);
+            this.picOfflinePage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picOfflinePage.TabIndex = 2;
+            this.picOfflinePage.TabStop = false;
+            this.picOfflinePage.Click += new System.EventHandler(this.picOfflinePage_Click);
+            // 
+            // picTabBundle
+            // 
+            this.picTabBundle.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.picTabBundle.Image = ((System.Drawing.Image)(resources.GetObject("picTabBundle.Image")));
+            this.picTabBundle.Location = new System.Drawing.Point(254, 33);
+            this.picTabBundle.Name = "picTabBundle";
+            this.picTabBundle.Size = new System.Drawing.Size(228, 50);
+            this.picTabBundle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picTabBundle.TabIndex = 2;
+            this.picTabBundle.TabStop = false;
+            this.picTabBundle.Click += new System.EventHandler(this.picTabBundle_Click);
+            // 
+            // picFavorite
+            // 
+            this.picFavorite.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.picFavorite.Image = ((System.Drawing.Image)(resources.GetObject("picFavorite.Image")));
+            this.picFavorite.Location = new System.Drawing.Point(7, 33);
+            this.picFavorite.Name = "picFavorite";
+            this.picFavorite.Size = new System.Drawing.Size(228, 50);
+            this.picFavorite.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picFavorite.TabIndex = 2;
+            this.picFavorite.TabStop = false;
+            this.picFavorite.Click += new System.EventHandler(this.picFavorite_Click);
             // 
             // txtUrl
             // 
@@ -251,6 +325,7 @@
             this.tsmiSaveOffline.Name = "tsmiSaveOffline";
             this.tsmiSaveOffline.Size = new System.Drawing.Size(203, 24);
             this.tsmiSaveOffline.Text = "오프라인으로 저장";
+            this.tsmiSaveOffline.Click += new System.EventHandler(this.tsmiSaveOffline_Click);
             // 
             // toolStripSeparator2
             // 
@@ -275,54 +350,6 @@
             this.tsmiClose.Size = new System.Drawing.Size(203, 24);
             this.tsmiClose.Text = "종료(&X)";
             this.tsmiClose.Click += new System.EventHandler(this.tsmiClose_Click);
-            // 
-            // picHistory
-            // 
-            this.picHistory.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.picHistory.Image = ((System.Drawing.Image)(resources.GetObject("picHistory.Image")));
-            this.picHistory.Location = new System.Drawing.Point(748, 33);
-            this.picHistory.Name = "picHistory";
-            this.picHistory.Size = new System.Drawing.Size(228, 50);
-            this.picHistory.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picHistory.TabIndex = 2;
-            this.picHistory.TabStop = false;
-            this.picHistory.Click += new System.EventHandler(this.picHistory_Click);
-            // 
-            // picOfflinePage
-            // 
-            this.picOfflinePage.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.picOfflinePage.Image = ((System.Drawing.Image)(resources.GetObject("picOfflinePage.Image")));
-            this.picOfflinePage.Location = new System.Drawing.Point(501, 33);
-            this.picOfflinePage.Name = "picOfflinePage";
-            this.picOfflinePage.Size = new System.Drawing.Size(228, 50);
-            this.picOfflinePage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picOfflinePage.TabIndex = 2;
-            this.picOfflinePage.TabStop = false;
-            this.picOfflinePage.Click += new System.EventHandler(this.picOfflinePage_Click);
-            // 
-            // picTabBundle
-            // 
-            this.picTabBundle.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.picTabBundle.Image = ((System.Drawing.Image)(resources.GetObject("picTabBundle.Image")));
-            this.picTabBundle.Location = new System.Drawing.Point(254, 33);
-            this.picTabBundle.Name = "picTabBundle";
-            this.picTabBundle.Size = new System.Drawing.Size(228, 50);
-            this.picTabBundle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picTabBundle.TabIndex = 2;
-            this.picTabBundle.TabStop = false;
-            this.picTabBundle.Click += new System.EventHandler(this.picTabBundle_Click);
-            // 
-            // picFavorite
-            // 
-            this.picFavorite.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.picFavorite.Image = ((System.Drawing.Image)(resources.GetObject("picFavorite.Image")));
-            this.picFavorite.Location = new System.Drawing.Point(7, 33);
-            this.picFavorite.Name = "picFavorite";
-            this.picFavorite.Size = new System.Drawing.Size(228, 50);
-            this.picFavorite.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picFavorite.TabIndex = 2;
-            this.picFavorite.TabStop = false;
-            this.picFavorite.Click += new System.EventHandler(this.picFavorite_Click);
             // 
             // picNewTab
             // 
@@ -456,6 +483,11 @@
             this.picRefresh.MouseHover += new System.EventHandler(this.picButton_MouseHover);
             this.picRefresh.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picButton_MouseUp);
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "이름";
+            this.columnHeader1.Width = 200;
+            // 
             // frmGoraniBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -481,11 +513,12 @@
             this.tpTabPage.ResumeLayout(false);
             this.pnlBookmark.ResumeLayout(false);
             this.pnlFavorite.ResumeLayout(false);
-            this.cmsMenu.ResumeLayout(false);
+            this.pnlOffline.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picHistory)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picOfflinePage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTabBundle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFavorite)).EndInit();
+            this.cmsMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picNewTab)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picForward)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMenu)).EndInit();
@@ -533,6 +566,9 @@
         private System.Windows.Forms.PictureBox picOfflinePage;
         private System.Windows.Forms.PictureBox picTabBundle;
         private System.Windows.Forms.PictureBox picFavorite;
+        private System.Windows.Forms.Panel pnlOffline;
+        private System.Windows.Forms.ListView lvwOffline;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }
 

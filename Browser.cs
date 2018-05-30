@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -235,6 +236,24 @@ namespace GoraniBrowser
             }
         }
 
+        // picMenu ContextMenuStrip의 오프라인으로 저장
+        private void tsmiSaveOffline_Click(object sender, EventArgs e)
+        {
+            frmSaveOffline frm = new frmSaveOffline();
+            WebBrowser wb = (WebBrowser)tabBrowser.SelectedTab.Controls[0];
+
+            // 오프라인 등록 창 텍스트 상자에 제목 입력
+            if (wb.DocumentTitle != "")
+                frm.txtNameText = wb.DocumentTitle;
+
+            if (frm.ShowDialog() == DialogResult.OK) // 확인버튼을 누르면 오프라인으로 저장
+            {
+                ListViewItem lvwitem = new ListViewItem(frm.txtNameText);
+                lvwOffline.Items.Add(lvwitem);
+                File.WriteAllText("C:\\Temp\\" + frm.txtNameText + ".html", wb.Document.Body.Parent.OuterHtml, Encoding.GetEncoding(wb.Document.Encoding));
+            }
+        }
+
         // 즐겨찾기 구성 요소 더블 클릭
         private void lvwBookmark_DoubleClick(object sender, EventArgs e)
         {
@@ -252,6 +271,24 @@ namespace GoraniBrowser
             }
         }
 
+        // 즐겨찾기 구성 요소 더블 클릭
+        private void lvwOffline_DoubleClick(object sender, EventArgs e)
+        {
+            WebBrowser wb = (WebBrowser)tabBrowser.SelectedTab.Controls[0];
+
+            // 구성 요소를 선택했을 때
+            if (lvwOffline.SelectedItems.Count == 1)
+            {
+                ListView.SelectedListViewItemCollection items = lvwOffline.SelectedItems;
+                ListViewItem listViewItem = items[0];
+
+                wb.Navigate(new Uri("file:///C:/Temp/" + listViewItem.SubItems[0].Text + ".html")); // 새 탭을 HTML의 주소로 이동
+                wb.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
+                pnlBookmark.Visible = false;
+            }
+        }
+
+
         /* 북마크 내 툴바 메뉴 전환 */
         private void picFavorite_Click(object sender, EventArgs e)
         {
@@ -261,6 +298,7 @@ namespace GoraniBrowser
             picHistory.Image = Properties.Resources.History;
 
             pnlFavorite.Visible = true;
+            pnlOffline.Visible = false;
         }
 
         private void picTabBundle_Click(object sender, EventArgs e)
@@ -281,6 +319,7 @@ namespace GoraniBrowser
             picHistory.Image = Properties.Resources.History;
 
             pnlFavorite.Visible = false;
+            pnlOffline.Visible = true;
         }
 
         private void picHistory_Click(object sender, EventArgs e)
