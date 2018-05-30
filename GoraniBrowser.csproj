@@ -62,11 +62,11 @@
     <Compile Include="Browser.Designer.cs">
       <DependentUpon>Browser.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddBookmark.cs">
+    <Compile Include="AddFavorite.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddBookmark.Designer.cs">
-      <DependentUpon>AddBookmark.cs</DependentUpon>
+    <Compile Include="AddFavorite.Designer.cs">
+      <DependentUpon>AddFavorite.cs</DependentUpon>
     </Compile>
     <Compile Include="Homepage.cs">
       <SubType>Form</SubType>
@@ -74,16 +74,18 @@
     <Compile Include="Homepage.Designer.cs">
       <DependentUpon>Homepage.cs</DependentUpon>
     </Compile>
+    <Compile Include="PageBox.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screenshot.cs" />
     <EmbeddedResource Include="AddOffline.resx">
       <DependentUpon>AddOffline.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Browser.resx">
       <DependentUpon>Browser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddBookmark.resx">
-      <DependentUpon>AddBookmark.cs</DependentUpon>
+    <EmbeddedResource Include="AddFavorite.resx">
+      <DependentUpon>AddFavorite.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Homepage.resx">
       <DependentUpon>Homepage.cs</DependentUpon>
@@ -137,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <None Include="icon\Offine.png" />
     <None Include="icon\TabBundle_clicked.png" />
     <None Include="icon\OfflinePage_clicked.png" />
     <None Include="icon\History_clicked.png" />

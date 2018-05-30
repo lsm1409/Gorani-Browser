@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace GoraniBrowser
 {
-    public partial class frmAddBookmark : Form
+    public partial class frmAddFavorite : Form
     {
-        public frmAddBookmark()
+        public frmAddFavorite()
         {
             InitializeComponent();
         }
@@ -44,5 +44,6 @@ namespace GoraniBrowser
         }
 
         private void btnClose_Click(object sender, EventArgs e) => this.Close();
+        private void btnOK_Click(object sender, EventArgs e) => DialogResult = DialogResult.OK;
     }
 }

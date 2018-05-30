@@ -1,6 +1,6 @@
 ﻿namespace GoraniBrowser
 {
-    partial class frmAddBookmark
+    partial class frmAddFavorite
     {
         /// <summary>
         /// Required designer variable.
@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddBookmark));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddFavorite));
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.lblName = new System.Windows.Forms.Label();
             this.lblGuide = new System.Windows.Forms.Label();
-            this.picBookmark = new System.Windows.Forms.PictureBox();
             this.lblUrl = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
+            this.picBookmark = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picBookmark)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,6 +61,7 @@
             // 
             // btnClose
             // 
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.Location = new System.Drawing.Point(455, 86);
             this.btnClose.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnClose.Name = "btnClose";
@@ -88,17 +89,6 @@
             this.lblGuide.TabIndex = 4;
             this.lblGuide.Text = "즐겨찾기 목록에 페이지를 추가합니다.";
             // 
-            // picBookmark
-            // 
-            this.picBookmark.Image = global::GoraniBrowser.Properties.Resources.Bookmark;
-            this.picBookmark.Location = new System.Drawing.Point(12, 27);
-            this.picBookmark.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.picBookmark.Name = "picBookmark";
-            this.picBookmark.Size = new System.Drawing.Size(70, 70);
-            this.picBookmark.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picBookmark.TabIndex = 5;
-            this.picBookmark.TabStop = false;
-            // 
             // lblUrl
             // 
             this.lblUrl.AutoSize = true;
@@ -116,10 +106,22 @@
             this.txtName.Size = new System.Drawing.Size(295, 25);
             this.txtName.TabIndex = 7;
             // 
-            // frmAddBookmark
+            // picBookmark
+            // 
+            this.picBookmark.Image = global::GoraniBrowser.Properties.Resources.Bookmark;
+            this.picBookmark.Location = new System.Drawing.Point(12, 27);
+            this.picBookmark.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.picBookmark.Name = "picBookmark";
+            this.picBookmark.Size = new System.Drawing.Size(70, 70);
+            this.picBookmark.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picBookmark.TabIndex = 5;
+            this.picBookmark.TabStop = false;
+            // 
+            // frmAddFavorite
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(558, 131);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblUrl);
@@ -129,9 +131,10 @@
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.txtUrl);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "frmAddBookmark";
+            this.Name = "frmAddFavorite";
             this.Text = "즐겨찾기 추가";
             ((System.ComponentModel.ISupportInitialize)(this.picBookmark)).EndInit();
             this.ResumeLayout(false);

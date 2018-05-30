@@ -13,14 +13,22 @@ namespace GoraniBrowser
 {
     public partial class frmGoraniBrowser : Form
     {
+        string setupPath = Application.StartupPath + "\\GoraniSetup\\";
         string homepage = "https://www.google.com/";
         WebBrowser wbNewTab = null;   // 새 탭의 웹브라우저
+        List<PageBox> favoriteList = new List<PageBox>(8);
+        int favoriteCount = 0;
+        List<PageBox> offlineList = new List<PageBox>(8);
+        int offlineCount = 0;
 
         public frmGoraniBrowser()
         {
             InitializeComponent();
             wbBrowser.ScriptErrorsSuppressed = true;    // 자바 스크립트 오류 창 안뜨게하기
             wbBrowser.Navigate(homepage);
+            DirectoryInfo di = new DirectoryInfo(setupPath);
+            if (di.Exists == false)
+                di.Create();
         }
 
         private void wbBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) // 웹페이지 로딩이 완료될 때
@@ -213,7 +221,7 @@ namespace GoraniBrowser
         // picMenu ContextMenuStrip의 즐겨찾기 추가
         private void tsmiAddBookmark_Click(object sender, EventArgs e)
         {
-            frmAddBookmark frm = new frmAddBookmark();
+            frmAddFavorite frm = new frmAddFavorite();
             WebBrowser wb = (WebBrowser)tabBrowser.SelectedTab.Controls[0];
 
             if (wb.DocumentTitle != "")
@@ -230,9 +238,31 @@ namespace GoraniBrowser
 
             if (frm.ShowDialog() == DialogResult.OK) // 확인버튼을 누르면
             {
-                ListViewItem lvwitem = new ListViewItem(frm.txtNameText);
-                lvwitem.SubItems.Add(frm.txtUrlText);
-                lvwBookmark.Items.Add(lvwitem);
+                PageBox box = new PageBox();
+                Bitmap img = Screenshot.Create(wb);
+                box.pic.Image = img;
+                box.pic.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                box.pic.Size = new Size(350, 200);
+                box.pic.SizeMode = PictureBoxSizeMode.StretchImage;
+                box.pic.BorderStyle = BorderStyle.FixedSingle;
+                box.pic.Tag = frm.txtUrlText;
+                box.name.Text = frm.txtNameText;
+                box.name.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                box.name.Size = new Size(350, 25);
+                box.name.Font = new Font(new FontFamily("맑은 고딕"), 10, FontStyle.Regular);
+                box.name.BorderStyle = BorderStyle.FixedSingle;
+                box.name.BackColor = Color.White;
+                box.name.TextAlign = ContentAlignment.MiddleLeft;
+                if (favoriteCount % 2 == 0)
+                    box.pic.Location = new Point(20 + favoriteCount / 2 * 380, 80);
+                else
+                    box.pic.Location = new Point(20 + favoriteCount / 2 * 380, 380);
+                box.name.Location = new Point(box.pic.Location.X, box.pic.Location.Y - 25);
+                box.pic.Click += new EventHandler(favoriteBox_Click);
+                favoriteCount++;
+                favoriteList.Add(box);
+                pnlFavorite.Controls.Add(box.name);
+                pnlFavorite.Controls.Add(box.pic);
             }
         }
 
@@ -248,44 +278,55 @@ namespace GoraniBrowser
 
             if (frm.ShowDialog() == DialogResult.OK) // 확인버튼을 누르면 오프라인으로 저장
             {
-                ListViewItem lvwitem = new ListViewItem(frm.txtNameText);
-                lvwOffline.Items.Add(lvwitem);
-                File.WriteAllText("C:\\Temp\\" + frm.txtNameText + ".html", wb.Document.Body.Parent.OuterHtml, Encoding.GetEncoding(wb.Document.Encoding));
+                PageBox box = new PageBox();
+                Bitmap img = Screenshot.Create(wb);
+                box.pic.Image = img;
+                box.pic.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                box.pic.Size = new Size(350, 200);
+                box.pic.SizeMode = PictureBoxSizeMode.StretchImage;
+                box.pic.BorderStyle = BorderStyle.FixedSingle;
+                box.pic.Tag = frm.txtNameText;
+                box.name.Text = "☻ " + frm.txtNameText;
+                box.name.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                box.name.Size = new Size(350, 25);
+                box.name.Font = new Font(new FontFamily("맑은 고딕"), 10, FontStyle.Regular);
+                box.name.BorderStyle = BorderStyle.FixedSingle;
+                box.name.BackColor = Color.White;
+                box.name.TextAlign = ContentAlignment.MiddleLeft;
+                if (offlineCount % 2 == 0)
+                    box.pic.Location = new Point(20 + offlineCount / 2 * 380, 80);
+                else
+                    box.pic.Location = new Point(20 + offlineCount / 2 * 380, 380);
+                box.name.Location = new Point(box.pic.Location.X, box.pic.Location.Y - 25);
+                box.pic.Click += new EventHandler(offlineBox_Click);
+                offlineCount++;
+                offlineList.Add(box);
+                pnlOffline.Controls.Add(box.name);
+                pnlOffline.Controls.Add(box.pic);
+                File.WriteAllText(setupPath + frm.txtNameText + ".html", wb.Document.Body.Parent.OuterHtml, Encoding.GetEncoding(wb.Document.Encoding));
             }
         }
 
-        // 즐겨찾기 구성 요소 더블 클릭
-        private void lvwBookmark_DoubleClick(object sender, EventArgs e)
+        // 즐겨찾기 구성 요소 클릭
+        private void favoriteBox_Click(object sender, EventArgs e)
         {
             WebBrowser wb = (WebBrowser)tabBrowser.SelectedTab.Controls[0];
-
+            
             // 구성 요소를 선택했을 때
-            if (lvwBookmark.SelectedItems.Count == 1)
-            {
-                ListView.SelectedListViewItemCollection items = lvwBookmark.SelectedItems;
-                ListViewItem listViewItem = items[0];
-
-                wb.Navigate(listViewItem.SubItems[1].Text); // 새 탭을 즐겨찾기url주소로 이동
-                wb.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
-                pnlBookmark.Visible = false;
-            }
+            wb.Navigate(((PictureBox)sender).Tag.ToString()); // 새 탭을 즐겨찾기url주소로 이동
+            wb.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
+            pnlBookmark.Visible = false;
         }
 
-        // 즐겨찾기 구성 요소 더블 클릭
-        private void lvwOffline_DoubleClick(object sender, EventArgs e)
+        // 오프라인 구성 요소 클릭
+        private void offlineBox_Click(object sender, EventArgs e)
         {
-            WebBrowser wb = (WebBrowser)tabBrowser.SelectedTab.Controls[0];
-
-            // 구성 요소를 선택했을 때
-            if (lvwOffline.SelectedItems.Count == 1)
-            {
-                ListView.SelectedListViewItemCollection items = lvwOffline.SelectedItems;
-                ListViewItem listViewItem = items[0];
-
-                wb.Navigate(new Uri("file:///C:/Temp/" + listViewItem.SubItems[0].Text + ".html")); // 새 탭을 HTML의 주소로 이동
-                wb.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
-                pnlBookmark.Visible = false;
-            }
+            // 구성 요소를 선택했을 때 새 창에 페이지 로드
+            pnlBookmark.Visible = false;
+            frmGoraniBrowser newForm = new frmGoraniBrowser();
+            newForm.Show();
+            newForm.wbBrowser.Navigate(new Uri("file:///" + setupPath + ((PictureBox)sender).Tag.ToString() + ".html")); // 새 탭을 HTML의 주소로 이동
+            newForm.wbBrowser.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
         }
 
 
@@ -309,6 +350,7 @@ namespace GoraniBrowser
             picHistory.Image = Properties.Resources.History;
 
             pnlFavorite.Visible = false;
+            pnlOffline.Visible = false;
         }
 
         private void picOfflinePage_Click(object sender, EventArgs e)
@@ -330,6 +372,14 @@ namespace GoraniBrowser
             picHistory.Image = Properties.Resources.History_clicked;
 
             pnlFavorite.Visible = false;
+            pnlOffline.Visible = false;
+        }
+
+        private void picMemo_Click(object sender, EventArgs e)
+        {
+            WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;  // 현재 선택된 탭의 웹브라우저 컨트롤 가져오기
+            Bitmap image = Screenshot.Create(wb);
+            image.Save(setupPath + "temp.jpg");
         }
     }
 }
