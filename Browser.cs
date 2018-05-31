@@ -381,5 +381,15 @@ namespace GoraniBrowser
             Bitmap image = Screenshot.Create(wb);
             image.Save(setupPath + "temp.jpg");
         }
+
+        //컨트롤 + Q 입력시 cmsMENU 열기
+        private void frmGoraniBrowser_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.Q)
+            {
+                cmsMenu.Show();
+                e.SuppressKeyPress = true;
+            }
+        }
     }
 }
