@@ -39,7 +39,7 @@
             // lblGuide
             // 
             this.lblGuide.AutoSize = true;
-            this.lblGuide.Location = new System.Drawing.Point(144, 13);
+            this.lblGuide.Location = new System.Drawing.Point(145, 21);
             this.lblGuide.Name = "lblGuide";
             this.lblGuide.Size = new System.Drawing.Size(267, 15);
             this.lblGuide.TabIndex = 9;
@@ -69,11 +69,10 @@
             // 
             // txtUrl
             // 
-            this.txtUrl.Location = new System.Drawing.Point(133, 40);
+            this.txtUrl.Location = new System.Drawing.Point(134, 54);
             this.txtUrl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtUrl.Multiline = true;
             this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(295, 52);
+            this.txtUrl.Size = new System.Drawing.Size(295, 25);
             this.txtUrl.TabIndex = 6;
             // 
             // picHome
@@ -89,9 +88,9 @@
             // 
             // frmHomepage
             // 
+            this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(558, 111);
             this.Controls.Add(this.picHome);
@@ -99,6 +98,7 @@
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.txtUrl);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "frmHomepage";
             this.Text = "홈페이지 변경";
             ((System.ComponentModel.ISupportInitialize)(this.picHome)).EndInit();
