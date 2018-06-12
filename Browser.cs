@@ -46,6 +46,7 @@ namespace GoraniBrowser
                 di.Create();
                 di = new DirectoryInfo(setupPath + "TabBundle\\");
                 di.Create();
+                File.Create(setupPath + "history.txt");
                 File.WriteAllText(setupPath + "homepage.txt", "https://www.google.com/"); // 첫 홈페이지 구글로 초기화
             }
             else
@@ -133,11 +134,20 @@ namespace GoraniBrowser
                         pnlOffline.Controls.Add(box.pic);
                     }
                 }
+
+                // 저장된 방문기록 목록 가져오기
+                var history = File.ReadAllLines(setupPath + "history.txt");
+                for (int i = 0; i + lvwHistory.Columns.Count - 1 < history.Length; i += lvwHistory.Columns.Count)
+                    lvwHistory.Items.Add(new ListViewItem(new[]
+                    {
+                        history[i], history[i + 1], history[i + 2]
+                    }));
             }
             homepage = File.ReadAllText(setupPath + "homepage.txt"); // homepage.txt 내용으로 homepage 설정
             wbBrowser.Navigate(homepage);
             AddHistory();
         }
+
 
         // 웹 페이지 이동 메서드
         private void GoWebSite(string urlString)
@@ -151,10 +161,14 @@ namespace GoraniBrowser
         // 방문 기록 추가
         private void AddHistory()
         {
-            ListViewItem lvt = new ListViewItem(tabBrowser.SelectedTab.Text);
-            lvt.SubItems.Add(txtUrl.Text);
-            lvt.SubItems.Add(DateTime.Now.ToString("HH시 mm분 ss초 (yyyy-MM-dd)"));
-            lvwHistory.Items.Add(lvt);
+            if (tabBrowser.SelectedTab.Text != "")
+            {
+                ListViewItem lvt = new ListViewItem(tabBrowser.SelectedTab.Text);
+                lvt.SubItems.Add(txtUrl.Text);
+                lvt.SubItems.Add(DateTime.Now.ToString("HH시 mm분 ss초 (yyyy-MM-dd)"));
+                lvwHistory.Items.Add(lvt);
+                File.AppendAllText(setupPath + "history.txt", tabBrowser.SelectedTab.Text + "\n" + txtUrl.Text + "\n" + DateTime.Now.ToString("HH시 mm분 ss초 (yyyy-MM-dd)") + "\n");
+            }
         }
 
         private void wbBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) // 웹페이지 로딩이 완료될 때
@@ -163,7 +177,7 @@ namespace GoraniBrowser
             tabBrowser.SelectedTab.Text = ((WebBrowser)sender).DocumentTitle; // 탭 제목 Text 변경
             pnlBookmark.Visible = false;
 
-            if (lvwHistory.Items[lvwHistory.Items.Count - 1].SubItems[1].Text != txtUrl.Text)
+            if (lvwHistory.Items.Count == 0 || lvwHistory.Items[lvwHistory.Items.Count - 1].SubItems[1].Text != txtUrl.Text)
                 AddHistory();
         }
 
@@ -267,10 +281,7 @@ namespace GoraniBrowser
         }
 
         /* 아이콘 마우스 오버 */
-        private void picButton_MouseHover(object sender, EventArgs e)
-        {
-            ((PictureBox)sender).BackColor = Color.Gainsboro;
-        }
+        private void picButton_MouseHover(object sender, EventArgs e) => ((PictureBox)sender).BackColor = Color.Gainsboro;
 
         private void picButton_MouseLeave(object sender, EventArgs e)
         {
@@ -295,7 +306,7 @@ namespace GoraniBrowser
         }
 
         // picMenu ContextMenuStrip의 종료
-        private void tsmiClose_Click(object sender, EventArgs e) => this.Close();
+        private void tsmiClose_Click(object sender, EventArgs e) => Close();
 
         // picMenu ContextMenuStrip의 인쇄
         private void tsmiPrint_Click(object sender, EventArgs e)
@@ -460,6 +471,7 @@ namespace GoraniBrowser
                         box.back2.Location = new Point(25 + TabBundleCount / 2 * 380, 375);
                         box.list.Location = new Point(20 + TabBundleCount / 2 * 380, 405);
                     }
+
                     box.name.Location = new Point(box.list.Location.X, box.list.Location.Y - 25);
                     box.list.Click += new EventHandler(tabBundleBox_Click);
                     TabBundleCount++;
@@ -575,12 +587,19 @@ namespace GoraniBrowser
             pnlHistory.Visible = true;
         }
 
+        // 방문 기록 더블 클릭 시 이동
         private void lvwHistory_DoubleClick(object sender, EventArgs e)
         {
             GoWebSite(lvwHistory.Items[lvwHistory.FocusedItem.Index].SubItems[0].Text);
             pnlBookmark.Visible = false;
         }
 
-        private void tsmiHistoryClear_Click(object sender, EventArgs e) => lvwHistory.Items.Clear();
+        // 모든 방문 기록 삭제
+        private void tsmiHistoryClear_Click(object sender, EventArgs e)
+        {
+            lvwHistory.Items.Clear();
+            File.WriteAllText(setupPath + "history.txt", "");
+            AddHistory();
+        }
     }
 }
