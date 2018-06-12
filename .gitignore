@@ -1,3 +1,5 @@
 bin\Debug\*.exe
 obj\Debug\*.exe
+bin\Release\*.exe
+obj\Release\*.exe
 .vs\*.*
