@@ -83,6 +83,12 @@
     <Compile Include="Box.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screencapture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Screencapture.Designer.cs">
+      <DependentUpon>Screencapture.cs</DependentUpon>
+    </Compile>
     <Compile Include="Screenshot.cs" />
     <EmbeddedResource Include="SaveOffline.resx">
       <DependentUpon>SaveOffline.cs</DependentUpon>
@@ -109,6 +115,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Screencapture.resx">
+      <DependentUpon>Screencapture.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -148,6 +157,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <None Include="icon\ShapesCursor.cur" />
+    <None Include="icon\PenCursor_small.cur" />
+    <None Include="icon\PenCursor.cur" />
+    <None Include="icon\PaintCursor.cur" />
+    <None Include="icon\EraserCursor.cur" />
+    <None Include="icon\Save.png" />
+    <None Include="icon\Shapemode.png" />
+    <None Include="icon\Paint.png" />
+    <None Include="icon\Rubber.png" />
+    <None Include="icon\Pencil.png" />
     <None Include="icon\Tab.png" />
     <None Include="icon\Offine.png" />
     <None Include="icon\TabBundle_clicked.png" />

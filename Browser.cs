@@ -570,5 +570,23 @@ namespace GoraniBrowser
         }
 
         private void tsmiHistoryClear_Click(object sender, EventArgs e) => lvwHistory.Items.Clear();
+
+
+        // 컨트롤 + Q 입력시 메뉴스크립트 열기
+        private void frmGoraniBrowser_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.Q)
+            {
+                cmsMenu.Show();
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void picMemo_Click(object sender, EventArgs e)
+        {
+            frmScreencapture frm = new frmScreencapture();
+            WebBrowser wb = (WebBrowser)tabBrowser.SelectedTab.Controls[0];
+            frm.ShowDialog();
+        }
     }
 }
