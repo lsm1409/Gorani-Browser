@@ -38,6 +38,7 @@
             this.pnlOffline = new System.Windows.Forms.Panel();
             this.pnlHistory = new System.Windows.Forms.Panel();
             this.lvwHistory = new System.Windows.Forms.ListView();
+            this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colURL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlTabBundle = new System.Windows.Forms.Panel();
@@ -167,6 +168,54 @@
             this.pnlOffline.Size = new System.Drawing.Size(985, 501);
             this.pnlOffline.TabIndex = 3;
             // 
+            // pnlHistory
+            // 
+            this.pnlHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlHistory.AutoScroll = true;
+            this.pnlHistory.Controls.Add(this.lvwHistory);
+            this.pnlHistory.Location = new System.Drawing.Point(0, 104);
+            this.pnlHistory.Name = "pnlHistory";
+            this.pnlHistory.Size = new System.Drawing.Size(985, 501);
+            this.pnlHistory.TabIndex = 16;
+            // 
+            // lvwHistory
+            // 
+            this.lvwHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colName,
+            this.colURL,
+            this.colTime});
+            this.lvwHistory.FullRowSelect = true;
+            this.lvwHistory.Location = new System.Drawing.Point(30, 30);
+            this.lvwHistory.Name = "lvwHistory";
+            this.lvwHistory.Size = new System.Drawing.Size(925, 441);
+            this.lvwHistory.TabIndex = 0;
+            this.lvwHistory.UseCompatibleStateImageBehavior = false;
+            this.lvwHistory.View = System.Windows.Forms.View.Details;
+            this.lvwHistory.DoubleClick += new System.EventHandler(this.lvwHistory_DoubleClick);
+            // 
+            // colName
+            // 
+            this.colName.DisplayIndex = 0;
+            this.colName.Text = "웹페이지 제목";
+            this.colName.Width = 400;
+            // 
+            // colURL
+            // 
+            this.colURL.DisplayIndex = 1;
+            this.colURL.Text = "웹페이지 URL";
+            this.colURL.Width = 400;
+            // 
+            // colTime
+            // 
+            this.colTime.DisplayIndex = 2;
+            this.colTime.Text = "방문 시간";
+            this.colTime.Width = 400;
+            // 
             // pnlTabBundle
             // 
             this.pnlTabBundle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -221,93 +270,6 @@
             // 
             this.picFavorite.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.picFavorite.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picFavorite.Image = ((System.Drawing.Image)(resources.GetObject("picFavorite.Image")));
-            this.picFavorite.Location = new System.Drawing.Point(7, 33);
-            this.picFavorite.Name = "picFavorite";
-            this.picFavorite.Size = new System.Drawing.Size(228, 50);
-            this.picFavorite.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picFavorite.TabIndex = 2;
-            this.picFavorite.TabStop = false;
-            this.picFavorite.Click += new System.EventHandler(this.picFavorite_Click);
-            // 
-            // pnlHistory
-            // 
-            this.pnlHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlHistory.AutoScroll = true;
-            this.pnlHistory.Controls.Add(this.lvwHistory);
-            this.pnlHistory.Location = new System.Drawing.Point(0, 104);
-            this.pnlHistory.Name = "pnlHistory";
-            this.pnlHistory.Size = new System.Drawing.Size(985, 501);
-            this.pnlHistory.TabIndex = 16;
-            // 
-            // lvwHistory
-            // 
-            this.lvwHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvwHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colURL,
-            this.colTime});
-            this.lvwHistory.FullRowSelect = true;
-            this.lvwHistory.Location = new System.Drawing.Point(30, 30);
-            this.lvwHistory.Name = "lvwHistory";
-            this.lvwHistory.Size = new System.Drawing.Size(925, 441);
-            this.lvwHistory.TabIndex = 0;
-            this.lvwHistory.UseCompatibleStateImageBehavior = false;
-            this.lvwHistory.View = System.Windows.Forms.View.Details;
-            this.lvwHistory.DoubleClick += new System.EventHandler(this.lvwHistory_DoubleClick);
-            // 
-            // colURL
-            // 
-            this.colURL.Text = "웹페이지 URL";
-            this.colURL.Width = 400;
-            // 
-            // colTime
-            // 
-            this.colTime.Text = "방문 시간";
-            this.colTime.Width = 400;
-            // 
-            // picHistory
-            // 
-            this.picHistory.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.picHistory.Image = ((System.Drawing.Image)(resources.GetObject("picHistory.Image")));
-            this.picHistory.Location = new System.Drawing.Point(748, 33);
-            this.picHistory.Name = "picHistory";
-            this.picHistory.Size = new System.Drawing.Size(228, 50);
-            this.picHistory.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picHistory.TabIndex = 2;
-            this.picHistory.TabStop = false;
-            this.picHistory.Click += new System.EventHandler(this.picHistory_Click);
-            // 
-            // picOfflinePage
-            // 
-            this.picOfflinePage.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.picOfflinePage.Image = ((System.Drawing.Image)(resources.GetObject("picOfflinePage.Image")));
-            this.picOfflinePage.Location = new System.Drawing.Point(501, 33);
-            this.picOfflinePage.Name = "picOfflinePage";
-            this.picOfflinePage.Size = new System.Drawing.Size(228, 50);
-            this.picOfflinePage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picOfflinePage.TabIndex = 2;
-            this.picOfflinePage.TabStop = false;
-            this.picOfflinePage.Click += new System.EventHandler(this.picOfflinePage_Click);
-            // 
-            // picTabBundle
-            // 
-            this.picTabBundle.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.picTabBundle.Image = ((System.Drawing.Image)(resources.GetObject("picTabBundle.Image")));
-            this.picTabBundle.Location = new System.Drawing.Point(254, 33);
-            this.picTabBundle.Name = "picTabBundle";
-            this.picTabBundle.Size = new System.Drawing.Size(228, 50);
-            this.picTabBundle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picTabBundle.TabIndex = 2;
-            this.picTabBundle.TabStop = false;
-            this.picTabBundle.Click += new System.EventHandler(this.picTabBundle_Click);
-            // 
-            // picFavorite
-            // 
-            this.picFavorite.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.picFavorite.Image = ((System.Drawing.Image)(resources.GetObject("picFavorite.Image")));
             this.picFavorite.Location = new System.Drawing.Point(7, 33);
             this.picFavorite.Name = "picFavorite";
@@ -384,8 +346,6 @@
             // 
             this.tsmiSaveTab.Name = "tsmiSaveTab";
             this.tsmiSaveTab.Size = new System.Drawing.Size(208, 24);
-            this.tsmiSaveTab.Text = "탭 저장";
-            this.tsmiSaveTab.Size = new System.Drawing.Size(203, 24);
             this.tsmiSaveTab.Text = "탭묶음 저장";
             this.tsmiSaveTab.Click += new System.EventHandler(this.tsmiSaveTab_Click);
             // 
@@ -641,6 +601,7 @@
         private System.Windows.Forms.ColumnHeader colTime;
         private System.Windows.Forms.ToolStripMenuItem 방문기록전부제거ToolStripMenuItem;
         private System.Windows.Forms.Panel pnlTabBundle;
+        private System.Windows.Forms.ColumnHeader colName;
     }
 }
 

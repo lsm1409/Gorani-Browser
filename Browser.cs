@@ -140,7 +140,8 @@ namespace GoraniBrowser
         // 방문 기록 추가
         private void AddHistory()
         {
-            ListViewItem lvt = new ListViewItem(txtUrl.Text);
+            ListViewItem lvt = new ListViewItem(tabBrowser.SelectedTab.Text);
+            lvt.SubItems.Add(txtUrl.Text);
             lvt.SubItems.Add(DateTime.Now.ToString("HH시 mm분 ss초 (yyyy-MM-dd)"));
             lvwHistory.Items.Add(lvt);
         }
@@ -151,7 +152,7 @@ namespace GoraniBrowser
             tabBrowser.SelectedTab.Text = ((WebBrowser)sender).DocumentTitle; // 탭 제목 Text 변경
             pnlBookmark.Visible = false;
 
-            if (lvwHistory.Items[lvwHistory.Items.Count - 1].SubItems[0].Text != txtUrl.Text)
+            if (lvwHistory.Items[lvwHistory.Items.Count - 1].SubItems[1].Text != txtUrl.Text)
                 AddHistory();
         }
 
