@@ -25,16 +25,38 @@ namespace GoraniBrowser
         {
             InitializeComponent();
             wbBrowser.ScriptErrorsSuppressed = true;    // 자바 스크립트 오류 창 안뜨게하기
-            wbBrowser.Navigate(homepage);
+            GoWebSite(homepage);
             DirectoryInfo di = new DirectoryInfo(setupPath);
             if (di.Exists == false)
                 di.Create();
+            AddHistory();
+        }
+
+        // 웹 페이지 이동 메서드
+        private void GoWebSite(string urlString)
+        {
+            WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;
+            if (wb != null)
+                wb.Navigate(urlString);
+            wb.DocumentCompleted += wbBrowser_DocumentCompleted;    // 웹페이지 로드되면 주소창과 탭 이름 변경
+        }
+
+        // 방문 기록 추가
+        private void AddHistory()
+        {
+            ListViewItem lvt = new ListViewItem(txtUrl.Text);
+            lvt.SubItems.Add(DateTime.Now.ToString("HH시 mm분 ss초 (yyyy-MM-dd)"));
+            lvwHistory.Items.Add(lvt);
         }
 
         private void wbBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) // 웹페이지 로딩이 완료될 때
         {
             txtUrl.Text = ((WebBrowser)sender).Url.ToString(); // 주소창 Text 변경
             tabBrowser.SelectedTab.Text = ((WebBrowser)sender).DocumentTitle; // 탭 제목 Text 변경
+            pnlBookmark.Visible = false;
+
+            if (lvwHistory.Items[lvwHistory.Items.Count - 1].SubItems[0].Text != txtUrl.Text)
+                AddHistory();
         }
 
         private void txtUrl_KeyDown(object sender, KeyEventArgs e)
@@ -42,9 +64,7 @@ namespace GoraniBrowser
             /* 주소창에서 Enter 키 누르면 페이지 이동 */
             if (e.KeyCode == Keys.Enter)
             {
-                WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;  // 현재 선택된 탭의 웹브라우저 컨트롤 가져오기
-                if (wb != null)
-                    wb.Navigate(txtUrl.Text);
+                GoWebSite(txtUrl.Text);
                 e.SuppressKeyPress = true;  // 시스템 경고음 제거
             }
         }
@@ -57,12 +77,13 @@ namespace GoraniBrowser
             wbNewTab = new WebBrowser() { ScriptErrorsSuppressed = true };  // 새 탭에 들어갈 웹브라우저 생성
             wbNewTab.Parent = tp;  // 해당 웹브라우저의 부모 컨테이너는 새로 추가한 탭 페이지
             wbNewTab.Dock = DockStyle.Fill; // 부모 컨테이너에 도킹
-            wbNewTab.Navigate(homepage);   // 새 탭을 홈페이지로 이동
-            wbNewTab.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
+            wbNewTab = tabBrowser.SelectedTab.Controls[0] as WebBrowser;
+            wbNewTab.DocumentCompleted += wbBrowser_DocumentCompleted;    // 웹페이지 로드되면 주소창과 탭 이름 변경
             tp.Enter += tpTabPage_Enter;    // 탭 전환하면 주소창 Text 변경
         }
 
-        private void tpTabPage_Enter(object sender, EventArgs e)    // 탭 전환할 때
+        // 탭 전환할 때
+        private void tpTabPage_Enter(object sender, EventArgs e)
         {
             WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;  // 현재 선택된 탭의 웹브라우저 컨트롤 가져오기
             if (wb != null)
@@ -115,13 +136,8 @@ namespace GoraniBrowser
                 wb.Refresh();
         }
 
-        private void picHome_Click(object sender, EventArgs e)
-        {
-            /* 현재 탭 웹페이지 홈으로 이동 */
-            WebBrowser wb = tabBrowser.SelectedTab.Controls[0] as WebBrowser;
-            if (wb != null)
-                wb.Navigate(homepage);
-        }
+        /* 현재 탭 웹페이지 홈으로 이동 */
+        private void picHome_Click(object sender, EventArgs e) => GoWebSite(homepage);
 
         private void picBookmark_Click(object sender, EventArgs e)
         {
@@ -153,14 +169,9 @@ namespace GoraniBrowser
         }
 
         /* 아이콘 마우스 클릭 */
-        private void picButton_MouseDown(object sender, MouseEventArgs e)
-        {
-            ((PictureBox)sender).BackColor = Color.White;
-        }
-        private void picButton_MouseUp(object sender, MouseEventArgs e)
-        {
-            ((PictureBox)sender).BackColor = Color.Gainsboro;
-        }
+        private void picButton_MouseDown(object sender, MouseEventArgs e) => ((PictureBox)sender).BackColor = Color.White;
+
+        private void picButton_MouseUp(object sender, MouseEventArgs e) => ((PictureBox)sender).BackColor = Color.Gainsboro;
 
         // picMenu 클릭 시 ContextMenuStrip
         private void picMenu_Click(object sender, EventArgs e)
@@ -172,10 +183,7 @@ namespace GoraniBrowser
         }
 
         // picMenu ContextMenuStrip의 종료
-        private void tsmiClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        private void tsmiClose_Click(object sender, EventArgs e) => this.Close();
 
         // picMenu ContextMenuStrip의 인쇄
         private void tsmiPrint_Click(object sender, EventArgs e)
@@ -310,12 +318,8 @@ namespace GoraniBrowser
         // 즐겨찾기 구성 요소 클릭
         private void favoriteBox_Click(object sender, EventArgs e)
         {
-            WebBrowser wb = (WebBrowser)tabBrowser.SelectedTab.Controls[0];
-            
-            // 구성 요소를 선택했을 때
-            wb.Navigate(((PictureBox)sender).Tag.ToString()); // 새 탭을 즐겨찾기url주소로 이동
-            wb.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
             pnlBookmark.Visible = false;
+            GoWebSite(((PictureBox)sender).Tag.ToString());
         }
 
         // 오프라인 구성 요소 클릭
@@ -328,7 +332,6 @@ namespace GoraniBrowser
             newForm.wbBrowser.Navigate(new Uri("file:///" + setupPath + ((PictureBox)sender).Tag.ToString() + ".html")); // 새 탭을 HTML의 주소로 이동
             newForm.wbBrowser.DocumentCompleted += wbBrowser_DocumentCompleted;  // 웹페이지 로드되면 주소창과 탭 이름 변경
         }
-
 
         /* 북마크 내 툴바 메뉴 전환 */
         private void picFavorite_Click(object sender, EventArgs e)
@@ -381,5 +384,13 @@ namespace GoraniBrowser
             Bitmap image = Screenshot.Create(wb);
             image.Save(setupPath + "temp.jpg");
         }
+
+        private void lvwHistory_DoubleClick(object sender, EventArgs e)
+        {
+            GoWebSite(lvwHistory.Items[lvwHistory.FocusedItem.Index].SubItems[0].Text);
+            pnlBookmark.Visible = false;
+        }
+
+        private void tsmiHistoryClear_Click(object sender, EventArgs e) => lvwHistory.Items.Clear();
     }
 }

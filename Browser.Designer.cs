@@ -36,6 +36,14 @@
             this.pnlBookmark = new System.Windows.Forms.Panel();
             this.pnlFavorite = new System.Windows.Forms.Panel();
             this.pnlOffline = new System.Windows.Forms.Panel();
+            this.pnlHistory = new System.Windows.Forms.Panel();
+            this.lvwHistory = new System.Windows.Forms.ListView();
+            this.colURL = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.picHistory = new System.Windows.Forms.PictureBox();
+            this.picOfflinePage = new System.Windows.Forms.PictureBox();
+            this.picTabBundle = new System.Windows.Forms.PictureBox();
+            this.picFavorite = new System.Windows.Forms.PictureBox();
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.cmsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiNewTab = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,14 +53,11 @@
             this.tsmiAddBookmark = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSaveTab = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSaveOffline = new System.Windows.Forms.ToolStripMenuItem();
+            this.방문기록전부제거ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiClose = new System.Windows.Forms.ToolStripMenuItem();
-            this.picHistory = new System.Windows.Forms.PictureBox();
-            this.picOfflinePage = new System.Windows.Forms.PictureBox();
-            this.picTabBundle = new System.Windows.Forms.PictureBox();
-            this.picFavorite = new System.Windows.Forms.PictureBox();
             this.picNewTab = new System.Windows.Forms.PictureBox();
             this.picForward = new System.Windows.Forms.PictureBox();
             this.picMenu = new System.Windows.Forms.PictureBox();
@@ -64,11 +69,12 @@
             this.tabBrowser.SuspendLayout();
             this.tpTabPage.SuspendLayout();
             this.pnlBookmark.SuspendLayout();
-            this.cmsMenu.SuspendLayout();
+            this.pnlHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picOfflinePage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTabBundle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFavorite)).BeginInit();
+            this.cmsMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picNewTab)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picForward)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMenu)).BeginInit();
@@ -124,6 +130,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlBookmark.Controls.Add(this.pnlFavorite);
             this.pnlBookmark.Controls.Add(this.pnlOffline);
+            this.pnlBookmark.Controls.Add(this.pnlHistory);
             this.pnlBookmark.Controls.Add(this.picHistory);
             this.pnlBookmark.Controls.Add(this.picOfflinePage);
             this.pnlBookmark.Controls.Add(this.picTabBundle);
@@ -158,104 +165,44 @@
             this.pnlOffline.Size = new System.Drawing.Size(985, 501);
             this.pnlOffline.TabIndex = 2;
             // 
-            // txtUrl
+            // pnlHistory
             // 
-            this.txtUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.pnlHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUrl.Location = new System.Drawing.Point(145, 12);
-            this.txtUrl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(729, 25);
-            this.txtUrl.TabIndex = 0;
-            this.txtUrl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUrl_KeyDown);
+            this.pnlHistory.AutoScroll = true;
+            this.pnlHistory.Controls.Add(this.lvwHistory);
+            this.pnlHistory.Location = new System.Drawing.Point(0, 104);
+            this.pnlHistory.Name = "pnlHistory";
+            this.pnlHistory.Size = new System.Drawing.Size(985, 501);
+            this.pnlHistory.TabIndex = 16;
             // 
-            // cmsMenu
+            // lvwHistory
             // 
-            this.cmsMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiNewTab,
-            this.tsmiNewWindow,
-            this.toolStripSeparator1,
-            this.tsmiHomepage,
-            this.tsmiAddBookmark,
-            this.tsmiSaveTab,
-            this.tsmiSaveOffline,
-            this.toolStripSeparator2,
-            this.tsmiPrint,
-            this.toolStripSeparator3,
-            this.tsmiClose});
-            this.cmsMenu.Name = "picMenuctxtMenuStrip";
-            this.cmsMenu.Size = new System.Drawing.Size(204, 214);
+            this.lvwHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvwHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colURL,
+            this.colTime});
+            this.lvwHistory.FullRowSelect = true;
+            this.lvwHistory.Location = new System.Drawing.Point(30, 30);
+            this.lvwHistory.Name = "lvwHistory";
+            this.lvwHistory.Size = new System.Drawing.Size(925, 441);
+            this.lvwHistory.TabIndex = 0;
+            this.lvwHistory.UseCompatibleStateImageBehavior = false;
+            this.lvwHistory.View = System.Windows.Forms.View.Details;
+            this.lvwHistory.DoubleClick += new System.EventHandler(this.lvwHistory_DoubleClick);
             // 
-            // tsmiNewTab
+            // colURL
             // 
-            this.tsmiNewTab.Name = "tsmiNewTab";
-            this.tsmiNewTab.Size = new System.Drawing.Size(203, 24);
-            this.tsmiNewTab.Text = "새 탭(&T)";
-            this.tsmiNewTab.Click += new System.EventHandler(this.tsmiNewTab_Click);
+            this.colURL.Text = "웹페이지 URL";
+            this.colURL.Width = 400;
             // 
-            // tsmiNewWindow
+            // colTime
             // 
-            this.tsmiNewWindow.Name = "tsmiNewWindow";
-            this.tsmiNewWindow.Size = new System.Drawing.Size(203, 24);
-            this.tsmiNewWindow.Text = "새 창(&N)";
-            this.tsmiNewWindow.Click += new System.EventHandler(this.tsmiNewWindow_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(200, 6);
-            // 
-            // tsmiHomepage
-            // 
-            this.tsmiHomepage.Name = "tsmiHomepage";
-            this.tsmiHomepage.Size = new System.Drawing.Size(203, 24);
-            this.tsmiHomepage.Text = "홈페이지 변경";
-            this.tsmiHomepage.Click += new System.EventHandler(this.tsmiHomepage_Click);
-            // 
-            // tsmiAddBookmark
-            // 
-            this.tsmiAddBookmark.Name = "tsmiAddBookmark";
-            this.tsmiAddBookmark.Size = new System.Drawing.Size(203, 24);
-            this.tsmiAddBookmark.Text = "즐겨찾기 추가";
-            this.tsmiAddBookmark.Click += new System.EventHandler(this.tsmiAddBookmark_Click);
-            // 
-            // tsmiSaveTab
-            // 
-            this.tsmiSaveTab.Name = "tsmiSaveTab";
-            this.tsmiSaveTab.Size = new System.Drawing.Size(203, 24);
-            this.tsmiSaveTab.Text = "탭 저장";
-            // 
-            // tsmiSaveOffline
-            // 
-            this.tsmiSaveOffline.Name = "tsmiSaveOffline";
-            this.tsmiSaveOffline.Size = new System.Drawing.Size(203, 24);
-            this.tsmiSaveOffline.Text = "오프라인으로 저장";
-            this.tsmiSaveOffline.Click += new System.EventHandler(this.tsmiSaveOffline_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(200, 6);
-            // 
-            // tsmiPrint
-            // 
-            this.tsmiPrint.Name = "tsmiPrint";
-            this.tsmiPrint.Size = new System.Drawing.Size(203, 24);
-            this.tsmiPrint.Text = "인쇄(&P)";
-            this.tsmiPrint.Click += new System.EventHandler(this.tsmiPrint_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(200, 6);
-            // 
-            // tsmiClose
-            // 
-            this.tsmiClose.Name = "tsmiClose";
-            this.tsmiClose.Size = new System.Drawing.Size(203, 24);
-            this.tsmiClose.Text = "종료(&X)";
-            this.tsmiClose.Click += new System.EventHandler(this.tsmiClose_Click);
+            this.colTime.Text = "방문 시간";
+            this.colTime.Width = 400;
             // 
             // picHistory
             // 
@@ -304,6 +251,113 @@
             this.picFavorite.TabIndex = 2;
             this.picFavorite.TabStop = false;
             this.picFavorite.Click += new System.EventHandler(this.picFavorite_Click);
+            // 
+            // txtUrl
+            // 
+            this.txtUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtUrl.Location = new System.Drawing.Point(145, 12);
+            this.txtUrl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtUrl.Name = "txtUrl";
+            this.txtUrl.Size = new System.Drawing.Size(729, 25);
+            this.txtUrl.TabIndex = 0;
+            this.txtUrl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUrl_KeyDown);
+            // 
+            // cmsMenu
+            // 
+            this.cmsMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiNewTab,
+            this.tsmiNewWindow,
+            this.toolStripSeparator1,
+            this.tsmiHomepage,
+            this.tsmiAddBookmark,
+            this.tsmiSaveTab,
+            this.tsmiSaveOffline,
+            this.방문기록전부제거ToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.tsmiPrint,
+            this.toolStripSeparator3,
+            this.tsmiClose});
+            this.cmsMenu.Name = "picMenuctxtMenuStrip";
+            this.cmsMenu.Size = new System.Drawing.Size(209, 238);
+            // 
+            // tsmiNewTab
+            // 
+            this.tsmiNewTab.Name = "tsmiNewTab";
+            this.tsmiNewTab.Size = new System.Drawing.Size(208, 24);
+            this.tsmiNewTab.Text = "새 탭(&T)";
+            this.tsmiNewTab.Click += new System.EventHandler(this.tsmiNewTab_Click);
+            // 
+            // tsmiNewWindow
+            // 
+            this.tsmiNewWindow.Name = "tsmiNewWindow";
+            this.tsmiNewWindow.Size = new System.Drawing.Size(208, 24);
+            this.tsmiNewWindow.Text = "새 창(&N)";
+            this.tsmiNewWindow.Click += new System.EventHandler(this.tsmiNewWindow_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(205, 6);
+            // 
+            // tsmiHomepage
+            // 
+            this.tsmiHomepage.Name = "tsmiHomepage";
+            this.tsmiHomepage.Size = new System.Drawing.Size(208, 24);
+            this.tsmiHomepage.Text = "홈페이지 변경";
+            this.tsmiHomepage.Click += new System.EventHandler(this.tsmiHomepage_Click);
+            // 
+            // tsmiAddBookmark
+            // 
+            this.tsmiAddBookmark.Name = "tsmiAddBookmark";
+            this.tsmiAddBookmark.Size = new System.Drawing.Size(208, 24);
+            this.tsmiAddBookmark.Text = "즐겨찾기 추가";
+            this.tsmiAddBookmark.Click += new System.EventHandler(this.tsmiAddBookmark_Click);
+            // 
+            // tsmiSaveTab
+            // 
+            this.tsmiSaveTab.Name = "tsmiSaveTab";
+            this.tsmiSaveTab.Size = new System.Drawing.Size(208, 24);
+            this.tsmiSaveTab.Text = "탭 저장";
+            // 
+            // tsmiSaveOffline
+            // 
+            this.tsmiSaveOffline.Name = "tsmiSaveOffline";
+            this.tsmiSaveOffline.Size = new System.Drawing.Size(208, 24);
+            this.tsmiSaveOffline.Text = "오프라인으로 저장";
+            this.tsmiSaveOffline.Click += new System.EventHandler(this.tsmiSaveOffline_Click);
+            // 
+            // 방문기록전부제거ToolStripMenuItem
+            // 
+            this.방문기록전부제거ToolStripMenuItem.Name = "방문기록전부제거ToolStripMenuItem";
+            this.방문기록전부제거ToolStripMenuItem.Size = new System.Drawing.Size(208, 24);
+            this.방문기록전부제거ToolStripMenuItem.Text = "방문기록 전부 삭제";
+            this.방문기록전부제거ToolStripMenuItem.Click += new System.EventHandler(this.tsmiHistoryClear_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(205, 6);
+            // 
+            // tsmiPrint
+            // 
+            this.tsmiPrint.Name = "tsmiPrint";
+            this.tsmiPrint.Size = new System.Drawing.Size(208, 24);
+            this.tsmiPrint.Text = "인쇄(&P)";
+            this.tsmiPrint.Click += new System.EventHandler(this.tsmiPrint_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(205, 6);
+            // 
+            // tsmiClose
+            // 
+            this.tsmiClose.Name = "tsmiClose";
+            this.tsmiClose.Size = new System.Drawing.Size(208, 24);
+            this.tsmiClose.Text = "종료(&X)";
+            this.tsmiClose.Click += new System.EventHandler(this.tsmiClose_Click);
             // 
             // picNewTab
             // 
@@ -463,11 +517,12 @@
             this.tabBrowser.ResumeLayout(false);
             this.tpTabPage.ResumeLayout(false);
             this.pnlBookmark.ResumeLayout(false);
-            this.cmsMenu.ResumeLayout(false);
+            this.pnlHistory.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picHistory)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picOfflinePage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTabBundle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFavorite)).EndInit();
+            this.cmsMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picNewTab)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picForward)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMenu)).EndInit();
@@ -513,6 +568,11 @@
         private System.Windows.Forms.PictureBox picTabBundle;
         private System.Windows.Forms.PictureBox picFavorite;
         private System.Windows.Forms.Panel pnlOffline;
+        private System.Windows.Forms.Panel pnlHistory;
+        private System.Windows.Forms.ListView lvwHistory;
+        private System.Windows.Forms.ColumnHeader colURL;
+        private System.Windows.Forms.ColumnHeader colTime;
+        private System.Windows.Forms.ToolStripMenuItem 방문기록전부제거ToolStripMenuItem;
     }
 }
 
