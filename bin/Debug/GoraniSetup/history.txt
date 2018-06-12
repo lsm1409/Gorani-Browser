@@ -1,0 +1,15 @@
+Google
+https://www.google.com/
+19시 44분 53초 (2018-06-12)
+로그인 - Google 계정
+https://accounts.google.com/ServiceLogin?hl=ko&passive=true&continue=https://www.google.com/
+19시 44분 58초 (2018-06-12)
+로그인 - Google 계정
+https://accounts.google.com/signin/v2/sl/pwd?hl=ko&passive=true&continue=https:%2F%2Fwww.google.com%2F&flowName=GlifWebSignIn&flowEntry=ServiceLogin
+19시 44분 59초 (2018-06-12)
+Google 계정
+https://accounts.google.com/CheckCookie?hl=ko&checkedDomains=youtube&checkConnection=youtube:345:1&pstMsg=1&chtml=LoginDoneHtml&continue=https:%2F%2Fwww.google.com%2F&gidl=EgIIAA
+19시 45분 09초 (2018-06-12)
+Google
+https://www.google.com/
+19시 45분 10초 (2018-06-12)
