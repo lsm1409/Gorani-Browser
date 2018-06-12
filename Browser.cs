@@ -22,6 +22,17 @@ namespace GoraniBrowser
 
         public frmGoraniBrowser()
         {
+            if (Environment.Is64BitOperatingSystem)
+            {
+                Microsoft.Win32.Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION", Application.ProductName + ".exe", 11001);
+                Microsoft.Win32.Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION", Application.ProductName + ".vshost.exe", 11001);
+            }
+            else
+            {
+                Microsoft.Win32.Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION", Application.ProductName + ".exe", 11001);
+                Microsoft.Win32.Registry.SetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION", Application.ProductName + ".vshost.exe", 11001);
+            }
+
             InitializeComponent();
             wbBrowser.ScriptErrorsSuppressed = true;    // 자바 스크립트 오류 창 안뜨게하기
             GoWebSite(homepage);
@@ -140,7 +151,8 @@ namespace GoraniBrowser
         // 방문 기록 추가
         private void AddHistory()
         {
-            ListViewItem lvt = new ListViewItem(txtUrl.Text);
+            ListViewItem lvt = new ListViewItem(tabBrowser.SelectedTab.Text);
+            lvt.SubItems.Add(txtUrl.Text);
             lvt.SubItems.Add(DateTime.Now.ToString("HH시 mm분 ss초 (yyyy-MM-dd)"));
             lvwHistory.Items.Add(lvt);
         }
@@ -151,7 +163,7 @@ namespace GoraniBrowser
             tabBrowser.SelectedTab.Text = ((WebBrowser)sender).DocumentTitle; // 탭 제목 Text 변경
             pnlBookmark.Visible = false;
 
-            if (lvwHistory.Items[lvwHistory.Items.Count - 1].SubItems[0].Text != txtUrl.Text)
+            if (lvwHistory.Items[lvwHistory.Items.Count - 1].SubItems[1].Text != txtUrl.Text)
                 AddHistory();
         }
 
