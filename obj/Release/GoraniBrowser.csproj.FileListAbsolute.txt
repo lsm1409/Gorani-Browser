@@ -8,3 +8,15 @@ C:\Users\User\Desktop\Gorani-Browser\obj\Release\GoraniBrowser.Properties.Resour
 C:\Users\User\Desktop\Gorani-Browser\obj\Release\GoraniBrowser.csproj.GenerateResource.Cache
 C:\Users\User\Desktop\Gorani-Browser\obj\Release\GoraniBrowser.exe
 C:\Users\User\Desktop\Gorani-Browser\obj\Release\GoraniBrowser.pdb
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\bin\Release\GoraniBrowser.exe.config
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Release\GoraniBrowser.exe
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Release\GoraniBrowser.pdb
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\bin\Release\GoraniBrowser.exe
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\bin\Release\GoraniBrowser.pdb
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Release\GoraniBrowser.frmSaveOffline.resources
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Release\GoraniBrowser.frmSaveTabBundle.resources
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Release\GoraniBrowser.frmGoraniBrowser.resources
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Release\GoraniBrowser.frmAddFavorite.resources
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Release\GoraniBrowser.frmHomepage.resources
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Release\GoraniBrowser.Properties.Resources.resources
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Release\GoraniBrowser.csproj.GenerateResource.Cache

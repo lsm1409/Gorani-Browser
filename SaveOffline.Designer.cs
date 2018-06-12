@@ -88,7 +88,7 @@
             // picOffline
             // 
             this.picOffline.Image = global::GoraniBrowser.Properties.Resources.Offine;
-            this.picOffline.Location = new System.Drawing.Point(12, 30);
+            this.picOffline.Location = new System.Drawing.Point(12, 25);
             this.picOffline.Name = "picOffline";
             this.picOffline.Size = new System.Drawing.Size(90, 87);
             this.picOffline.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -97,6 +97,7 @@
             // 
             // frmSaveOffline
             // 
+            this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
