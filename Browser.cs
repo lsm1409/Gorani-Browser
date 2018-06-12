@@ -70,6 +70,9 @@ namespace GoraniBrowser
                             box.pic.Location = new Point(20 + favoriteCount / 2 * 380, 380);
                         box.name.Location = new Point(box.pic.Location.X, box.pic.Location.Y - 25);
                         box.pic.Click += new EventHandler(favoriteBox_Click);   // 이미지 클릭 시 페이지 이동 핸들러 발동
+                        box.name.MouseEnter += new EventHandler(boxName_MouseEnter);
+                        box.name.MouseLeave += new EventHandler(boxName_MouseLeave);
+                        box.name.Click += delegate { FavoriteRemove(box); };    // 이름 누르면 삭제
                         favoriteCount++;
                         // 컨트롤에 추가
                         pnlFavorite.Controls.Add(box.name);
@@ -101,7 +104,10 @@ namespace GoraniBrowser
                             box.list.Location = new Point(20 + TabBundleCount / 2 * 380, 405);
                         }
                         box.name.Location = new Point(box.list.Location.X, box.list.Location.Y - 25);
-                        box.list.Click += new EventHandler(tabBundleBox_Click);
+                        box.list.Click += new EventHandler(tabBundleBox_Click);   // 이미지 클릭 시 페이지 이동 핸들러 발동
+                        box.name.MouseEnter += new EventHandler(boxName_MouseEnter);
+                        box.name.MouseLeave += new EventHandler(boxName_MouseLeave);
+                        box.name.Click += delegate { TabBundleRemove(box); };    // 이름 누르면 삭제
                         TabBundleCount++;
                         pnlTabBundle.Controls.Add(box.list);
                         pnlTabBundle.Controls.Add(box.name);
@@ -129,6 +135,9 @@ namespace GoraniBrowser
                             box.pic.Location = new Point(20 + offlineCount / 2 * 380, 380);
                         box.name.Location = new Point(box.pic.Location.X, box.pic.Location.Y - 25);
                         box.pic.Click += new EventHandler(offlineBox_Click);    // 이미지 클릭 시 페이지 이동 핸들러 발동
+                        box.name.MouseEnter += new EventHandler(boxName_MouseEnter);
+                        box.name.MouseLeave += new EventHandler(boxName_MouseLeave);
+                        box.name.Click += delegate { OfflinePageRemove(box); };    // 이름 누르면 삭제
                         offlineCount++;
                         pnlOffline.Controls.Add(box.name);
                         pnlOffline.Controls.Add(box.pic);
@@ -387,7 +396,10 @@ namespace GoraniBrowser
                     else
                         box.pic.Location = new Point(20 + favoriteCount / 2 * 380, 380);
                     box.name.Location = new Point(box.pic.Location.X, box.pic.Location.Y - 25);
-                    box.pic.Click += new EventHandler(favoriteBox_Click);
+                    box.pic.Click += new EventHandler(favoriteBox_Click);   // 이미지 클릭 시 페이지 이동 핸들러 발동
+                    box.name.MouseEnter += new EventHandler(boxName_MouseEnter);
+                    box.name.MouseLeave += new EventHandler(boxName_MouseLeave);
+                    box.name.Click += delegate { FavoriteRemove(box); };    // 이름 누르면 삭제
                     favoriteCount++;
                     pnlFavorite.Controls.Add(box.name);
                     pnlFavorite.Controls.Add(box.pic);
@@ -425,7 +437,10 @@ namespace GoraniBrowser
                     else
                         box.pic.Location = new Point(20 + offlineCount / 2 * 380, 380);
                     box.name.Location = new Point(box.pic.Location.X, box.pic.Location.Y - 25);
-                    box.pic.Click += new EventHandler(offlineBox_Click);
+                    box.pic.Click += new EventHandler(offlineBox_Click);   // 이미지 클릭 시 페이지 이동 핸들러 발동
+                    box.name.MouseEnter += new EventHandler(boxName_MouseEnter);
+                    box.name.MouseLeave += new EventHandler(boxName_MouseLeave);
+                    box.name.Click += delegate { OfflinePageRemove(box); };    // 이름 누르면 삭제
                     offlineCount++;
                     pnlOffline.Controls.Add(box.name);
                     pnlOffline.Controls.Add(box.pic);
@@ -473,7 +488,10 @@ namespace GoraniBrowser
                     }
 
                     box.name.Location = new Point(box.list.Location.X, box.list.Location.Y - 25);
-                    box.list.Click += new EventHandler(tabBundleBox_Click);
+                    box.list.Click += new EventHandler(tabBundleBox_Click);   // 이미지 클릭 시 페이지 이동 핸들러 발동
+                    box.name.MouseEnter += new EventHandler(boxName_MouseEnter);
+                    box.name.MouseLeave += new EventHandler(boxName_MouseLeave);
+                    box.name.Click += delegate { TabBundleRemove(box); };    // 이름 누르면 삭제
                     TabBundleCount++;
                     pnlTabBundle.Controls.Add(box.list);
                     pnlTabBundle.Controls.Add(box.name);
@@ -494,6 +512,7 @@ namespace GoraniBrowser
             GoWebSite(((PictureBox)sender).Tag.ToString());
         }
 
+        // 탭 묶음 구성 요소 클릭
         private void tabBundleBox_Click(object sender, EventArgs e)
         {
             pnlBookmark.Visible = false;
@@ -600,6 +619,65 @@ namespace GoraniBrowser
             lvwHistory.Items.Clear();
             File.WriteAllText(setupPath + "history.txt", "");
             AddHistory();
+        }
+
+        // 북마크 Box UI 요소의 이름에 마우스 커서 올렸을 때
+        private void boxName_MouseEnter(object sender, EventArgs s)
+        {
+            Label name = sender as Label;
+            name.Text += "✘";
+            name.ForeColor = Color.Red;
+            name.Cursor = Cursors.Hand;
+        }
+
+        // 북마크 Box UI 요소의 이름에서 마우스 커서 빠져나올 때
+        private void boxName_MouseLeave(object sender, EventArgs s)
+        {
+            Label name = sender as Label;
+            name.Text = name.Text.Substring(0, name.Text.Length - 1);
+            name.ForeColor = Color.Black;
+            name.Cursor = Cursors.Default;
+        }
+
+        // 즐겨찾기 파일 및 컨트롤 삭제
+        private void FavoriteRemove(PageBox box)
+        {
+            string fileName = box.name.Text.Substring(0, box.name.Text.Length - 1);
+            box.pic.Image = null;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            box.name.Dispose();
+            box.pic.Dispose();
+            File.Delete(setupPath + "Favorite\\" + fileName + ".jpg");
+            File.Delete(setupPath + "Favorite\\" + fileName + ".txt");
+        }
+
+        // 탭 묶음 파일 및 컨트롤 삭제
+        private void TabBundleRemove(TabBox box)
+        {
+            string fileName = box.name.Text.Substring(0, box.name.Text.Length - 1);
+            box.list.Text = null;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            box.back1.Dispose();
+            box.back2.Dispose();
+            box.name.Dispose();
+            box.list.Dispose();
+            File.Delete(setupPath + "TabBundle\\" + fileName + "URL.txt");
+            File.Delete(setupPath + "TabBundle\\" + fileName + ".txt");
+        }
+
+        // 오프라인 페이지 파일 및 컨트롤 삭제
+        private void OfflinePageRemove(PageBox box)
+        {
+            string fileName = box.name.Text.Substring(2, box.name.Text.Length - 3);
+            box.pic.Image = null;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            box.name.Dispose();
+            box.pic.Dispose();
+            File.Delete(setupPath + "OfflinePage\\" + fileName + ".jpg");
+            File.Delete(setupPath + "OfflinePage\\" + fileName + ".html");
         }
     }
 }

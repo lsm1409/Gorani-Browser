@@ -12,3 +12,16 @@ C:\Users\lsm14\Documents\GitHub\Gorani-Browser\obj\Debug\GoraniBrowser.csproj.Ge
 C:\Users\lsm14\Documents\GitHub\Gorani-Browser\obj\Debug\GoraniBrowser.csproj.CoreCompileInputs.cache
 C:\Users\lsm14\Documents\GitHub\Gorani-Browser\obj\Debug\GoraniBrowser.exe
 C:\Users\lsm14\Documents\GitHub\Gorani-Browser\obj\Debug\GoraniBrowser.pdb
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\bin\Debug\GoraniBrowser.exe.config
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Debug\GoraniBrowser.pdb
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\bin\Debug\GoraniBrowser.exe
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\bin\Debug\GoraniBrowser.pdb
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Debug\GoraniBrowser.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Debug\GoraniBrowser.frmSaveOffline.resources
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Debug\GoraniBrowser.frmSaveTabBundle.resources
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Debug\GoraniBrowser.frmGoraniBrowser.resources
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Debug\GoraniBrowser.frmAddFavorite.resources
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Debug\GoraniBrowser.frmHomepage.resources
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Debug\GoraniBrowser.Properties.Resources.resources
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Debug\GoraniBrowser.csproj.GenerateResource.Cache
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Debug\GoraniBrowser.exe

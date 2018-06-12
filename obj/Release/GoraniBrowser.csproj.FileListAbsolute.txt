@@ -20,3 +20,4 @@ C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Release\GoraniBr
 C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Release\GoraniBrowser.frmHomepage.resources
 C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Release\GoraniBrowser.Properties.Resources.resources
 C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Release\GoraniBrowser.csproj.GenerateResource.Cache
+C:\Users\User\Documents\GitHub\GoraniBrowser\Gorani-Browser\obj\Release\GoraniBrowser.csprojResolveAssemblyReference.cache
