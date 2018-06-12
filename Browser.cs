@@ -174,6 +174,7 @@ namespace GoraniBrowser
             wbNewTab.Parent = tp;  // 해당 웹브라우저의 부모 컨테이너는 새로 추가한 탭 페이지
             wbNewTab.Dock = DockStyle.Fill; // 부모 컨테이너에 도킹
             wbNewTab = tabBrowser.SelectedTab.Controls[0] as WebBrowser;
+            wbNewTab.Navigate(homepage);
             wbNewTab.DocumentCompleted += wbBrowser_DocumentCompleted;    // 웹페이지 로드되면 주소창과 탭 이름 변경
             tp.Enter += tpTabPage_Enter;    // 탭 전환하면 주소창 Text 변경
         }
@@ -520,6 +521,7 @@ namespace GoraniBrowser
             pnlFavorite.Visible = true;
             pnlTabBundle.Visible = false;
             pnlOffline.Visible = false;
+            pnlHistory.Visible = false;
         }
 
         private void picTabBundle_Click(object sender, EventArgs e)
@@ -532,6 +534,7 @@ namespace GoraniBrowser
             pnlFavorite.Visible = false;
             pnlTabBundle.Visible = true;
             pnlOffline.Visible = false;
+            pnlHistory.Visible = false;
         }
 
         private void picOfflinePage_Click(object sender, EventArgs e)
@@ -544,6 +547,7 @@ namespace GoraniBrowser
             pnlFavorite.Visible = false;
             pnlTabBundle.Visible = false;
             pnlOffline.Visible = true;
+            pnlHistory.Visible = false;
         }
 
         private void picHistory_Click(object sender, EventArgs e)
@@ -556,6 +560,7 @@ namespace GoraniBrowser
             pnlFavorite.Visible = false;
             pnlTabBundle.Visible = false;
             pnlOffline.Visible = false;
+            pnlHistory.Visible = true;
         }
 
         private void lvwHistory_DoubleClick(object sender, EventArgs e)
