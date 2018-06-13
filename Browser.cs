@@ -35,6 +35,8 @@ namespace GoraniBrowser
                 di.Create();
                 di = new DirectoryInfo(setupPath + "TabBundle\\");
                 di.Create();
+                di = new DirectoryInfo(setupPath + "Screencapture\\");
+                di.Create();
                 File.WriteAllText(setupPath + "homepage.txt", "https://www.google.com/"); // 첫 홈페이지 구글로 초기화
             }
             else
@@ -584,9 +586,22 @@ namespace GoraniBrowser
 
         private void picMemo_Click(object sender, EventArgs e)
         {
-            frmScreencapture frm = new frmScreencapture();
+            frmScreencapture frm = new frmScreencapture();    
             WebBrowser wb = (WebBrowser)tabBrowser.SelectedTab.Controls[0];
-            frm.ShowDialog();
+            try
+            {
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    Bitmap img = Screenshot.Create(wb);
+                    img.Save(setupPath + "Screencapture\\" + "1" + ".jpg");
+                    frm.picboxScrnImg = img;
+                    frm.Show();
+                }    
+            }
+            catch
+            {
+                MessageBox.Show("저장에 실패했습니다. 이름을 확인하세요.");
+            }
         }
     }
 }

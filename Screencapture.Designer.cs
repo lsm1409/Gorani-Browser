@@ -55,52 +55,67 @@
             this.파일ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1139, 33);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
+            this.menuStrip1.Size = new System.Drawing.Size(797, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // 파일ToolStripMenuItem
             // 
             this.파일ToolStripMenuItem.Name = "파일ToolStripMenuItem";
-            this.파일ToolStripMenuItem.Size = new System.Drawing.Size(60, 29);
+            this.파일ToolStripMenuItem.Size = new System.Drawing.Size(43, 22);
             this.파일ToolStripMenuItem.Text = "파일";
             // 
             // trackBar
             // 
-            this.trackBar.Location = new System.Drawing.Point(318, 3);
+            this.trackBar.Location = new System.Drawing.Point(223, 2);
+            this.trackBar.Maximum = 50;
+            this.trackBar.Minimum = 1;
+            this.trackBar.Margin = new System.Windows.Forms.Padding(2);
             this.trackBar.Name = "trackBar";
-            this.trackBar.Size = new System.Drawing.Size(104, 69);
+            this.trackBar.Size = new System.Drawing.Size(73, 45);
+            this.trackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar.Value = 1;
             this.trackBar.TabIndex = 7;
             this.trackBar.Scroll += new System.EventHandler(this.trackBar_Scroll);
             // 
             // ShowColor
             // 
             this.ShowColor.BackColor = System.Drawing.Color.Black;
-            this.ShowColor.Location = new System.Drawing.Point(428, 3);
+            this.ShowColor.Location = new System.Drawing.Point(300, 2);
+            this.ShowColor.Margin = new System.Windows.Forms.Padding(2);
             this.ShowColor.Name = "ShowColor";
-            this.ShowColor.Size = new System.Drawing.Size(75, 36);
+            this.ShowColor.Size = new System.Drawing.Size(52, 24);
             this.ShowColor.TabIndex = 8;
+            this.ShowColor.Click += new System.EventHandler(this.ShowColor_Click);
             // 
             // btnColor
             // 
-            this.btnColor.Location = new System.Drawing.Point(428, 47);
+            this.btnColor.Location = new System.Drawing.Point(300, 31);
+            this.btnColor.Margin = new System.Windows.Forms.Padding(2);
             this.btnColor.Name = "btnColor";
-            this.btnColor.Size = new System.Drawing.Size(75, 25);
+            this.btnColor.Size = new System.Drawing.Size(52, 25);
             this.btnColor.TabIndex = 0;
             this.btnColor.Text = "색";
             this.btnColor.UseVisualStyleBackColor = true;
+            this.btnColor.Click += new System.EventHandler(this.btnColor_Click);
             // 
             // picboxScrn
             // 
             this.picboxScrn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.picboxScrn.Location = new System.Drawing.Point(12, 129);
+            this.picboxScrn.Location = new System.Drawing.Point(8, 86);
+            this.picboxScrn.Margin = new System.Windows.Forms.Padding(2);
             this.picboxScrn.Name = "picboxScrn";
-            this.picboxScrn.Size = new System.Drawing.Size(1115, 417);
-            this.picboxScrn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picboxScrn.Size = new System.Drawing.Size(780, 362);
             this.picboxScrn.TabIndex = 0;
             this.picboxScrn.TabStop = false;
+            this.picboxScrn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picboxScrn_MouseDown);
+            this.picboxScrn.MouseEnter += new System.EventHandler(this.picboxScrn_MouseEnter);
+            this.picboxScrn.MouseLeave += new System.EventHandler(this.picboxScrn_MouseLeave);
+            this.picboxScrn.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picboxScrn_MouseMove);
+            this.picboxScrn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picboxScrn_MouseUp);
             // 
             // panel1
             // 
@@ -115,71 +130,86 @@
             this.panel1.Controls.Add(this.btnColor);
             this.panel1.Controls.Add(this.ShowColor);
             this.panel1.Controls.Add(this.trackBar);
-            this.panel1.Location = new System.Drawing.Point(12, 36);
+            this.panel1.Location = new System.Drawing.Point(8, 24);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1115, 87);
+            this.panel1.Size = new System.Drawing.Size(780, 58);
             this.panel1.TabIndex = 10;
             // 
             // btnSave
             // 
             this.btnSave.BackgroundImage = global::GoraniBrowser.Properties.Resources.Save;
             this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSave.Location = new System.Drawing.Point(615, 0);
+            this.btnSave.Location = new System.Drawing.Point(430, 0);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(100, 70);
+            this.btnSave.Size = new System.Drawing.Size(70, 56);
             this.btnSave.TabIndex = 14;
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnPaint
             // 
+            this.btnPaint.BackColor = System.Drawing.SystemColors.Control;
             this.btnPaint.BackgroundImage = global::GoraniBrowser.Properties.Resources.Paint;
             this.btnPaint.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnPaint.Location = new System.Drawing.Point(509, 0);
+            this.btnPaint.Location = new System.Drawing.Point(356, 0);
+            this.btnPaint.Margin = new System.Windows.Forms.Padding(2);
             this.btnPaint.Name = "btnPaint";
-            this.btnPaint.Size = new System.Drawing.Size(100, 72);
+            this.btnPaint.Size = new System.Drawing.Size(70, 56);
             this.btnPaint.TabIndex = 13;
-            this.btnPaint.UseVisualStyleBackColor = true;
+            this.btnPaint.UseVisualStyleBackColor = false;
+            this.btnPaint.Click += new System.EventHandler(this.btnPaint_Click);
             // 
             // btnRectangle
             // 
             this.btnRectangle.BackgroundImage = global::GoraniBrowser.Properties.Resources.Shapemode;
             this.btnRectangle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnRectangle.Location = new System.Drawing.Point(215, 2);
+            this.btnRectangle.Location = new System.Drawing.Point(150, 1);
+            this.btnRectangle.Margin = new System.Windows.Forms.Padding(2);
             this.btnRectangle.Name = "btnRectangle";
-            this.btnRectangle.Size = new System.Drawing.Size(103, 69);
+            this.btnRectangle.Size = new System.Drawing.Size(72, 55);
             this.btnRectangle.TabIndex = 12;
-            this.btnRectangle.UseVisualStyleBackColor = true;
+            this.btnRectangle.UseVisualStyleBackColor = false;
+            this.btnRectangle.Click += new System.EventHandler(this.btnRectangle_Click);
             // 
             // btnEraser
             // 
+            this.btnEraser.BackColor = System.Drawing.SystemColors.Control;
             this.btnEraser.BackgroundImage = global::GoraniBrowser.Properties.Resources.Rubber;
             this.btnEraser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnEraser.Location = new System.Drawing.Point(109, 3);
+            this.btnEraser.Location = new System.Drawing.Point(76, 2);
+            this.btnEraser.Margin = new System.Windows.Forms.Padding(2);
             this.btnEraser.Name = "btnEraser";
-            this.btnEraser.Size = new System.Drawing.Size(100, 67);
+            this.btnEraser.Size = new System.Drawing.Size(70, 54);
             this.btnEraser.TabIndex = 11;
-            this.btnEraser.UseVisualStyleBackColor = true;
+            this.btnEraser.UseVisualStyleBackColor = false;
+            this.btnEraser.Click += new System.EventHandler(this.btnEraser_Click);
             // 
             // btnDrawing
             // 
+            this.btnDrawing.BackColor = System.Drawing.SystemColors.Control;
             this.btnDrawing.BackgroundImage = global::GoraniBrowser.Properties.Resources.Pencil;
             this.btnDrawing.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnDrawing.Location = new System.Drawing.Point(3, 3);
+            this.btnDrawing.Location = new System.Drawing.Point(2, 2);
+            this.btnDrawing.Margin = new System.Windows.Forms.Padding(2);
             this.btnDrawing.Name = "btnDrawing";
-            this.btnDrawing.Size = new System.Drawing.Size(100, 67);
+            this.btnDrawing.Size = new System.Drawing.Size(70, 54);
             this.btnDrawing.TabIndex = 10;
-            this.btnDrawing.UseVisualStyleBackColor = true;
+            this.btnDrawing.UseVisualStyleBackColor = false;
+            this.btnDrawing.Click += new System.EventHandler(this.btnDrawing_Click);
             // 
             // frmScreencapture
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1139, 551);
+            this.ClientSize = new System.Drawing.Size(797, 451);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.picboxScrn);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmScreencapture";
             this.Text = "스크린캡쳐";
             this.menuStrip1.ResumeLayout(false);

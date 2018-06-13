@@ -26,6 +26,18 @@ namespace GoraniBrowser
 
     public partial class frmScreencapture : Form
     {
+        public Image picboxScrnImg
+        {
+            get
+            {
+                return picboxScrn.Image;
+            }
+            set
+            {
+                picboxScrn.Image = value;
+            }
+        }
+
         public frmScreencapture()
         {
             InitializeComponent();
@@ -108,11 +120,6 @@ namespace GoraniBrowser
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void btnDrawing_Click(object sender, EventArgs e)
-        {
-            SetDrawMode((int)DRAW_MODE.PENMODE);
         }
 
         private void btnRectangle_Click(object sender, EventArgs e)
@@ -256,6 +263,11 @@ namespace GoraniBrowser
         private void trackBar_Scroll(object sender, EventArgs e)
         {
             curLineSize = trackBar.Value;
+        }
+
+        private void btnDrawing_Click(object sender, EventArgs e)
+        {
+            SetDrawMode((int)DRAW_MODE.PENMODE);
         }
     }
 }
