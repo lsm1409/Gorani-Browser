@@ -609,7 +609,7 @@ namespace GoraniBrowser
         // 방문 기록 더블 클릭 시 이동
         private void lvwHistory_DoubleClick(object sender, EventArgs e)
         {
-            GoWebSite(lvwHistory.Items[lvwHistory.FocusedItem.Index].SubItems[0].Text);
+            GoWebSite(lvwHistory.Items[lvwHistory.FocusedItem.Index].SubItems[1].Text);
             pnlBookmark.Visible = false;
         }
 
