@@ -590,13 +590,10 @@ namespace GoraniBrowser
             WebBrowser wb = (WebBrowser)tabBrowser.SelectedTab.Controls[0];
             try
             {
-                if (frm.ShowDialog() == DialogResult.OK)
-                {
                     Bitmap img = Screenshot.Create(wb);
                     img.Save(setupPath + "Screencapture\\" + "1" + ".jpg");
                     frm.picboxScrnImg = img;
                     frm.Show();
-                }    
             }
             catch
             {

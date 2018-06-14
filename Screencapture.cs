@@ -30,11 +30,11 @@ namespace GoraniBrowser
         {
             get
             {
-                return picboxScrn.Image;
+                return panel2.BackgroundImage;
             }
             set
             {
-                picboxScrn.Image = value;
+                panel2.BackgroundImage = value;
             }
         }
 
@@ -134,7 +134,7 @@ namespace GoraniBrowser
 
         private void btnEraser_Click(object sender, EventArgs e)
         {
-            SetDrawMode((int)DRAW_MODE.ERASERMODE);
+            picboxScrn.Hide();
         }
 
         private void btnColor_Click(object sender, EventArgs e)
@@ -162,7 +162,7 @@ namespace GoraniBrowser
         private void btnSave_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.FileName = "paint1.png";
+            saveFileDialog.FileName = "1.jpg";
             saveFileDialog.Filter = "PNG File|*.png|Bitmap File|*.bmp|JPEG File|*.jpg";
 
             if (picboxScrn.Image == null)
