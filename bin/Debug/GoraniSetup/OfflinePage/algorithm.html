@@ -1,0 +1,1583 @@
+﻿<html><head>
+<title>:: KwangWoon University U-Learning System ::</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="/images/kw_favicon.ico" rel="shortcut icon">
+<link href="/css/kwu_style.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	BODY { MARGIN:0;}
+</style>
+<script language="javascript" src="/jsp/include/common.js"></script>
+<script language="javascript" src="/jsp/include/prototype.js"></script>
+<script>document.domain="kw.ac.kr";</script>
+<script type="text/javascript">
+if (/MSIE/.test(navigator.userAgent)) {
+  document.onreadystatechange = callResizeFrame;
+}
+    
+function callResizeFrame() {
+  try {
+    if (parent!=this) {
+      top.M.resizeFrame();
+    }
+  }catch (e) {}
+}
+</script>
+<script language="javascript">
+var KwuObject = Class.create();
+KwuObject.prototype = {
+    initialize: function(form) {
+        this.form = form;
+        this.grcode = "";
+        this.gate = "";
+        this.year = "";
+        this.subjseq = "";
+        this.subj = "";
+        this.class_ = "";
+        this.userid = "";
+        this.olduserid = "";
+        this.auth = "";
+        this.oldYear = "";
+        this.oldSubjseq = "";
+        this.reloadCount = 0;
+        this.navStr = "";
+
+        this.arrSubjCode = {};
+    },
+    resizeFrame: function() {
+        //$("content_").style.visibility = "";
+        var min_h = 600;
+
+        var oIFrame = document.getElementById("content_");
+
+        try {          
+          
+          var oDoc = oIFrame.contentDocument || oIFrame.contentWindow.document;        
+
+          if (/MSIE/.test(navigator.userAgent)) {
+            var frmHeight = oDoc.body.scrollHeight;
+          } else {
+            var s = oDoc.body.appendChild(document.createElement('DIV'))
+            s.style.clear = 'both';
+
+            var frmHeight = s.offsetTop;
+            s.parentNode.removeChild(s);
+          }         
+
+          if (frmHeight < min_h) frmHeight = min_h;
+
+          oIFrame.style.height = frmHeight+10;
+
+        } catch (e) { }
+    },
+    setSubjCode: function(strYear, strSubj) {
+
+        if (this.year=="") {
+            this.year = strYear.split(",")[0];
+            this.subjseq  = strYear.split(",")[1];
+            this.subj = strSubj.split(",")[0];
+            this.class_  = strSubj.split(",")[1];
+
+        }
+
+        this.arrSubjCode[strYear] = strSubj;
+    },
+  getSubjCode: function() {
+    var strTmp = "<select name='s_yearsubjseq' onChange='top.M.changeYear(this.form);'>";
+    strTmp += "<option value=''>년도/학기를 선택하여 주십시오";
+
+    try {
+        var baseYear = (this.year=="") ? "" : this.year+","+this.subjseq;
+        for (var key in this.arrSubjCode) {
+            var year = key.split(",")[0];
+            var subjseq  = key.split(",")[1];
+            if (baseYear=="") {
+                baseYear = key;
+                this.year = year;
+                this.subjseq = subjseq;
+            }
+            var strSelected = "";
+            if (baseYear == key) {
+                strSelected = " selected";
+                if (this.reloadCount == 0) this.navStr = "<b>" + this.year + "년도 " + this.subjseq + "학기</b>";
+            }
+            strTmp += "<option value='"+key+"'"+strSelected+">"+year+"년도 "+subjseq+"학기";
+        }
+        strTmp += "</select> &#160;";
+    }
+    catch (e) {}
+
+    strTmp += "<select name='s_subjclass' onChange='top.M.changeSubj(this.form);'>";
+    strTmp += "<option value=''>과목을 선택하여 주십시오";
+
+    var viewInfo = "";
+    try {
+        var strbaseSubj = (this.subj=="") ? "" : this.subj+","+this.class_;
+        var arrSubj = this.arrSubjCode[baseYear].split("|");
+        for (var i=0; i<arrSubj.length-1; i++) {
+            var strValue = arrSubj[i].split(",")[0]+","+arrSubj[i].split(",")[1];
+            var strText = arrSubj[i].split(",")[2];
+            if (strbaseSubj=="") {
+                strbaseSubj = strValue;
+                this.subj = arrSubj[i].split(",")[0];
+                this.class_ = arrSubj[i].split(",")[1];
+            }
+            var strSelected = (strbaseSubj==strValue) ? " selected" : "";
+            if(" selected" == strSelected){
+              viewInfo = "<b>과목정보:" + strText + "</b><br>";
+            }
+
+            strTmp += "<option value='"+strValue+"'"+strSelected+">"+strText;
+        }
+    }
+    catch (e) {}
+  
+
+    strTmp += "</select> &nbsp;";
+    strTmp += "<a href=\"javascript:top.M.submit()\"><IMG src=\"/images/COMMON/user/btn/go_b.gif\" border=\"0\" align=\"absmiddle\"></a> &nbsp;&nbsp;";
+    //strTmp += "<br>";
+    //strTmp += "<b>[과목정보 : " + viewInfo + "]</b>";
+    //strTmp = this.navStr + viewInfo + strTmp;
+    strTmp = viewInfo + strTmp;
+
+    return strTmp;
+  },
+    changeYear: function(formObj) {
+        var strValue = formObj.s_yearsubjseq.value;
+
+        this.year = strValue.split(",")[0];
+        this.subjseq  = strValue.split(",")[1];
+        this.subj = "";
+        this.class_ = "";
+
+        this.reloadCount++;
+
+        parent.content_.$("d_yearsubj").innerHTML = this.getSubjCode();
+    },
+    changeSubj: function(formObj) {
+        var strValue = formObj.s_subjclass.value;
+
+        if (strValue!="") {
+            this.subj = strValue.split(",")[0];
+            this.class_  = strValue.split(",")[1];
+        }
+        this.setForm();
+
+        //if (this.auth =="T") whenTopGo();
+        //else this.form.submit();
+        this.form.submit();
+    },
+    setForm: function() {
+        this.form.p_grcode.value=this.grcode;
+        this.form.p_gate.value=this.gate;
+        this.form.p_subj.value=this.subj;
+        this.form.p_year.value=this.year;
+        this.form.p_subjseq.value=this.subjseq;
+        this.form.p_class.value=this.class_;
+        this.form.p_userid.value=this.userid;
+    },
+    submit: function() {
+        this.reloadCount = 0;
+        this.setForm();
+        this.form.submit();
+    },
+    goMain: function() {
+        whenTopGo();
+    },
+    goUrl: function(strUrl, targetType) {
+
+        if (strUrl=="") return;
+
+        var strTarget = "content_";
+        if (targetType!="")  strTarget  =  targetType;
+
+        this.form = document.form1;
+        this.form.target=strTarget;
+        this.form.action=strUrl;
+        this.form.submit();
+
+        if (targetType!="")  this.form.target="content_";
+    }
+};
+</script><script type="text/javascript">
+function whenTopGo(){
+    M.form.target="_self";
+    M.form.action="/servlet/controller.homepage.MainServlet";
+    M.form.p_process.value="main";
+    M.form.submit();
+}  
+function goAdminPage_() {
+    var openWinAdmin = window.open("/servlet/controller.homepage.MainServlet?p_process=openAdminPage","KWU_AdminOpenPage",'scrollbars=yes,status=yes, width=1000,height=768,scrollbars=no,resizable=no, top=0, left=0');
+    openWinAdmin.focus();
+}
+function goAdminPage() {
+    var v_auth = M.form.p_auth.value;
+    if (v_auth=="P" || v_auth=="T" || v_auth=="S") {
+        M.form.target="_self";
+        M.form.action="/servlet/controller.homepage.MainServlet";
+        M.form.p_process.value="authChange";
+        M.form.submit();
+    }else{
+        var openWinAdmin = window.open("/servlet/controller.homepage.MainServlet?p_process=openAdminPage","KWU_AdminOpenPage",'scrollbars=yes,status=yes, width=1000,height=768,scrollbars=no,resizable=no, top=0, left=0');
+        openWinAdmin.focus();
+    }
+}
+function goPortfolio2() {
+    M.form.action = "/servlet/controller.eportfolio.MainServlet/"+M.userid;
+    M.form.target = "openPortfolio";
+    M.form.p_process.value="mainList";
+    M.form.p_userid.value=M.userid;
+    window.open("" , "openPortfolio", "toolbar=yes,location=yes,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width = 1024, height = 768, top=50, left=50");
+    M.form.submit();
+}
+function goPortfolio() {
+/*
+    alert('준비중 입니다.');
+    return;
+*/
+
+    M.form.action = "/servlet/controller.eportfolio.MainServlet";
+    M.form.target = "openPortfolio";
+    M.form.p_process.value="mainList";
+    M.form.p_userid.value=M.userid;
+    window.open("" , "openPortfolio", "toolbar=yes,location=yes,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width = 1024, height = 768, top=50, left=50");
+    M.form.submit();
+
+}
+
+function goPortfolio_() {
+/*
+    alert('준비중 입니다.');
+    return;
+*/
+
+    M.form.action = "/servlet/controller.eportfolio.MainServlet";
+    M.form.target = "openPortfolio";
+    M.form.p_process.value="mainList";
+    M.form.p_userid.value=M.userid;
+    window.open("" , "openPortfolio", "toolbar=yes,location=yes,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no, width = 1024, height = 768, top=50, left=50");
+    M.form.submit();
+
+}
+
+function setSubMenu(subType) {
+    $("d_myinfo").style.display = "none";
+    $("d_learning").style.display = "none";
+    $("d_forum").style.display = "none";
+    $("d_service").style.display = "none";
+    if (subType=="myinfo") {
+        $("d_abeek").style.display = "none";
+        $("d_myinfo").style.display = "";
+        M.goUrl('/servlet/controller.mypage.MyPageScheduleUserServlet?p_process=ScheduleMonth&p_grcode=N000003','');
+    } else if (subType=="learning") {
+        $("d_learning").style.display = "";
+        if (M.auth=="P" || M.auth=="T") {
+          M.goUrl('/servlet/controller.homepage.KwuMainServlet?p_process=openProf&p_grcode='+M.grcode,'');
+        }else if (M.auth=="S") {
+          M.goUrl('/servlet/controller.homepage.KwuMainServlet?p_process=openStu&p_grcode='+M.grcode,'');
+        }else{
+          M.goUrl('/servlet/controller.learn.NoticeStuServlet?p_process=listPage&p_grcode='+M.grcode,'');
+        }
+    } else if (subType=="forum") {
+        $("d_forum").style.display = "";
+        M.goUrl('/servlet/controller.learn.ForumStuServlet?p_process=listPage','');
+    } else if (subType=="service") {
+        $("d_service").style.display = "";
+        M.goUrl('/servlet/controller.service.NoticeUserServlet?p_process=listPage&p_grcode='+M.grcode,'');
+    }
+}
+</script></head> 
+
+ 
+<body>
+<form name="form1" action="/servlet/controller.learn.ReportStuServlet?p_process=listPage" method="post" target="content_">
+<input name="p_process" type="hidden">
+<input name="p_gate" type="hidden" value="univ">
+<input name="p_grcode" type="hidden" value="N000003">
+<input name="p_subj" type="hidden" value="U2018109697260023">
+<input name="p_year" type="hidden" value="2018">
+<input name="p_subjseq" type="hidden" value="1">
+<input name="p_class" type="hidden" value="02">
+<input name="p_userid" type="hidden" value="2014726037UA">
+<input name="p_page" type="hidden">
+<input name="gubun_code" type="hidden" value="11">
+<input name="p_tutor_name" type="hidden">
+ 
+
+
+<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td height="50">
+<table width="1000" border="0" cellspacing="0" cellpadding="0">
+  <colgroup>
+    <col width="210">
+    <col width="790">
+  </colgroup>
+  <tbody><tr>
+    <td align="center"><a onfocus="javascript:blur();" href="https://info.kw.ac.kr/"><img width="165" height="50" src="https://info.kw.ac.kr/include/images/logo.gif"></a></td>
+    <td valign="top">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody><tr>
+          <td height="25">
+            <table width="790" border="0" cellspacing="0" cellpadding="0">
+              <tbody><tr>
+                <td align="right" valign="bottom">
+                  <!--<a href="https://info.kw.ac.kr/iframe/bbs_renewal_bug.php"><img src="https://info.kw.ac.kr/include/images/top_bug.gif" width="69" height="13" border="0" align="absmiddle"></a>&nbsp;-->
+                  <a href="https://www.kw.ac.kr/index.do" target="_blank"><img width="97" height="13" align="absmiddle" src="https://info.kw.ac.kr/include/images/top_home.gif" border="0"></a>&nbsp;
+                  <a href="https://info.kw.ac.kr/webnote/login/logout.php?indexUrl=https%3A%2F%2Finfo.kw.ac.kr%2F"><img width="50" height="13" align="absmiddle" src="https://info.kw.ac.kr/include/images/top_logout.gif" border="0"></a>
+                  <!--<a href="#"><img src="https://info.kw.ac.kr/include/images/top_login.gif" width="50" height="13" border="0" align="absmiddle"></a>-->
+                </td>
+              </tr>
+            </tbody></table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table width="790" background="https://info.kw.ac.kr/include/images/menu_02.gif" border="0" cellspacing="0" cellpadding="0">
+              <tbody><tr>
+                <td width="2"><img width="2" height="45" src="https://info.kw.ac.kr/include/images/menu_01.gif"></td>
+
+                <!-- °­ÀÇÁ¾ÇÕÁ¤º¸ -->
+                <td width="136" align="center"><a onmouseover="MM_swapImage('Image32','','https://info.kw.ac.kr/include/images/menu_ccon_01.gif',1)" onmouseout="MM_swapImgRestore()" onfocus="javascript:blur();" href="https://info2.kw.ac.kr/servlet/controller.homepage.MainServlet?p_gate=univ&amp;p_process=main&amp;p_page=learning&amp;gubun_code=11"><img name="Image32" width="102" height="36" src="https://info.kw.ac.kr/include/images/menu_cc_01.gif" border="0"></a></td>
+                <td width="2" align="center"><img width="2" height="45" src="https://info.kw.ac.kr/include/images/menu_bar.gif"></td>
+
+                <!-- ÇÐÀû/µî·Ï/»ó´ã°ü¸® -->
+                <td width="151" align="center"><a onmouseover="MM_swapImage('Image27','','https://info.kw.ac.kr/include/images/menu_aaon_07.gif',1)" onmouseout="MM_swapImgRestore()" onfocus="javascript:blur();" href="https://info.kw.ac.kr/webnote/sel_dept/index.php"><img name="Image27" width="130" height="36" src="https://info.kw.ac.kr/include/images/menu_aa_07.gif" border="0"></a></td>
+                <td width="2" align="center"><img width="2" height="45" src="https://info.kw.ac.kr/include/images/menu_bar.gif"></td>
+
+                <!-- Áö½ÄÆ÷·³ -->
+								<td width="130" align="center"><a onmouseover="MM_swapImage('Image34','','https://info.kw.ac.kr/include/images/menu_ccon_06.gif',1)" onmouseout="MM_swapImgRestore()" onfocus="javascript:blur();" href="https://info2.kw.ac.kr/servlet/controller.homepage.MainServlet?p_gate=univ&amp;p_process=main&amp;p_page=forum&amp;gubun_code=11"><img name="Image34" width="81" height="36" src="https://info.kw.ac.kr/include/images/menu_cc_06.gif" border="0"></a></td>
+                <td width="2" align="center"><img width="2" height="45" src="https://info.kw.ac.kr/include/images/menu_bar.gif"></td>
+
+                <!-- Ä¿¹Â´ÏÆ¼ -->
+								<td width="130" align="center"><a onmouseover="MM_swapImage('Image35','','https://info.kw.ac.kr/include/images/menu_ccon_07.gif',0)" onmouseout="MM_swapImgRestore()" onfocus="javascript:blur();" href="https://info2.kw.ac.kr/servlet/controller.community.CmuIndexServlet?p_gate=univ&amp;gubun_code=11"><img name="Image35" width="81" height="36" src="https://info.kw.ac.kr/include/images/menu_cc_07.gif" border="0"></a></td>
+                <td width="2" align="center"><img width="2" height="45" src="https://info.kw.ac.kr/include/images/menu_bar.gif"></td>
+
+                <!-- ÇàÁ¤¼­ºñ½º -->
+								<td width="114" align="center"><a onmouseover="MM_swapImage('Image36','','https://info.kw.ac.kr/include/images/menu_ccon_05.gif',1)" onmouseout="MM_swapImgRestore()" onfocus="javascript:blur();" href="https://info.kw.ac.kr/webnote/soldier/sol_junip_detail.php"><img name="Image36" width="81" height="36" src="https://info.kw.ac.kr/include/images/menu_cc_05.gif" border="0"></a></td>
+                <td width="2" align="center"><img width="2" height="45" src="https://info.kw.ac.kr/include/images/menu_bar.gif"></td>
+
+                <!-- ¼­ºñ½º¼¾ÅÍ -->
+								<td width="107" align="center"><a onmouseover="MM_swapImage('image37','','https://info.kw.ac.kr/include/images/menu_ccon_08.gif',1)" onmouseout="MM_swapImgRestore()" onfocus="javascript:blur();" href="https://info2.kw.ac.kr/servlet/controller.homepage.MainServlet?p_gate=univ&amp;p_process=main&amp;p_page=service&amp;gubun_code=11"><img name="Image37" width="90" height="36" src="https://info.kw.ac.kr/include/images/menu_cc_08.gif" border="0"></a></td>
+                <td width="2"><img width="2" height="45" src="https://info.kw.ac.kr/include/images/menu_03.gif"></td>
+              </tr>
+            </tbody></table>
+          </td>
+        </tr>
+      </tbody></table>
+    </td>
+  </tr>
+</tbody></table></td>
+  </tr>
+	<tr>
+		<td height="85">
+                                             
+
+			<script language="javascript">
+				function setMyInfo() {
+					if ($("d_myinfo")==null) {
+						whenTopGo();
+						return;
+					}
+
+					$("d_myinfo").style.display = "";
+					$("d_learning").style.display = "none";
+  
+					top.M.goUrl('/servlet/controller.mypage.MyPageScheduleUserServlet?p_process=ScheduleMonth');
+				}
+			</script>        
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  			<tbody>
+  			<tr>
+    			<td width="210" height="85" align="middle">
+      			<table width="196" height="78" background="/images/KOREAN/user/kw_univ/leftmenu.gif" border="0" cellspacing="0" cellpadding="0">
+        			<tbody><tr>
+          			<td align="center">
+            			<table width="179" border="0" cellspacing="0" cellpadding="0">
+            				<tbody><tr>
+              					<td class="info_txt">학부생 (2014726037)</td>
+            				</tr>
+            				<tr>
+             	 				<td class="info_txt">
+             	 					<a href="javascript:goPortfolio();"><img alt="나의 포트폴리오" src="/images/KOREAN/user/kw_univ/bu_blog.gif" border="0"></a>
+   
+                      
+                        <a href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/personal/h_address.php?layout_opt=N','');"><img alt="개인정보수정" src="/images/KOREAN/user/kw_univ/bu_my.gif" border="0"></a>
+                      
+  
+             	 				</td>
+            				</tr>
+           		 			<tr>
+           		   			<td height="1" bgcolor="#a8b3be"></td>
+       		    			</tr>
+           		 			<tr>
+              					<td class="info_txt">
+
+                          <a href="javascript:setSubMenu('myinfo');"><img alt="일정및쪽지RSS" src="/images/KOREAN/user/kw_univ/bu_dayplan.gif" border="0"></a>
+
+                        </td>
+           		 			</tr>
+            			</tbody></table>
+            			</td>
+        			</tr>
+      			</tbody></table>
+    			</td>
+    			<td valign="top" style="padding-top: 4px;"><img src="/images/KOREAN/user/kw_univ/subtop_totalinfo.gif"></td>
+    			</tr></tbody>
+   			</table>
+		</td>
+	</tr>
+	<tr>
+		<td height="100%" valign="top">
+
+
+
+
+
+  
+<!--table  width="1000" height="100%" border="0" cellspacing="0" cellpadding="0"-->
+<table width="1000" border="0" cellspacing="0" cellpadding="0">  
+	<tbody><tr>
+		<td width="210" align="middle" valign="top">
+		<table width="195" border="0" cellspacing="0" cellpadding="0">
+			<tbody>  
+				<tr>
+					<td>
+					<table width="195" border="0" cellspacing="0" cellpadding="0">
+						<tbody>
+							<tr>
+								<td>
+									<img height="10" src="/images/KOREAN/user/kw_univ/leftmenu_01.gif">
+								</td>
+							</tr>
+							<tr>
+								<td align="middle" background="/images/KOREAN/user/kw_univ/leftmenu_04.gif">
+								<div id="d_auth" style="padding: 0px 0px 5px; width: 170px; display: none;"></div>
+
+								<!-- 메뉴부분 -->
+								<table width="179" border="0" cellspacing="0" cellpadding="0">
+									<tbody>
+										<tr>
+											<td>
+											<div id="d_myinfo" style="clear: both; display: none;">
+											<table width="179" border="0" cellspacing="0" cellpadding="0">
+												<tbody><tr>
+													<td>
+													<table width="179" border="0" cellspacing="0" cellpadding="0">
+														<tbody><tr>
+															<td height="10"></td>
+														</tr>
+														<tr>
+															<td><img src="/images/KOREAN/user/kw_univ/left_day.gif"></td>
+														</tr>
+														<tr>
+															<td height="10"></td>
+														</tr>
+													</tbody></table>
+													</td>
+												</tr>
+
+												<tr>
+													<td class="TTR_menuLN2"><span id="leftSub_01">
+													<table width="100%" border="0" cellspacing="0" cellpadding="0">
+														<tbody>
+															<!-- 서비스 센터 메뉴  가져오기 -->
+															
+															<tr>
+																<td class="TTR_menuLN3">
+																	<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.mypage.MyPageScheduleUserServlet?p_process=ScheduleMonth&amp;p_grcode=N000003','');">
+																		<span id="leftSub_01_02">
+											                                일정조회/등록
+                                										</span>
+                                									</a>
+                                								</td>
+															</tr>
+															
+															<tr>
+																<td class="TTR_menuLN3">
+																	<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.mypage.AddressUserServlet?p_process=addrListPage&amp;p_grcode=N000003','');">
+																		<span id="leftSub_01_03">
+											                                주소록 관리
+                                										</span>
+                                									</a>
+                                								</td>
+															</tr>
+															
+															<tr>
+																<td class="TTR_menuLN3">
+																	<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.mypage.TempletUserServlet?p_process=templetListPage&amp;p_grcode=N000003','');">
+																		<span id="leftSub_01_04">
+											                                템플릿 관리
+                                										</span>
+                                									</a>
+                                								</td>
+															</tr>
+															
+															<tr>
+																<td class="TTR_menuLN3">
+																	<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.mypage.MemoUserServlet?p_process=memoRecPage&amp;p_grcode=N000003','');">
+																		<span id="leftSub_01_05">
+											                                받은 쪽지
+                                										</span>
+                                									</a>
+                                								</td>
+															</tr>
+															
+															<tr>
+																<td class="TTR_menuLN3">
+																	<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.mypage.MemoUserServlet?p_process=memoInsertPage&amp;p_grcode=N000003','');">
+																		<span id="leftSub_01_06">
+											                                쪽지 발송
+                                										</span>
+                                									</a>
+                                								</td>
+															</tr>
+															
+															<tr>
+																<td class="TTR_menuLN3">
+																	<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.mypage.MemoUserServlet?p_process=memoSendPage&amp;p_grcode=N000003','');">
+																		<span id="leftSub_01_07">
+											                                발송된 쪽지
+                                										</span>
+                                									</a>
+                                								</td>
+															</tr>
+															
+														</tbody>
+													</table>
+													</span></td>
+												</tr>
+											</tbody></table>
+											</div>
+
+											<div id="d_learning" style="clear: both;">
+											
+											<table width="179" border="0" cellspacing="0" cellpadding="0">
+												<tbody><tr>
+													<td>
+													<table width="179" border="0" cellspacing="0" cellpadding="0">
+														<tbody><tr>
+															<td height="10"></td>
+														</tr>
+														<tr>
+															<td><img src="/images/KOREAN/user/kw_univ/left_totalinfo.gif"></td>
+														</tr>
+														<tr>
+															<td height="10"></td>
+														</tr>
+													</tbody></table>
+													</td>
+												</tr>
+
+												
+
+										<!--
+3,36000000
+//-->
+										<tr>
+											<td class="TTR_menuLN">
+												<a class="intra" href="javascript:top.M.goUrl('','');">
+													<span class="intra" id="leftMain_36020000" onclick="javascript:slide('leftSub_36020000');">
+														강의계획서 조회
+        											</span>
+        										</a>
+        									</td>
+										</tr>
+										<tr>
+											<td class="TTR_menuLN2" valign="top"><span id="leftSub_36020000" style="display: none;">
+											<table width="100%" border="0" cellspacing="0" cellpadding="0">
+												<tbody>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/lecture/h_lecture.php?layout_opt=N','');">
+																<span id="leftSub_36020000_02">강의계획서 조회
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/schedule/schedule.php','');">
+																<span id="leftSub_36020000_03">수업시간표
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+												</tbody>
+											</table>
+											</span>
+											</td>
+										</tr>
+										
+
+										<!--
+3,36000000
+//-->
+										<tr>
+											<td class="TTR_menuLN">
+												<a class="intra" href="javascript:top.M.goUrl('','');">
+													<span class="intra" id="leftMain_36030000" onclick="javascript:slide('leftSub_36030000');">
+														학습지원실
+        											</span>
+        										</a>
+        									</td>
+										</tr>
+										<tr>
+											<td class="TTR_menuLN2" valign="top"><span id="leftSub_36030000" style="display: none;">
+											<table width="100%" border="0" cellspacing="0" cellpadding="0">
+												<tbody>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.learn.NoticeStuServlet?p_process=listPage','');">
+																<span id="leftSub_36030000_05">공지사항
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.learn.AssPdsStuServlet?p_process=listPage','');">
+																<span id="leftSub_36030000_06">강의자료실
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.learn.PdsStuServlet?p_process=listPage','');">
+																<span id="leftSub_36030000_07">학생자료실
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.learn.QnAStuServlet?p_process=listPage','');">
+																<span id="leftSub_36030000_08">강의Q&amp;A
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.learn.DicProfServlet?p_process=listPage','');">
+																<span id="leftSub_36030000_09">용어사전
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+												</tbody>
+											</table>
+											</span>
+											</td>
+										</tr>
+										
+
+										<!--
+3,36000000
+//-->
+										<tr>
+											<td class="TTR_menuLN">
+												<a class="intra" href="javascript:top.M.goUrl('','');">
+													<span class="intra" id="leftMain_36040000" onclick="javascript:slide('leftSub_36040000');">
+														온라인강의컨텐츠 보기
+        											</span>
+        										</a>
+        									</td>
+										</tr>
+										<tr>
+											<td class="TTR_menuLN2" valign="top"><span id="leftSub_36040000" style="height: 0px; overflow: hidden; display: none;">
+											<table width="100%" border="0" cellspacing="0" cellpadding="0">
+												<tbody>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.learn.ContentsLessonServlet?p_process=listPage','');">
+																<span id="leftSub_36040000_11">강의컨텐츠 보기
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.contents.normal.NormalCourseProfServlet?p_process=tagListPage','');">
+																<span id="leftSub_36040000_12">컨텐츠 태그검색
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/jsp/user/service/zu_Downloads_Program.jsp','');">
+																<span id="leftSub_36040000_13">온라인학습프로그램다운로드
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/jsp/user/service/pfcheck.jsp','');">
+																<span id="leftSub_36040000_14">온라인컨텐츠환경테스트
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.wibro.EStageClassStuServlet?p_process=listPage','');">
+																<span id="leftSub_36040000_15">e-Class 강의 복습
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+												</tbody>
+											</table>
+											</span>
+											</td>
+										</tr>
+										
+
+										<!--
+3,36000000
+//-->
+										<tr>
+											<td class="TTR_menuLN">
+												<a class="intra" href="javascript:top.M.goUrl('','');">
+													<span class="intra" id="leftMain_36050000" onclick="javascript:slide('leftSub_36050000');">
+														온라인참여학습
+        											</span>
+        										</a>
+        									</td>
+										</tr>
+										<tr>
+											<td class="TTR_menuLN2" valign="top"><span id="leftSub_36050000" style="height: 188px; overflow: visible; display: block;">
+											<table width="100%" border="0" cellspacing="0" cellpadding="0">
+												<tbody>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.learn.ReportStuServlet?p_process=listPage','');">
+																<span id="leftSub_36050000_17">과제제출
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.learn.ProjectStuServlet?p_process=listPage','');">
+																<span id="leftSub_36050000_18">팀프로젝트
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.learn.DebateStuServlet?p_process=listPage','');">
+																<span id="leftSub_36050000_19">토론참여
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.learn.ExamPaperStuServlet?p_process=listPage','');">
+																<span id="leftSub_36050000_20">온라인시험 응시
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.learn.ExamAnyPaperStuServlet?p_process=listPage','');">
+																<span id="leftSub_36050000_21">수시퀴즈 응시
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.learn.ProgressStuServlet?p_process=progress','');">
+																<span id="leftSub_36050000_22">온라인컨텐츠 진도현황 조회
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.learn.ActivityStuServlet?p_process=view','');">
+																<span id="leftSub_36050000_23">학습현황 조회
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('/servlet/controller.sulmun.SulmunPaperStuServlet?p_process=SulmunPaperListPage','');">
+																<span id="leftSub_36050000_24">설문참여
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('http://info.kw.ac.kr/webnote/cdp/cdp_attendance_check.php?layout_opt=N','');">
+																<span id="leftSub_36050000_25">CDP출석내역
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('http://info.kw.ac.kr/webnote/cdp/cdp_reserve_form.php?layout_opt=N','');">
+																<span id="leftSub_36050000_26">CDP 출석여부 설문조사
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+												</tbody>
+											</table>
+											</span>
+											</td>
+										</tr>
+										
+
+										<!--
+3,36000000
+//-->
+										<tr>
+											<td class="TTR_menuLN">
+												<a class="intra" href="javascript:top.M.goUrl('','');">
+													<span class="intra" id="leftMain_36120000" onclick="javascript:slide('leftSub_36120000');">
+														수업평가/성적/장학 조회
+        											</span>
+        										</a>
+        									</td>
+										</tr>
+										<tr>
+											<td class="TTR_menuLN2" valign="top"><span id="leftSub_36120000" style="display: none;">
+											<table width="100%" border="0" cellspacing="0" cellpadding="0">
+												<tbody>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/judge/student.php?layout_opt=N','');">
+																<span id="leftSub_36120000_28">수업평가
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/judge_open/','');">
+																<span id="leftSub_36120000_29">수업평가 결과 확인
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/sungjuk/sungjuk.php?layout_opt=N','');">
+																<span id="leftSub_36120000_30">수강/성적 조회
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/class_order/order.php?layout_opt=N','');">
+																<span id="leftSub_36120000_31">석차조회
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/toeic/toeic.php?layout_opt=N','');">
+																<span id="leftSub_36120000_32">어학성적조회
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+													<tr>
+                            
+														<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/janghak/janghak.php?layout_opt=N','');">
+																<span id="leftSub_36120000_33">장학조회
+															</span></a>
+														</td>
+														
+													</tr>
+
+													
+												</tbody>
+											</table>
+											</span>
+											</td>
+										</tr>
+										
+
+										<!--
+3,36000000
+//-->
+										<tr>
+											<td class="TTR_menuLN">
+												<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/student/program.php?layout_opt=N','');">
+													<span class="intra" id="leftMain_36130000" onclick="javascript:slide('leftSub_36130000');">
+														수강신청 프로그램
+        											</span>
+        										</a>
+        									</td>
+										</tr>
+										<tr>
+											<td class="TTR_menuLN2" valign="top"><span id="leftSub_36130000" style="display: none;">
+											<table width="100%" border="0" cellspacing="0" cellpadding="0">
+												<tbody>
+
+													
+												</tbody>
+											</table>
+											</span>
+											</td>
+										</tr>
+										
+
+										<!--
+3,36000000
+//-->
+										<tr>
+											<td class="TTR_menuLN">
+												<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/hgiveup/sugang_giveup01.php?layout_opt=N','');">
+													<span class="intra" id="leftMain_36140000" onclick="javascript:slide('leftSub_36140000');">
+														수강포기 신청
+        											</span>
+        										</a>
+        									</td>
+										</tr>
+										<tr>
+											<td class="TTR_menuLN2" valign="top"><span id="leftSub_36140000" style="display: none;">
+											<table width="100%" border="0" cellspacing="0" cellpadding="0">
+												<tbody>
+
+													
+
+													
+
+												</tbody>
+											</table>
+											</span></td>
+										</tr>
+										
+
+								</tbody></table>
+
+								
+								
+								
+									
+									
+											<table width="179" border="0" cellspacing="0" cellpadding="0">
+												<tbody><tr>
+													<td>
+													<table width="179" border="0" cellspacing="0" cellpadding="0">
+														<tbody><tr>
+															<td height="10"></td>
+														</tr>
+														<tr>
+															<td><img src="/images/KOREAN/user/kw_univ/left_eng_info.gif"></td>
+														</tr>
+														<tr>
+															<td height="10"></td>
+														</tr>
+													</tbody></table>
+													</td>
+												</tr>
+											
+											<tr>
+												<td class="TTR_menuLN">
+													<a class="intra" href="javascript:top.M.goUrl('','');">
+														<span class="intra" id="leftMain_99020000" onclick="javascript:slide('leftSub_99020000');">
+															학생(수강)상담
+	        											</span>
+	        										</a>
+	        									</td>
+											</tr>
+											<tr>
+												<td class="TTR_menuLN2" valign="top">
+												<span id="leftSub_99020000" style="display: none;">
+												<table width="100%" border="0" cellspacing="0" cellpadding="0">
+													<tbody>
+														<tr>
+															<td class="TTR_menuLN3">
+																<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/counsel/suhak_plan_view.php?layout_opt=N','');">
+																	<span id="leftSub_99020000_01">수학계획서 작성							</span></a>
+															</td>
+														</tr>
+														<tr>
+															<td class="TTR_menuLN3">
+																<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/counsel/counsel_list.php?skin_opt=abeek&amp;layout_opt=N','');">
+																	<span id="leftSub_99020000_01">상담내역조회							</span></a>
+															</td>
+														</tr>
+														<tr>
+															<td class="TTR_menuLN3">
+																<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/abeek/junip_hakjum.php?layout_opt=N','');">
+																	<span id="leftSub_99020000_01">전입생 학점인정 상담							</span></a>
+															</td>                
+														</tr>
+													</tbody>
+												  </table>
+												</span>
+												</td>
+											</tr>
+											<tr>
+												<td class="TTR_menuLN">
+													<a class="intra" href="javascript:top.M.goUrl('','');">
+														<span class="intra" id="leftMain_99030000" onclick="javascript:slide('leftSub_99030000');">
+															이수현황점검
+	        											</span>
+	        										</a>
+	        									</td>
+											</tr>
+											<tr>
+												<td class="TTR_menuLN2" valign="top">
+												<span id="leftSub_99030000" style="display: none;">
+												<table width="100%" border="0" cellspacing="0" cellpadding="0">
+													<tbody>
+														<tr>
+															<td class="TTR_menuLN3">
+															<a class="intra" href="javascript:void(window.open('https://info.kw.ac.kr/webnote/sungjuk/confirm_abeek.php','KWeval','width=550,height=480,left=300,top=200'));">
+																	<span id="leftSub_99030000_01">공학프로그램 이수현황점검
+																</span></a>
+															</td>
+														</tr>
+														<tr>
+															<td class="TTR_menuLN3">
+																<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/abeek/graduation_eval_pass_stu.php?layout_opt=N','');">
+																	<span id="leftSub_99030000_02">공학프로그램 학습성과점검	</span></a>
+															</td>
+														</tr>
+														<tr>
+															<td class="TTR_menuLN3">
+																<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/abeek/cert_change_list.php?layout_opt=N','');">
+																	<span id="leftSub_99030000_03">학위과정(프로그램) 변경	</span></a>
+															</td>
+														</tr>
+													</tbody>
+												  </table>
+												</span>
+												</td>
+											</tr>                
+											<tr>
+												<td class="TTR_menuLN">
+													<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/abeek/before_student_index.php','');">
+														<span class="intra" id="leftMain_99040000" onclick="">
+															선수교과목 이수현황 조회
+	        											</span>
+	        										</a>
+	        									</td>
+											</tr>
+											<tr>
+												<td class="TTR_menuLN">
+													<a class="intra" href="javascript:top.M.goUrl('https://info.kw.ac.kr/webnote/bbs_hakbu/portfolio_list2.php?skin_opt=abeek&amp;layout_opt=N','');">
+														<span class="intra" id="leftMain_99050000" onclick="">
+															설계포트폴리오 조회
+	        											</span>
+	        										</a>
+	        									</td>
+											</tr>
+										  </tbody></table>
+									
+								</div>
+
+								<div id="d_forum" style="clear: both; display: none;">
+								<table width="179" border="0" cellspacing="0" cellpadding="0">
+									<tbody><tr>
+										<td>
+										<table width="179" border="0" cellspacing="0" cellpadding="0">
+											<tbody><tr>
+												<td height="10"></td>
+											</tr>
+											<tr>
+												<td><img src="/images/KOREAN/user/kw_univ/left_forum.gif"></td>
+											</tr>
+											<tr>
+												<td height="10"></td>
+											</tr>
+										</tbody></table>
+										</td>
+									</tr>
+									<tr>
+										<td class="TTR_menuLN2"><span id="leftSub_03">
+										<table width="100%" border="0" cellspacing="0" cellpadding="0">
+											<tbody>
+												<!--지식UCC 메뉴  가져오기 -->
+												
+												<tr>
+													<td class="TTR_menuLN3"><a class="intra" href="javascript:top.M.goUrl('/servlet/controller.learn.ForumStuServlet?p_process=listPage','');">
+													<span id="leftSub_03_01"> 지식UCC
+													</span> </a></td>
+												</tr>
+												
+
+											</tbody>
+										</table>
+										</span></td>
+									</tr>
+								</tbody></table>
+								</div>
+
+								<div id="d_service" style="clear: both; display: none;">
+								<table width="179" border="0" cellspacing="0" cellpadding="0">
+									<tbody><tr>
+										<td>
+										<table width="179" border="0" cellspacing="0" cellpadding="0">
+											<tbody><tr>
+												<td height="10"></td>
+											</tr>
+											<tr>
+												<td><img src="/images/KOREAN/user/kw_univ/left_service.gif"></td>
+											</tr>
+											<tr>
+												<td height="10"></td>
+											</tr>
+										</tbody></table>
+										</td>
+									</tr>
+
+									<tr>
+										<td class="TTR_menuLN2"><span id="leftSub_04">
+										<table width="100%" border="0" cellspacing="0" cellpadding="0">
+											<tbody>
+												<!-- 서비스 센터 메뉴  가져오기 -->
+												
+												<tr>
+													<td class="TTR_menuLN3"><a class="intra" href="javascript:top.M.goUrl('/servlet/controller.service.NoticeUserServlet?p_process=listPage&amp;p_grcode=N000003','');">
+													<span id="leftSub_04_01"> 공지사항
+													</span> </a></td>
+												</tr>
+												
+												<tr>
+													<td class="TTR_menuLN3"><a class="intra" href="javascript:top.M.goUrl('/servlet/controller.service.DownloadsUserServlet?p_process=listPage&amp;p_grcode=N000003','');">
+													<span id="leftSub_04_02"> 자료실
+													</span> </a></td>
+												</tr>
+												
+												<tr>
+													<td class="TTR_menuLN3"><a class="intra" href="javascript:top.M.goUrl('/servlet/controller.service.FaqUserServlet?p_process=listPage&amp;p_grcode=N000003','');">
+													<span id="leftSub_04_03"> FAQ
+													</span> </a></td>
+												</tr>
+												
+												<tr>
+													<td class="TTR_menuLN3"><a class="intra" href="javascript:top.M.goUrl('/servlet/controller.sulmun.SulmunPaperStuCommonServlet?p_process=SulmunPaperListPage&amp;p_grcode=N000003','');">
+													<span id="leftSub_04_04"> Online Poll
+													</span> </a></td>
+												</tr>
+												
+											</tbody>
+										</table>
+										</span></td>
+									</tr>
+								</tbody></table>
+								</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- 메뉴부분끝 --> <script type="text/javascript">
+                                            <!--
+                                                // 메뉴 초기화
+                                                //initLeftMenu("02", "01");
+                                            -->
+                                        </script></td>
+				</tr>
+				<tr>
+					<td background="/images/KOREAN/user/kw_univ/leftmenu_04.gif">&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td><img width="197" height="12" src="/images/KOREAN/user/kw_univ/leftmenu_05.gif"></td>
+				</tr>
+			</tbody>
+		</table>
+		</td>
+	</tr>
+	<!-- 교수 교육조교 평가 배너 sycho 2012.10.23
+	
+	 -->
+
+	<!-- UI 의견수렴 배너 sycho 2012.12.04 ~ 12.25 
+	<TR> 
+		<TD height=10></TD>
+	</TR>
+	<TR>
+		<TD>
+		<div id="d_abeek" style="display:">
+		
+		<a href="https://info.kw.ac.kr/webnote/abeek/" target="_blank">
+		<img src="/images/KOREAN/user/kw_univ/ui_banner.gif" width="194" height="65" border="0"> </a>
+		
+		</div>
+		</TD>
+	</TR>
+    -->
+
+	<!-- 교과과정의견수렴 sycho 2016.04.04 ~ 04.15
+	<TR> 
+		<TD height=10></TD>
+	</TR>
+	<TR>
+		<TD>
+			<div id="d_manage" style="display:">
+				
+				<a href="https://info.kw.ac.kr/webnote/poll_etc/2/index.php" target="_blank">
+					<img src="/images/KOREAN/user/kw_univ/160331_left_banner.gif" width="194" height="65" border="0">
+				</a>
+				
+			</div>        		
+		</TD>
+	</TR>
+	 -->
+	<!-- iT형 인재양성 통합관리시스템 배너 sycho 2016.05.02 -->
+	<tr> 
+		<td height="10"></td>
+	</tr>
+	<tr>
+		<td>
+			<div id="d_manage">
+				
+				<a href="https://info.kw.ac.kr/webnote/out_usercheck/injae_login.php" target="_blank">
+					<img width="194" height="65" src="https://info.kw.ac.kr/images/itup_banner.gif" border="0">
+				</a>
+				
+			</div>        		
+		</td>
+	</tr>
+	
+	<tr> 
+		<td height="10"></td>
+	</tr>
+	<tr>
+		<td>
+			<div id="d_manage">
+				
+				<a href="https://info.kw.ac.kr/webnote/abeek/dream_index.php" target="_blank">
+					<img width="194" height="65" src="https://info.kw.ac.kr/images/dream_banner.gif" border="0">
+				</a>
+				
+			</div>        		
+		</td>
+	</tr>
+	
+
+
+<!-- 공학교육정보관리시스템 배너 삭제 sycho 2016.03.31 공학교육혁신센터2016-57
+	<TR>
+		<TD>
+		<div id="d_abeek" style="display:">
+		
+		<a href="https://info.kw.ac.kr/webnote/abeek/" target="_blank"> <img
+			src="/images/KOREAN/user/kw_univ/abeek_banner.gif"
+			width="194" height="65" border="0"> </a> 
+		</div>
+		</TD>
+	</TR>
+-->
+	<tr>
+		<td height="10"></td>
+	</tr>
+  
+	<!-- talk banner  -->  
+	<tr>
+		<td>
+		<div id="d_abeek">
+		
+		<a href="https://info.kw.ac.kr/talkrank/" target="_blank"> <img width="194" height="65" src="/images/KOREAN/user/bnn/talkrank_left_banner.gif" border="0"> </a> 
+		</div>
+		</td>
+	</tr>
+	<tr>
+		<td height="10"></td>
+	</tr>  
+  
+	<!-- 경영대학 경력개발 포인트 시스템 배너 sycho. 2010.11.23 -->
+	<!-- 경영대학 요청으로 잠시 막음 sycho 2012.10.19
+	<TR>
+		<TD>
+			<div id="d_manage" style="display:">
+				
+				<a href="http://128.134.70.93" target="_blank">
+					<img src="/images/KOREAN/user/kw_univ/banner_101123.gif" width="194" height="65" border="0">
+				</a>
+				
+			</div>        		
+		</TD>
+	</TR>
+	-->
+	<!-- 프로그램 개선 건의 kimdh 2011.09.26
+	<tr>
+		<td>
+			<div id="d_suggestion" style="display">
+				
+			</div>
+		</td>
+	</tr>
+	 -->
+	
+	<!-- 포트폴리오 -->
+	<tr>
+		<td style="padding-top: 10px;">
+		
+	        <a href="javascript:goPortfolio_()">&nbsp;</a>
+        </td>
+	</tr>
+	<!--
+                <TR>
+                    <TD height=10></TD>
+                </TR>
+                <TR>
+                    <TD>
+                        <a href="#">
+                            <img src="/images/KOREAN/user/kw_univ/ban_help.gif" border="0">
+                        </a>
+                    </TD>
+                </TR>
+                <TR>
+                    <TD height=10></TD>
+                </TR>
+//-->
+	<!--
+                <TR>
+                    <TD align=middle>
+                        <a href="https://info.kw.ac.kr/webnote/poll/poll_form.php?poll_no=2">
+                            <img height=95 src="/images/KOREAN/user/kw_univ/k_banner.gif" width=194 border=0>
+                        </a></TD>
+                </TR>
+
+//-->
+	</tbody>
+</table>
+<!-- 좌측테이블끝 //-->
+</td>
+
+<!--td valign="top" height="100%"><TABLE cellSpacing=0 cellPadding=0 width="100%" height="100%" border=0-->
+<td valign="top">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tbody>
+		<tr>
+			<!--TD height="100%"><TABLE cellSpacing=0 cellPadding=0 width="100%" height="100%" border=0-->
+			<td>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tbody>
+					<tr>
+						<td width="10" height="10"><img width="10" height="10" src="/images/KOREAN/user/kw_univ/box01.gif"></td>
+						<td background="/images/KOREAN/user/kw_univ/box02.gif"></td>
+						<td width="10"><img width="10" height="10" src="/images/KOREAN/user/kw_univ/box03.gif"></td>
+					</tr>
+					<tr>
+						<td background="/images/KOREAN/user/kw_univ/box04.gif">&nbsp;</td>
+						<!--TD class="content_area" style="padding-top:25px;" height="100%" valign="top"-->
+						<td class="content_area" valign="top" style="padding-top: 25px;">
+ 
+<script type="text/javascript">
+var M = new KwuObject(document.forms.form1);
+M.grcode = "N000003";
+M.gate = "univ";
+M.userid = "2014726037UA";
+M.olduserid = "2014726037";
+M.auth = "S";
+M.subj = "U2018109697260023";
+M.year = "2018";
+M.subjseq = "1";
+M.class_ = "02";
+
+M.setForm();
+</script>
+
+
+<script type="text/javascript">
+    var strAuth = "S,학생|";
+    var strTmp = "<select name='p_auth' class='select_sel' style='width:140px;'>";
+    var arrAuth = strAuth.split("|");
+    var mgrIdx = 0;
+    var tutIdx = 0;
+    for (var idx=0; idx<arrAuth.length-1; idx++) {
+        var strSelected = (arrAuth[idx].split(",")[0]==M.auth) ? " selected" : "";
+        strTmp += "<option value='"+arrAuth[idx].split(",")[0]+"'"+strSelected+">"+arrAuth[idx].split(",")[1];
+        if (arrAuth[idx].split(",")[0]=="P" || arrAuth[idx].split(",")[0]=="T" || arrAuth[idx].split(",")[0]=="S") tutIdx++;
+        else mgrIdx++;
+    }
+    strTmp += "</select>";
+    strTmp += "&nbsp;<a href=\"javascript:goAdminPage()\"><IMG src=\"/images/COMMON/user/btn/btn_go.gif\" border=\"0\" align=\"absmiddle\"></a>";
+
+    if (mgrIdx>0 || tutIdx>1) {
+        $("d_auth").innerHTML = strTmp;
+        $("d_auth").style.display = "";
+    }
+</script>
+
+
+
+<iframe name="content_" width="100%" height="600" id="content_" src="" frameborder="0" scrolling="auto" style="height: 973px;" onload="M.resizeFrame()"></iframe>
+
+<script type="text/javascript">
+function notice_getCookie( name ) {
+  var nameOfCookie = name + "=";
+  var x = 0;
+  while ( x <= document.cookie.length ) {
+    var y = (x+nameOfCookie.length);
+    if ( document.cookie.substring( x, y ) == nameOfCookie ) {
+    if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
+      endOfCookie = document.cookie.length;
+    return unescape( document.cookie.substring( y, endOfCookie ) );
+  }
+  x = document.cookie.indexOf( " ", x ) + 1;
+  if ( x == 0 ) break;
+  }
+  return ""
+}
+
+
+         M.setSubjCode('2018,1','U2018109697260023,02,[학부]알고리즘 (02) - 김용혁|U2018111107260013,01,[학부]운영체제 (01) - 안우현|U2018116477260013,01,[학부]컴퓨터구조 (01) - 이동호|U2018136637260023,02,[학부]데이터베이스 (02) - 김우생|U2018145347260023,02,[학부]데이터통신 (02) - 최웅철|U2018159080000011,01,[학부]지적재산권과특허 (01) - 강기봉|U2018184857260033,03,[학부]응용소프트웨어실습 (03) - 이윤구|');
+
+         M.setSubjCode('2017,2','U2017208197260022,02,[학부]선형대수학 (02) - 김상목|U2017212437260032,03,[학부]자료구조 (03) - 김용혁|U2017217627260022,02,[학부]프로그래밍언어 (02) - 최강임|U2017233957260012,01,[학부]시스템소프트웨어 (01) - 이동호|U2017284867260032,03,[학부]시스템소프트웨어실습 (03) - 이동호|U2017284877260012,01,[학부]오픈소스소프트웨어개발 (01) -|');
+
+         M.setSubjCode('2017,1','U2017104487260012,01,[학부]디지털논리 (01) - 차현종|U2017111837260022,02,[학부]이산구조 (02) - 김용혁|U2017116407000011,01,[학부]컴퓨터개론 (01) - 한현호|U2017119427260023,02,[학부]확률및통계 (02) - 이명숙|U2017129107260012,01,[학부]인터넷프로그래밍 (01) - 임재한|U2017134037260022,02,[학부]고급프로그래밍 (02) - 이강훈|U2017184847260032,03,[학부]리눅스활용실습 (03) - 안우현|');
+
+         M.setSubjCode('2014,2','U2014210777000091,09,[학부]영어회화 (09) -|U2014216407260011,01,[학부]컴퓨터개론 (01) - 조국현|U2014229577260011,01,[학부]공학설계입문 (01) - 최웅철|U2014236960000051,05,[학부]초급일본어2 (05) - 박현정|U2014246267260011,01,[학부]대학수학및연습2 (01) - 권태건|U2014257147260012,01,[학부]고급C프로그래밍및설계 (01) - 한진섭|');
+
+         M.setSubjCode('2014,1','U2014100197260011,01,[학부]C프로그래밍 (01) - 서두옥|U2014129977000011,01,[학부]산업화와환경오염 (01) - 김성봉|U2014134157000021,02,[학부]대학화학및실험1 (02) - 전흥배|U2014135930000091,09,[학부]초급일본어1 (09) - 전유나|U2014146257260011,01,[학부]대학수학및연습1 (01) - 박지연|');
+
+
+
+        setSubMenu("learning");
+
+
+
+
+</script>
+
+<!-- 본문 끝 --></td><td background="/images/KOREAN/user/kw_univ/box06.gif">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="10"><img width="10" height="10" src="/images/KOREAN/user/kw_univ/box07.gif"></td>
+                <td background="/images/KOREAN/user/kw_univ/box08.gif"></td>
+                <td><img width="10" height="10" src="/images/KOREAN/user/kw_univ/box09.gif"></td></tr></tbody></table></td></tr></tbody></table>
+			</tr>
+		</tbody></table></td>
+</tr>
+<tr>
+	<td height="72" align="left" style="padding: 10px 0px 2px;">
+  <table width="1000" border="0" cellspacing="0" cellpadding="0">
+  <tbody>
+  <tr>
+    <td width="12" align="right"><img width="8" height="72" src="/images/KOREAN/user/kw_univ/footer_01.gif"></td>
+    <td width="200" align="middle" background="/images/KOREAN/user/kw_univ/footer_02.gif"><img width="144" height="35" src="/images/KOREAN/user/kw_univ/footer_logo.gif"></td>
+    <td width="780" align="right" background="/images/KOREAN/user/kw_univ/footer_02.gif"><img width="554" height="37" src="/images/KOREAN/user/kw_univ/footer_04.gif" usemap="#map_footer"></td>
+    <td width="10"><img width="10" height="72" src="/images/KOREAN/user/kw_univ/footer_03.gif"></td>
+	</tr>
+</tbody>
+</table>
+
+<map name="map_footer"><area onfocus="javascript:blur();" href="mailto:webadmin@kw.ac.kr" shape="RECT" coords="405,0,550,20" alt="관리자에게 메일보내기"></map></td>
+</tr>
+</tbody></table>
+
+</form>
+
+
+
+
+ 
+
+<iframe width="0" height="0" src="/jsp/session_reload.jsp" style="width: 0px; height: 0px;"></iframe>
+<font color="white"> :KOREAN</font>
+
+  </body></html>
