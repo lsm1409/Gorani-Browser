@@ -7,3 +7,51 @@ https://accounts.google.com/Logout?hl=ko&continue=https:%2F%2Fwww.google.com%2F&
 Google
 https://www.google.com/
 19시 42분 49초 (2018-06-14)
+NAVER
+https://www.naver.com/
+20시 29분 39초 (2018-06-14)
+Google
+https://www.google.com/
+20시 29분 43초 (2018-06-14)
+NAVER
+https://www.naver.com/
+20시 29분 54초 (2018-06-14)
+Google
+https://www.google.com/
+20시 30분 06초 (2018-06-14)
+NAVER
+https://www.naver.com/
+20시 30분 07초 (2018-06-14)
+NAVER
+file:///C:/Users/lsm14/Documents/GitHub/Gorani-Browser/bin/Debug/GoraniSetup/OfflinePage/NAVER.html
+20시 30분 25초 (2018-06-14)
+Google
+file:///C:/Users/lsm14/Documents/GitHub/Gorani-Browser/bin/Debug/GoraniSetup/OfflinePage/Google.html
+20시 31분 22초 (2018-06-14)
+Google
+https://www.google.com/
+21시 02분 08초 (2018-06-14)
+광운대학교 - Google 검색
+https://www.google.com/search?source=hp&ei=P1kiW8KLK4PO0gTwgrzIAg&q=광운대학교&oq=광운대학교&gs_l=psy-ab.3..0l10.785.3375.0.3574.15.12.0.1.1.0.202.1266.0j8j1.9.0....0...1c.1j4.64.psy-ab..9.6.706...0i10k1j0i131k1j0i3k1.0.MaqPoVA2Wo8
+21시 02분 13초 (2018-06-14)
+광운대학교
+https://www.kw.ac.kr/ko/index.do
+21시 02분 18초 (2018-06-14)
+광운대학교 종합정보서비스
+https://info.kw.ac.kr/webnote/login/login2.php?loginOpt=&layout_opt=&js_domain=&redirect_url=http:%2F%2Finfo.kw.ac.kr%2F
+21시 06분 02초 (2018-06-14)
+:: KwangWoon University U-Learning System ::
+http://info2.kw.ac.kr/servlet/controller.homepage.MainServlet?p_gate=univ&p_process=main&p_page=learning&p_kwLoginType=cookie&gubun_code=11
+21시 06분 24초 (2018-06-14)
+Google
+https://www.google.com/
+21시 14분 01초 (2018-06-14)
+광운대학교 종합정보서비스
+https://info.kw.ac.kr/webnote/login/login2.php?loginOpt=&layout_opt=&js_domain=&redirect_url=http:%2F%2Finfo.kw.ac.kr%2F
+21시 14분 06초 (2018-06-14)
+:: KwangWoon University U-Learning System ::
+http://info2.kw.ac.kr/servlet/controller.homepage.MainServlet?p_gate=univ&p_process=main&p_page=learning&p_kwLoginType=cookie&gubun_code=11
+21시 14분 17초 (2018-06-14)
+:: KwangWoon University U-Learning System ::
+file:///C:/Users/lsm14/Documents/GitHub/Gorani-Browser/bin/Debug/GoraniSetup/OfflinePage/algorithm.html
+21시 14분 50초 (2018-06-14)
