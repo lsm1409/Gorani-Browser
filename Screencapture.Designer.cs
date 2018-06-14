@@ -36,18 +36,19 @@
             this.ShowColor = new System.Windows.Forms.Panel();
             this.btnColor = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.picboxScrn = new System.Windows.Forms.PictureBox();
             this.btnSave = new System.Windows.Forms.Button();
-            this.btnPaint = new System.Windows.Forms.Button();
+            this.btnNote = new System.Windows.Forms.Button();
             this.btnRectangle = new System.Windows.Forms.Button();
             this.btnEraser = new System.Windows.Forms.Button();
             this.btnDrawing = new System.Windows.Forms.Button();
-            this.picboxScrn = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.label = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picboxScrn)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picboxScrn)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -102,8 +103,9 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.label);
             this.panel1.Controls.Add(this.btnSave);
-            this.panel1.Controls.Add(this.btnPaint);
+            this.panel1.Controls.Add(this.btnNote);
             this.panel1.Controls.Add(this.btnRectangle);
             this.panel1.Controls.Add(this.btnEraser);
             this.panel1.Controls.Add(this.btnDrawing);
@@ -114,6 +116,36 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1114, 87);
             this.panel1.TabIndex = 10;
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel2.Controls.Add(this.picboxScrn);
+            this.panel2.Location = new System.Drawing.Point(11, 129);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1114, 535);
+            this.panel2.TabIndex = 11;
+            // 
+            // picboxScrn
+            // 
+            this.picboxScrn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.picboxScrn.BackColor = System.Drawing.Color.Transparent;
+            this.picboxScrn.Location = new System.Drawing.Point(0, 0);
+            this.picboxScrn.Name = "picboxScrn";
+            this.picboxScrn.Size = new System.Drawing.Size(1114, 543);
+            this.picboxScrn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picboxScrn.TabIndex = 0;
+            this.picboxScrn.TabStop = false;
+            this.picboxScrn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picboxScrn_MouseDown);
+            this.picboxScrn.MouseEnter += new System.EventHandler(this.picboxScrn_MouseEnter);
+            this.picboxScrn.MouseLeave += new System.EventHandler(this.picboxScrn_MouseLeave);
+            this.picboxScrn.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picboxScrn_MouseMove);
+            this.picboxScrn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picboxScrn_MouseUp);
             // 
             // btnSave
             // 
@@ -126,17 +158,17 @@
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // btnPaint
+            // btnNote
             // 
-            this.btnPaint.BackColor = System.Drawing.SystemColors.Control;
-            this.btnPaint.BackgroundImage = global::GoraniBrowser.Properties.Resources.Paint;
-            this.btnPaint.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnPaint.Location = new System.Drawing.Point(509, 0);
-            this.btnPaint.Name = "btnPaint";
-            this.btnPaint.Size = new System.Drawing.Size(100, 84);
-            this.btnPaint.TabIndex = 13;
-            this.btnPaint.UseVisualStyleBackColor = false;
-            this.btnPaint.Click += new System.EventHandler(this.btnPaint_Click);
+            this.btnNote.BackColor = System.Drawing.SystemColors.Control;
+            this.btnNote.BackgroundImage = global::GoraniBrowser.Properties.Resources.note;
+            this.btnNote.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnNote.Location = new System.Drawing.Point(509, 0);
+            this.btnNote.Name = "btnNote";
+            this.btnNote.Size = new System.Drawing.Size(100, 84);
+            this.btnNote.TabIndex = 13;
+            this.btnNote.UseVisualStyleBackColor = false;
+            this.btnNote.Click += new System.EventHandler(this.btnNote_Click);
             // 
             // btnRectangle
             // 
@@ -173,35 +205,14 @@
             this.btnDrawing.UseVisualStyleBackColor = false;
             this.btnDrawing.Click += new System.EventHandler(this.btnDrawing_Click);
             // 
-            // picboxScrn
+            // label
             // 
-            this.picboxScrn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.picboxScrn.BackColor = System.Drawing.Color.Transparent;
-            this.picboxScrn.Location = new System.Drawing.Point(0, 0);
-            this.picboxScrn.Name = "picboxScrn";
-            this.picboxScrn.Size = new System.Drawing.Size(1114, 543);
-            this.picboxScrn.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picboxScrn.TabIndex = 0;
-            this.picboxScrn.TabStop = false;
-            this.picboxScrn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picboxScrn_MouseDown);
-            this.picboxScrn.MouseEnter += new System.EventHandler(this.picboxScrn_MouseEnter);
-            this.picboxScrn.MouseLeave += new System.EventHandler(this.picboxScrn_MouseLeave);
-            this.picboxScrn.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picboxScrn_MouseMove);
-            this.picboxScrn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picboxScrn_MouseUp);
-            // 
-            // panel2
-            // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel2.Controls.Add(this.picboxScrn);
-            this.panel2.Location = new System.Drawing.Point(11, 129);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1114, 535);
-            this.panel2.TabIndex = 11;
+            this.label.AutoSize = true;
+            this.label.Location = new System.Drawing.Point(351, 46);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(44, 18);
+            this.label.TabIndex = 15;
+            this.label.Text = "두께";
             // 
             // frmScreencapture
             // 
@@ -220,8 +231,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picboxScrn)).EndInit();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picboxScrn)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,7 +252,8 @@
         private System.Windows.Forms.Button btnEraser;
         private System.Windows.Forms.Button btnRectangle;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnPaint;
+        private System.Windows.Forms.Button btnNote;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label;
     }
 }

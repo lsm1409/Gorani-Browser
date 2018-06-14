@@ -127,14 +127,28 @@ namespace GoraniBrowser
             SetDrawMode((int)DRAW_MODE.SHAPEMODE);
         }
 
-        private void btnPaint_Click(object sender, EventArgs e)
+        private void btnNote_Click(object sender, EventArgs e)
         {
-            SetDrawMode((int)DRAW_MODE.PAINTMODE);
+            TextBox t = new TextBox();
+            t.Name = "textbox1";
+            t.Location = new Point(10, 10);
+            t.KeyDown += new KeyEventHandler(t_KeyDown);  //KeyDown 이벤트
+            this.Controls.Add(t);
+        }
+
+        void t_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter) //Enter가 눌렸을 때
+            {
+                TextBox tb = sender as TextBox;
+                if (tb != null)
+                    MessageBox.Show(tb.Text);
+            }
         }
 
         private void btnEraser_Click(object sender, EventArgs e)
         {
-            picboxScrn.Hide();
+            SetDrawMode((int)DRAW_MODE.ERASERMODE);
         }
 
         private void btnColor_Click(object sender, EventArgs e)

@@ -158,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <None Include="icon\note.png" />
     <None Include="icon\ShapesCursor.cur" />
     <None Include="icon\PenCursor_small.cur" />
     <None Include="icon\PenCursor.cur" />
