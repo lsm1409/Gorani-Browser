@@ -138,6 +138,7 @@
             this.pnlBookmark.Controls.Add(this.picOfflinePage);
             this.pnlBookmark.Controls.Add(this.picTabBundle);
             this.pnlBookmark.Controls.Add(this.picFavorite);
+            this.pnlBookmark.Enabled = false;
             this.pnlBookmark.Location = new System.Drawing.Point(1, 72);
             this.pnlBookmark.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlBookmark.Name = "pnlBookmark";
